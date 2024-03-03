@@ -4,13 +4,11 @@
 <br>It utilizes the official library from [Hugging Face](https://huggingface.co), and you don't need to create any account, everything works locally!
 
 ![NukeDiffusion_Cover_v002](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/d230497e-f1d7-4687-9299-7f7487e5718f)
-
 <br>:white_check_mark: Unlimited image generation;
 <br>:white_check_mark: Local Checkpoints;
 <br>:white_check_mark: No internet connection required;
 <br>:white_check_mark: No sign in account required;
 <br>:white_check_mark: Free for non-commercial or commercial use;
-
 
 > [!TIP]
 > _You can use the [CivitAI](https://civitai.com/) website to download Checkpoints and try some different Prompts shared by the community._ :wink:
@@ -31,10 +29,10 @@ For now, the pipeline workflows included are:
 
 The **NukeDiffusion** node is pretty straightforward, everything you need is in the same panel, and its UI updates accordingly to your workflow option (txt2img/img2img/inpainting).
 
-![NukeDiffusion_NodeUI_v001](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/07bed17b-b564-49d8-8567-26741bd721f5)
+![NukeDiffusion_NodeUI_v002](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/aa668518-cf08-4596-9539-9b1ceeb0f393)
 
 ---
-<h1>NukeDiffusion Terminal :slot_machine:</h1>
+<h1>NukeDiffusion Terminal :robot:</h1>
 
 After clicking on the **Generate Button**, it will open the **NukeDiffusion Terminal**, which will load all the information provided in **NukeDiffusion node**.
 
@@ -76,6 +74,12 @@ However, this error does not affect the image generation, just simply ignore it!
 ---
 
 <h1>Installing</h1>
+Here is the most annoying part... :persevere:
+But don't give up, I'm sure that you can do this! :nerd_face:
+
+Let me break it into a few parts:
+
+
 
 <h1>Troubleshooting :hammer_and_wrench:</h1>
 
