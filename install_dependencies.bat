@@ -1,0 +1,1 @@
+pip install --upgrade diffusers transformers accelerate xformers safetensors rich
