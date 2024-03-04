@@ -50,11 +50,48 @@ The **NukeDiffusion** node is pretty straightforward. Everything you need is in 
 After clicking on the **Generate Button**, it will open the **NukeDiffusion Terminal**, which will load all the information provided in the **NukeDiffusion node**.
 
 
-![Screenshot 2024-03-03 215656](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/66c97762-9306-4d56-af24-d898053b97ef)
+![Screenshot 2024-03-03 215656](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/d8d23db9-7ea7-4d16-a51c-12e75c06cef3)
+
 
 Here you don't have too much to do, just check the information and... wait! 😅
 
 ---
+<details>
+<summary><b>NukeDiffusion knobs</b></summary>
+
+
+- `Workflow`: select one of the 3 workflow options to work with (txt2img, img2img, inpainting);
+<br>
+
+- `Checkpoint`: clicking on the **Refresh** button, it will load all the **Checkpoints** available in the directory you specified earlier on `checkpoints_path.json`, or if you are using the default path `./NukeDiffusion/models/checkpoints`.
+<br>
+
+- `SD Model`: after selecting the **Checkpoint** model, you have to indicate which version it is. By default, if the "XL" or "xl" letters are included in the checkpoint name, it will update the **SD Model** knob to "SDXL", otherwise to "SD".
+
+> Keep in mind to match the **SD Mode** to your selected **Checkpoint**.
+> **SD** and **SDXL** models were pretreined with different resolutions, and they have different pipelines to produce your image.
+> If you provide a **Checkpoint** with a wrong **SD Model**, the **NukeDiffusion Terminal** will crash/close. 
+
+
+- `Positive Prompt`:
+
+- `Negative Prompt`:
+
+- `Width`:
+
+- `Height`:
+
+- `Seed`:
+
+- `CFG`:
+
+- `Steps`:
+
+- `Strength`:
+
+- `Mask Opacity`:
+
+</details>
 
 <details>
 <summary><b>txt2img</b></summary>
@@ -122,7 +159,7 @@ For any feedback, suggestions, bugs, or feature requests, please go to the [Issu
 ![image](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/ee1e5d16-43e2-46bc-bc48-aaf1d7559b87)
 
 This personal project required a significant time and extra hours of hard work to make it available to everyone. <br>
-It's not perfect and I still need to work in a lot of features, but for a first version I believe it can help Nuke users to live this experience. 🤖
+It's not perfect, and I still need to work on many features, but for the first version, I believe it can help Nuke users live this experience. 🤖
 
 If you find this tool useful, please consider supporting me on [Buy Me A Coffee](https://www.buymeacoffee.com/danilodelucio). :coffee: <br>
 You can also share this tool or send me a positive message, it would help me in the same way.
