@@ -23,7 +23,7 @@ Some limitations you need to consider for this first version:
 📌 only for Windows (sorry 🐧 and 🍎);
 <br>📌 generate single images only (not animation supported);
 <br>📌 image files supported: **.jpg**, **.png**, **.tif** (does not support **.exr** and video files);
-<br>📌 batch feature (multiple image generation) not included;
+<br>📌 batch feature for multiple image generation not included;
 
 > [!NOTE]
 > _For experienced users, **NukeDifussion** does not support ControlNet, Lora, AnimateDiff and other advanced controls, just the basic setup for image generation._
@@ -44,10 +44,44 @@ The **NukeDiffusion** node is pretty straightforward. Everything you need is in 
 
 ![NukeDiffusion_NodeUI_v002](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/aa668518-cf08-4596-9539-9b1ceeb0f393)
 
+- `Workflow`: select one of the 3 workflow options to work with: **txt2img**, **img2img** or **inpainting**;
+<br>
+
+- `Checkpoint`: clicking on the **Refresh** button, it will load all the **Checkpoints** available in the directory you specified earlier on `checkpoints_path.json`, or if you are using the default path `./NukeDiffusion/models/checkpoints`;
+<br>
+
+- `SD Model`: after selecting the **Checkpoint** model, you have to indicate which version it is. By default, if the "XL" or "xl" letters are included in the checkpoint name, it will update the **SD Model** knob to "SDXL", otherwise to "SD";
+
+> [!WARNING]
+> Keep in mind to match the **SD Model** to your selected **Checkpoint**.<br>
+> **SD** and **SDXL** models were pretrained with different resolutions, and they have different pipelines to produce your image.<br>
+> If you provide a **Checkpoint** with the wrong **SD Model**, the **NukeDiffusion Terminal** will close automatically.
+
+- `Positive Prompt`: type everything __you want__ to be generated in your image;
+
+- `Negative Prompt`: type everything __you do not want__ to be generated in your image;
+
+- `Width`: width size for your output image;
+
+- `Height`: height size for your output image;
+
+- `Seed`: if you leave the **Seed** value as `-1`, it will randomize the generation of your image, but If you set any other value, you will get the same result;
+
+- `CFG`: this is the Classifier-Free Guidance scale, which controls how much the image generation process will follow the text prompt.
+  The higher the value, the more the image will follow the text input. With a lower value, the image generation deviates from the text input and becomes more creative;
+
+- `Steps`: it's the iterations of sampling and refining for the latent image. With higher steps, you can get better images. <br>
+  Usually, it is set between 20 and 40, higher than this probably will slow down the image generation and will not have too much difference;
+
+- `Strength`: this parameter sets the denoising strength from 0 to 1. It is only used for **img2img** and **inpainting** workflows and requires an initial image.<br>
+Higher values will produce more deviation from the input image (producing more creative output), and lower values will preserve the input image;
+
+- `Mask Opacity`: this is just for visualization purposes, to check the mask input over the image input;
+
 ---
 <h1>NukeDiffusion Terminal 🤖</h1>
 
-After clicking on the **Generate Button**, it will open the **NukeDiffusion Terminal**, which will load all the information provided in the **NukeDiffusion node**.
+After clicking on the **Generate Image** button, it will open the **NukeDiffusion Terminal**, which will load all the information provided in the **NukeDiffusion node**.
 
 
 ![Screenshot 2024-03-03 215656](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/d8d23db9-7ea7-4d16-a51c-12e75c06cef3)
@@ -56,43 +90,6 @@ After clicking on the **Generate Button**, it will open the **NukeDiffusion Term
 Here you don't have too much to do, just check the information and... wait! 😅
 
 ---
-<details>
-<summary><b>NukeDiffusion knobs</b></summary>
-
-
-- `Workflow`: select one of the 3 workflow options to work with (txt2img, img2img, inpainting);
-<br>
-
-- `Checkpoint`: clicking on the **Refresh** button, it will load all the **Checkpoints** available in the directory you specified earlier on `checkpoints_path.json`, or if you are using the default path `./NukeDiffusion/models/checkpoints`.
-<br>
-
-- `SD Model`: after selecting the **Checkpoint** model, you have to indicate which version it is. By default, if the "XL" or "xl" letters are included in the checkpoint name, it will update the **SD Model** knob to "SDXL", otherwise to "SD".
-
-> Keep in mind to match the **SD Mode** to your selected **Checkpoint**.
-> **SD** and **SDXL** models were pretreined with different resolutions, and they have different pipelines to produce your image.
-> If you provide a **Checkpoint** with a wrong **SD Model**, the **NukeDiffusion Terminal** will crash/close. 
-
-
-- `Positive Prompt`:
-
-- `Negative Prompt`:
-
-- `Width`:
-
-- `Height`:
-
-- `Seed`:
-
-- `CFG`:
-
-- `Steps`:
-
-- `Strength`:
-
-- `Mask Opacity`:
-
-</details>
-
 <details>
 <summary><b>txt2img</b></summary>
  
