@@ -146,7 +146,7 @@ However, this error does not affect the image generation, so just simply ignore 
 In **NukeDiffusion** node, when you click on **Refresh** button, it will load all the **Checkpoints** available in the directory you specified earlier on `checkpoints_path.json`, or if you are using the default path `./NukeDiffusion/models/checkpoints`.
 If you open a Nuke script and see the `blank error message`, that is because the **Checkpoints pulldown choice menu** is trying to get the last checkpoint loaded in the previous session, which will raise an error.
 
-For now, I suggest you to choose one of the 3 following options:
+For now, I suggest you choose one of the 3 following options:
 
 - delete the **NukeDiffusion** node before closing the Nuke script;
 - leave the **Checkpoints pulldown choice menu** set to `Stable Diffusion [Default Model]`;
@@ -157,14 +157,15 @@ For now, I suggest you to choose one of the 3 following options:
 </details>
 <br>
 
-For any feedback, suggestions, bugs, or feature requests, please go to the [Issues](https://github.com/danilodelucio/NukeDiffusion/issues) page and create a **new issue**.
+If you have feedback, suggestions, or feature requests, please visit the [Discussions](https://github.com/danilodelucio/NukeDiffusion/discussions) page and create a **New Discussion**.<br>
+For bugs, please go to the [Issues](https://github.com/danilodelucio/NukeDiffusion/issues) page and create a **New Issue**.
 
 ---
 <h1>Support me! 🥺</h1>
 
 ![image](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/ee1e5d16-43e2-46bc-bc48-aaf1d7559b87)
 
-This personal project required a significant time and extra hours of hard work to make it available to everyone. <br>
+This personal project required significant time and extra hours of hard work to make it available to everyone. <br>
 It's not perfect, and I still need to work on many features, but for the first version, I believe it can help Nuke users live this experience. 🤖
 
 If you find this tool useful, please consider supporting me on [Buy Me A Coffee](https://www.buymeacoffee.com/danilodelucio). :coffee: <br>
