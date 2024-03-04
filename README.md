@@ -66,14 +66,16 @@ The **NukeDiffusion** node is pretty straightforward. Everything you need is in 
 - `Seed`: If you leave the value as `-1`, your image will be generated randomly. However, if you set any other value, your image will always be the same. It's a good idea to lock the **Seed** and try different settings to see how they affect your image;
 
 - `CFG`: is the Classifier-Free Guidance scale, which controls how closely the image generation process follows the text prompt.
-  The higher the value, the more the image will follow the text input. With a lower value, the image generation deviates from the text input and becomes more creative;
+  The higher the value, the more the image will follow the text input (by default, the maximum value is 10, but you can increase it if you want). With a lower value, the image generation deviates from the text input and becomes more creative;
             <details>
             <summary>cfg examples</summary>
+            ![nukediffusion_CFG](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/3ae4e5dc-e019-4356-a530-e8f6c95fa6b6)
             </details>
 
 - `Steps`: it's the iterations of sampling and refining for the latent image. With higher steps you can get better images (usually between 20 and 40). Higher than this probably will slow down the image generation and will not have too much difference;
             <details>
             <summary>steps examples</summary>
+            ![nukediffusion_Steps](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/775bbcb0-eef7-4c28-9f9e-02cc502fc374)
             </details>
             
 - `Strength`: this parameter sets the denoising strength from 0 to 1. It is only used for **img2img** and **inpainting** workflows and requires an initial image. Higher values will produce more deviation from the input image (producing more creative output), and lower values will preserve the input image;
@@ -99,8 +101,12 @@ Here you don't have too much to do, just check the information and... wait! 😅
 
 <details>
 <summary><b>txt2img</b></summary>
- 
+  
+![nukediffusion_A](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/215c78fc-68c4-49d3-839a-44b9361131ef)
+![nukediffusion_B](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/24b62a96-eea8-4d95-a457-eabb831c76d4)
+![nukediffusion_C](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/3d52e3a3-2c78-45ba-ba61-d56c088fb113)
 </details>
+
 
 <details>
 <summary><b>img2img</b></summary>
