@@ -8,8 +8,8 @@
 :white_check_mark: Unlimited image generation;
 <br>✅ Local Checkpoints;
 <br>✅ No internet connection required;
-<br>✅ No sign in account required;
-<br>✅ Free for non-commercial or commercial use;
+<br>✅ No sign-in account required;
+<br>✅ Free for non-commercial or commercial use.
 <br>
 <br>
 
@@ -23,7 +23,7 @@ Some limitations you need to consider for this first version:
 📌 only for Windows (sorry 🐧 and 🍎);
 <br>📌 generate single images only (not animation supported);
 <br>📌 image files supported: **.jpg**, **.png**, **.tif** (does not support **.exr** and video files);
-<br>📌 batch feature for multiple image generation not included;
+<br>📌 batch feature for multiple image generation not included.
 
 > [!NOTE]
 > _For experienced users, **NukeDifussion** does not support ControlNet, Lora, AnimateDiff and other advanced controls, just the basic setup for image generation._
@@ -45,12 +45,10 @@ The **NukeDiffusion** node is pretty straightforward. Everything you need is in 
 ![NukeDiffusion_NodeUI_v002](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/aa668518-cf08-4596-9539-9b1ceeb0f393)
 
 - `Workflow`: select one of the 3 workflow options to work with: **txt2img**, **img2img** or **inpainting**;
-<br>
 
-- `Checkpoint`: clicking on the **Refresh** button, it will load all the **Checkpoints** available in the directory you specified earlier on `checkpoints_path.json`, or if you are using the default path `./NukeDiffusion/models/checkpoints`;
-<br>
+- `Checkpoint`: clicking on the **Refresh** button, will load all the **Checkpoints** available in the directory you specified earlier on `checkpoints_path.json`, or if you are using the default path `./NukeDiffusion/models/checkpoints`;
 
-- `SD Model`: after selecting the **Checkpoint** model, you have to indicate which version it is. By default, if the "XL" or "xl" letters are included in the checkpoint name, it will update the **SD Model** knob to "SDXL", otherwise to "SD";
+- `SD Model`: after selecting the **Checkpoint** model, you must indicate its version. By default, if the "XL" or "xl" letters are included in the checkpoint name, it will update the **SD Model** knob to "SDXL", otherwise to "SD";
 
 > [!WARNING]
 > Keep in mind to match the **SD Model** to your selected **Checkpoint**.<br>
@@ -65,18 +63,25 @@ The **NukeDiffusion** node is pretty straightforward. Everything you need is in 
 
 - `Height`: height size for your output image;
 
-- `Seed`: if you leave the **Seed** value as `-1`, it will randomize the generation of your image, but If you set any other value, you will get the same result;
+- `Seed`: If you leave the value as `-1`, your image will be generated randomly. However, if you set any other value, your image will always be the same. It's a good idea to lock the **Seed** and try different settings to see how they affect your image;
 
-- `CFG`: this is the Classifier-Free Guidance scale, which controls how much the image generation process will follow the text prompt.
+- `CFG`: is the Classifier-Free Guidance scale, which controls how closely the image generation process follows the text prompt.
   The higher the value, the more the image will follow the text input. With a lower value, the image generation deviates from the text input and becomes more creative;
+            <details>
+            <summary>cfg examples</summary>
+            </details>
 
-- `Steps`: it's the iterations of sampling and refining for the latent image. With higher steps, you can get better images. <br>
-  Usually, it is set between 20 and 40, higher than this probably will slow down the image generation and will not have too much difference;
-
-- `Strength`: this parameter sets the denoising strength from 0 to 1. It is only used for **img2img** and **inpainting** workflows and requires an initial image.<br>
-Higher values will produce more deviation from the input image (producing more creative output), and lower values will preserve the input image;
-
-- `Mask Opacity`: this is just for visualization purposes, to check the mask input over the image input;
+- `Steps`: it's the iterations of sampling and refining for the latent image. With higher steps you can get better images (usually between 20 and 40). Higher than this probably will slow down the image generation and will not have too much difference;
+            <details>
+            <summary>steps examples</summary>
+            </details>
+            
+- `Strength`: this parameter sets the denoising strength from 0 to 1. It is only used for **img2img** and **inpainting** workflows and requires an initial image. Higher values will produce more deviation from the input image (producing more creative output), and lower values will preserve the input image;
+            <details>
+            <summary>strength examples</summary>
+            </details>
+            
+- `Mask Opacity`: this is just for visualization purposes to check the mask input over the image input.
 
 ---
 <h1>NukeDiffusion Terminal 🤖</h1>
@@ -90,6 +95,8 @@ After clicking on the **Generate Image** button, it will open the **NukeDiffusio
 Here you don't have too much to do, just check the information and... wait! 😅
 
 ---
+<h2>Some images generated with NukeDiffusion using different workflows 🖼️</h2>
+
 <details>
 <summary><b>txt2img</b></summary>
  
@@ -106,9 +113,10 @@ Here you don't have too much to do, just check the information and... wait! 😅
 </details>
 
 ---
-<h1>Installing</h1>
+<h1>Installing ⚙️</h1>
 Here is the most annoying part... 😣 <br>
 But don't give up, I'm sure you can do this! 🤓
+<br>
 <br>
 Let me break it into a few parts:
 
@@ -118,10 +126,11 @@ Let me break it into a few parts:
 
 <details>
 <summary><b>'triton' Error</b></summary>
-
+<br>
+  
 The error `ModuleNotFoundError: No module named 'triton'` must be ignored!
 
-Triton is a Open-source GPU programming for neural networks, and what I found regarding to this issue, is that Triton module is not available for Windows.
+Triton is an Open-source GPU programming for neural networks, and what I found regarding this issue, is that Triton module is not available for Windows.
 However, this error does not affect the image generation, so just simply ignore it!
  
  ![triton error](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/06a3a408-681a-451a-8e1c-ce354e0a4e2d)
@@ -146,11 +155,11 @@ For now, I suggest you to choose one of the 3 following options:
 > _Sorry for the inconvenience, I will fix it in the next release!_ 🙏
 
 </details>
+<br>
 
 For any feedback, suggestions, bugs, or feature requests, please go to the [Issues](https://github.com/danilodelucio/NukeDiffusion/issues) page and create a **new issue**.
 
-
-
+---
 <h1>Support me! 🥺</h1>
 
 ![image](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/ee1e5d16-43e2-46bc-bc48-aaf1d7559b87)
