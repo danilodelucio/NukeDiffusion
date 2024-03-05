@@ -6,7 +6,8 @@
 <br>It uses the official library from [Hugging Face](https://huggingface.co), and you don't need to create any account, everything works locally!
 
 :white_check_mark: Unlimited image generation;
-<br>✅ Local Checkpoints;
+<br>✅ Local Checkpoints (SD and SDXL models);
+<br>✅ Main workflows included (**txt2img**, **img2img**, **inpainting**);
 <br>✅ No internet connection required;
 <br>✅ No sign-in account required;
 <br>✅ Free for non-commercial or commercial use.
@@ -18,6 +19,23 @@
 <br>
 
 
+<h1>Stable Diffusion Requirements 🖥️</h1>
+
+For a complete guide to **Stable Diffusion** requirements, I suggest you read [this article](https://www.andyhtu.com/post/system-requirements-your-complete-guide-to-running-stable-diffusion-efficiently).
+
+In summary, the lower budget setup mentioned in the article is:
+- GPU: GTX 1060 (6GB VRAM)
+- System RAM: 16GB DDR4
+<br>
+
+<h1>Python Compatibility 🐍</h1>
+
+The **NukeDiffusion node** was written in Python 2.7 so that it would be possible to run in all Nuke versions.<br>
+For **NukeDiffusion Terminal**, it was written in Python 3.
+<br>
+<br>
+
+---
 Some limitations you need to consider for this first version:
 
 📌 only for Windows (sorry 🐧 and 🍎);
@@ -35,6 +53,11 @@ For now, the included pipeline workflows are:
 - **txt2img**: generates an image from a text description (which is also known as a Prompt);
 - **img2img**: generates an image passing an initial image (user input) as a starting point for the diffusion process;
 - **Inpainting**: replaces or edits specific areas of an image by a provided input mask.
+<br>
+
+> [!IMPORTANT]
+> _To use the **img2img** and **inpainting** workflows, you must input Read nodes directly to the input image/input mask;_<br>
+> _This tool does not export the connected inputs automatically (at least for now), so you should pre-render your inputs in case they have extra nodes below (Roto, Reformat etc)._<br>
 
 ---
 
@@ -81,6 +104,7 @@ The **NukeDiffusion** node is pretty straightforward. Everything you need is in 
 - `Strength`: this parameter sets the denoising strength from 0 to 1. It is only used for **img2img** and **inpainting** workflows and requires an initial image. Higher values will produce more deviation from the input image (producing more creative output), and lower values will preserve the input image;
             <details>
             <summary>strength examples</summary>
+            ![nukediffusion_Strength](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/34785f19-bc23-4cce-9007-c1bd01eb0920)
             </details>
             
 - `Mask Opacity`: this is just for visualization purposes to check the mask input over the image input.
@@ -110,8 +134,10 @@ Here you don't have too much to do, just check the information and... wait! 😅
 
 <details>
 <summary><b>img2img</b></summary>
- 
+  
+![nukediffusion_img2img_A](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/1506ae42-bad6-4c8d-ad4d-99621482e3dd)
 </details>
+
 
 <details>
 <summary><b>inpainting</b></summary>
