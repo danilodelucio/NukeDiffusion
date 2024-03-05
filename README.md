@@ -119,6 +119,20 @@ Here you don't have too much to do, just check the information and... wait! 😅
 </details>
 
 ---
+<h1>Time waiting ⌛</h1>
+
+This is a subject I need to highlight with you. Since we are generating AI images locally, the time waiting depends exclusively on your machine's performance.
+
+Keep in mind that when you ALWAYS run the code for the first time, it will take a while to load the selected Checkpoint into memory. Then, loading the next AI images will take less time.
+
+The image generation itself is faster than the loading checkpoint process. For all my tests, for example, sometimes I had to wait between 10 and 20 minutes to load the Checkpoint, but it took me 20 seconds to 2-3 minutes to generate the rest of the images (this mentioned time is per single image, of course).
+
+> [!TIP]
+> _To generate faster images, try SD models instead of SDXL._
+
+So please, while the cursor blinks on the **NukeDiffusion Terminal**, don't close it! Just ignore the `'triton' module error` message and wait!
+
+---
 <h1>Installing ⚙️</h1>
 Here is the most annoying part... 😣 <br>
 But don't give up, I'm sure you can do this! 🤓
