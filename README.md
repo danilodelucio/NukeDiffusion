@@ -165,7 +165,96 @@ But don't give up, I'm sure you can do this! 🤓
 <br>
 <br>
 Let me break it into a few parts:
+<br>
+<br>
 
+<details>
+  <summary>1. .nuke</summary>
+
+  Click on the green button to download the **NukeDiffusion** and save it to your `.nuke` folder.
+
+  Open your `init.py` (from the `.nuke` root), and indicate the **NukeDiffusion** folder, like:
+  ```python
+import nuke
+
+nuke.pluginAddPath('./NukeDiffusion')
+  ```
+
+  If you don't have an `init.py` file in your `.nuke` directory, you can create a new text file and paste the code above.
+  > _Don't forget to change the file extension to `.py`._
+
+</details>
+
+<details>
+  <summary>2. Python</summary>
+<br>
+  
+Since Nuke comes with a built-in Python installation, you need to ensure that your system has **Python3.8+** installed.
+
+To check the Python version on your machine, open the Terminal and type:
+```python
+python --version
+```
+![python version](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/97839071-30cb-47b1-bf16-fd219ad27192)
+
+If you don't have it, please visit the [Python](https://www.python.org/) website, download and install it.<br>
+
+> _Please, don't forget to check the "**Add Python to PATH**" option_.
+
+![python add to path](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/6cb32696-1921-4486-9ff9-f14bed42a15c)
+
+</details>
+
+<details>
+<summary>3. PyTorch</summary>
+  <br>
+
+PyTorch is an open-source framework for building and training neural networks (deep learning). It's highly flexible and dynamic, making it ideal for generating AI images.
+
+> _To learn more about it, please visit [this page](https://www.nvidia.com/en-us/glossary/pytorch/) from the NVidia website._
+
+
+You need to install **PyTorch 1.7.0+**, but first of all, you need to know the CUDA version of your graphic card.
+
+Open your Terminal and type:
+```python
+nvidia-smi
+```
+After displaying some information, you'll see the CUDA version in the upper right corner.
+
+![cuda version](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/1d92f570-4961-4222-ad1d-a4ab9cbe1dc9)
+
+
+Now, [go to this PyTorch page](https://pytorch.org/get-started/locally/) and select the options that apply to your system.
+
+![pytorch install](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/02dd81cf-fc56-4e6d-b52e-313c60fb9015)
+
+Paste and run the command provided into your Terminal to install PyTorch.
+
+</details>
+
+<details>
+  <summary>4. CUDA</summary>
+<br>
+  
+Even after checking the **CUDA** version and installing **PyTorch**, your **CUDA** may be disabled (that was my case). 😒<br>
+To check if it is enabled, open the `run_check_cuda.bat` file that I've provided at `./NukeDiffusion/cuda/run_check_cuda.bat`.
+
+If you get `True` as a response you are good to go, otherwise, [go to this page](https://developer.nvidia.com/cuda-gpus) from NVidia and download/install the **CUDA Toolkit**.
+
+After installing it, run the `run_check_cuda.bat` file again and hopefully you are done! 🤞
+</details>
+
+<details>
+  <summary>5. Python Dependencies</summary>
+<br>
+  Finally, if you followed all the steps above and everything worked fine, now it's the last part. 🙌
+
+  Open the file `install_dependencies.bat`, it will open the Terminal and install all the necessary Python dependencies for **Stable Diffusion**.
+
+  And that's it, now you are ready to use **NukeDiffusion**! :star_struck:
+  
+</details>
 
 ---
 <h1>Troubleshooting 🛠️</h1>
