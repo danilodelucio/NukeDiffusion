@@ -255,8 +255,6 @@ def callback_ScriptLoad():
 about_tool = """
 NukeDiffusion is an integration tool that uses Stable Diffusion to generate AI images from prompts using local Checkpoints.
 
-It utilizes the original library from Stability AI and is free for non-commercial and commercial use.
-
 For more information, please visit the GitHub page.
 
 Developed by: Danilo de Lucio | VFX Compositor & TD.

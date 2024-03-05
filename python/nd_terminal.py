@@ -89,7 +89,7 @@ class NukeDiffusion():
             console.print(":cross_mark: Workflow option not found!", style="error")
             return
     
-    # Creating/Saving the final image using different Pipelines
+    # Creating/Saving the final image
     def createImage(self, pipeline, **kwargs):
         image = pipeline(**kwargs).images[0]
 

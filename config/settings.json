@@ -1,15 +1,15 @@
 {
   "strength": 0.5, 
   "workflow": "txt2img", 
-  "cfg": 6.7, 
-  "sd_model": "SDXL", 
+  "cfg": 8, 
+  "sd_model": "SD", 
   "checkpoint": "", 
-  "width": 1920, 
+  "width": 512, 
   "seed": -1, 
   "steps": 20, 
   "input_mask": null, 
   "input_image": null, 
-  "p_prompt": "Dynamic view of a holographic magical castle painting, detailed frame, painting looks to be life like, hanging on a wall, magical multicolored ink, high quality, imagination, 8k, fantasy art, vivid magical colors", 
-  "height": 1080, 
-  "n_prompt": "blurry, easynegative, cartoon, cluttered, blurry, bad quality, low quality, worst quality"
+  "p_prompt": "", 
+  "height": 512, 
+  "n_prompt": ""
 }
