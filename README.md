@@ -161,8 +161,7 @@ So please, while the cursor blinks on the **NukeDiffusion Terminal**, don't clos
 ---
 <h1>Installing ⚙️</h1>
 Here is the most annoying part... 😣 <br>
-But don't give up, I'm sure you can d[Uploading init.py…]()
-o this! 🤓
+But don't give up, I'm sure you can do this! 🤓
 <br>
 <br>
 Let me break it into a few parts:
