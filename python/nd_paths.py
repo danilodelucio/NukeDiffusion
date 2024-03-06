@@ -72,4 +72,18 @@ class nd_paths():
 
     def python_files_path(self):
         python_path = os.path.join(self.mainPath(), "python")
-        return python_path
+
+        if os.path.exists(python_path):
+            return python_path
+        else:
+            print("'python' folder not found!")
+            return False
+
+    def python_exe(self):
+        python_exe_file = os.path.join(self.python_files_path(), "python3.11.6", "python.exe")
+
+        if os.path.exists(python_exe_file):
+            return python_exe_file
+        else:
+            print("'python3.11.6/python.exe' not found!")
+            return False

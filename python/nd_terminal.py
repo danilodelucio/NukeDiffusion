@@ -16,14 +16,15 @@ import torch
 import time
 import json
 import os
-from nd_paths import nd_paths
-from nd_infos import nd_infos
 import sys
 from rich.console import Console
 from rich.theme import Theme
 from rich.table import Table
 from rich.traceback import install
 install()
+
+from nd_paths import nd_paths
+from nd_infos import nd_infos
 
 
 custom_theme = Theme({"success":"green", "alert":"yellow", "error":"red"})
@@ -264,6 +265,7 @@ class NukeDiffusion():
 
         infos_dict = {
                     "Python Version": sys.version[:6],
+                    "Torch version": torch.__version__,
                     "Input Image": self.input_image,
                     "Input Mask": self.input_mask,
                     "Workflow": self.workflow,
@@ -335,7 +337,10 @@ class NukeDiffusion():
 
 ########################################################################################################
 start = time.perf_counter()
-NukeDiffusion()
+try:
+    NukeDiffusion()
+except:
+    os.system("pause")
 end = time.perf_counter()
 
 elapsed_time_seconds = float(end - start)
