@@ -23,11 +23,6 @@ Some limitations you need to consider for this first version:
 > [!NOTE]
 > _For experienced users, **NukeDifussion** does not support ControlNet, Lora, AnimateDiff and other advanced controls, just the basic setup for image generation._
 
-> [!TIP]
-> _You can use the [CivitAI](https://civitai.com/) website to download Checkpoints and try some different Prompts shared by the community._ 😉
-<br>
-
-
 <h1>Stable Diffusion Requirements 🖥️</h1>
 
 For a complete guide to **Stable Diffusion** requirements, I suggest you read [this article](https://www.andyhtu.com/post/system-requirements-your-complete-guide-to-running-stable-diffusion-efficiently).
@@ -37,17 +32,15 @@ In summary, the most basic setup mentioned in the article is:
 - **System RAM**: 16GB DDR4.
 
 > [!IMPORTANT]
-> _It may not be possible to use **SDXL models** with this setup, since their minimum size is around 6GB.;_
+> _Please note that due to the size of the **SDXL models**, which is around 6GB, certain Checkpoints may not be compatible with this setup.;_
 <br>
 
 <h1>Python Compatibility 🐍</h1>
 
-By default, Nuke comes with a built-in Python installation, and the Python version depends on the Nuke version you are currently using.
+- **NukeDiffusion** comes with a built-in Python installation (version **3.11.6**),
+which is used to run **NukeDiffusion Terminal**;
 
-**NukeDiffusion** also has a built-in Python installation (version **3.11.6**),
-which is used to run **NukeDiffusion Terminal**. 
-
-**NukeDiffusion node** was written in **Python2.7** to make it possible to run in all Nuke versions (hopefully). 😐
+- **NukeDiffusion node** was written in **Python2.7** to make it possible to run in all Nuke versions (hopefully). 😐
 
 <br>
 
@@ -263,6 +256,44 @@ After installing it, run the `run_check_cuda.bat` file again and hopefully you a
   And that's it, now you are ready to use **NukeDiffusion**! :star_struck:
   
 </details>
+
+---
+
+<h1>Checkpoints</h1>
+
+You can use the [CivitAI](https://civitai.com/) website to download Checkpoints and try some different Prompts shared by the community. 😉
+
+If you are unsure about which Checkpoint to use, I'm going to list some of my favourites:
+
+<details>
+  <summary>SD models</summary>
+  
+- [Dreamshaper](https://civitai.com/models/4384?modelVersionId=128713);
+- [CarDos Anime](https://civitai.com/models/25399/cardos-anime);
+- [Ghostmix](https://civitai.com/models/36520/ghostmix);
+- [PicX_real](https://civitai.com/models/241415/picxreal);
+  
+</details>
+<details>
+  <summary>SDXL models</summary>
+
+- [Dreamshaper XL](https://civitai.com/models/112902/dreamshaper-xl?modelVersionId=126688);
+- [Juggernaut XL](https://civitai.com/models/133005/juggernaut-xl?modelVersionId=288982);
+- [PhotoVision XL](https://civitai.com/models/125703/protovision-xl-high-fidelity-3d-photorealism-anime-hyperrealism-no-refiner-needed);
+- [Animagine XL](https://civitai.com/models/260267/animagine-xl-v3?modelVersionId=293564);
+</details>
+<br>
+
+After downloading the Checkpoint, you can put them in `.\NukeDiffusion\models\checkpoints`.<br>
+If you have another folder in which you want to use the Checkpoints, you can set a default path in the `checkpoints_path.json` file.
+
+![image](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/a885b9d9-d7ff-4611-a061-9acea7aa599a)
+
+> [!CAUTION]
+> Using a single backslash `\` can cause issues. Please use either a forward slash `/` or double backslash `\\`.
+
+
+<br>
 
 ---
 <h1>Troubleshooting 🛠️</h1>
