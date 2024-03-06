@@ -13,6 +13,15 @@
 <br>✅ Free for non-commercial or commercial use.
 <br>
 <br>
+Some limitations you need to consider for this first version:
+
+📌 only for Windows (sorry 🐧 and 🍎);
+<br>📌 generate single images only (no animation supported);
+<br>📌 image files supported: **.jpg**, **.png**, **.tif** (does not support **.exr** and video files);
+<br>📌 batch feature for multiple image generation not included.
+
+> [!NOTE]
+> _For experienced users, **NukeDifussion** does not support ControlNet, Lora, AnimateDiff and other advanced controls, just the basic setup for image generation._
 
 > [!TIP]
 > _You can use the [CivitAI](https://civitai.com/) website to download Checkpoints and try some different Prompts shared by the community._ 😉
@@ -23,29 +32,26 @@
 
 For a complete guide to **Stable Diffusion** requirements, I suggest you read [this article](https://www.andyhtu.com/post/system-requirements-your-complete-guide-to-running-stable-diffusion-efficiently).
 
-In summary, the lower budget setup mentioned in the article is:
-- GPU: GTX 1060 (6GB VRAM)
-- System RAM: 16GB DDR4
+In summary, the most basic setup mentioned in the article is:
+- **GPU**: GTX 1060 (6GB VRAM);
+- **System RAM**: 16GB DDR4.
+
+> [!IMPORTANT]
+> _It may not be possible to use **SDXL models** with this setup, since their minimum size is around 6GB.;_
 <br>
 
 <h1>Python Compatibility 🐍</h1>
 
-The **NukeDiffusion node** was written in Python 2.7 so that it would be possible to run in all Nuke versions.<br>
-For **NukeDiffusion Terminal**, it was written in Python 3.
+By default, Nuke comes with a built-in Python installation, and the Python version depends on the Nuke version you are currently using.
+
+**NukeDiffusion** also has a built-in Python installation (version **3.11.6**),
+which is used to run **NukeDiffusion Terminal**. 
+
+**NukeDiffusion node** was written in **Python2.7** to make it possible to run in all Nuke versions (hopefully). 😐
+
 <br>
-<br>
 
----
-Some limitations you need to consider for this first version:
 
-📌 only for Windows (sorry 🐧 and 🍎);
-<br>📌 generate single images only (not animation supported);
-<br>📌 image files supported: **.jpg**, **.png**, **.tif** (does not support **.exr** and video files);
-<br>📌 batch feature for multiple image generation not included.
-
-> [!NOTE]
-> _For experienced users, **NukeDifussion** does not support ControlNet, Lora, AnimateDiff and other advanced controls, just the basic setup for image generation._
----
 <h1>Workflows :briefcase:</h1>
 
 For now, the included pipeline workflows are:
@@ -57,9 +63,9 @@ For now, the included pipeline workflows are:
 
 > [!IMPORTANT]
 > _To use the **img2img** and **inpainting** workflows, you must input Read nodes directly to the input image/input mask;_<br>
-> _This tool does not export the connected inputs automatically (at least for now), so you should pre-render your inputs in case they have extra nodes below (Roto, Reformat etc)._<br>
+>
+> _This tool does not export the connected inputs automatically (at least for now), so you should pre-render your inputs in case they have extra nodes  (Roto, Reformat etc)._<br>
 
----
 
 <h1>NukeDiffusion node ☢️</h1>
 
@@ -69,7 +75,7 @@ The **NukeDiffusion** node is pretty straightforward. Everything you need is in 
 
 - `Workflow`: select one of the 3 workflow options to work with: **txt2img**, **img2img** or **inpainting**;
 
-- `Checkpoint`: clicking on the **Refresh** button, will load all the **Checkpoints** available in the directory you specified earlier on `checkpoints_path.json`, or if you are using the default path `./NukeDiffusion/models/checkpoints`;
+- `Checkpoint`: by clicking on the **Refresh** button, it will load all the **Checkpoints** available in the directory you specified earlier on `checkpoints_path.json`, or if you are using the default path `./NukeDiffusion/models/checkpoints`;
 
 - `SD Model`: after selecting the **Checkpoint** model, you must indicate its version. By default, if the "XL" or "xl" letters are included in the checkpoint name, it will update the **SD Model** knob to "SDXL", otherwise to "SD";
 
@@ -82,9 +88,9 @@ The **NukeDiffusion** node is pretty straightforward. Everything you need is in 
 
 - `Negative Prompt`: type everything __you do not want__ to be generated in your image;
 
-- `Width`: width size for your output image;
+- `Width`: width size of your output image;
 
-- `Height`: height size for your output image;
+- `Height`: height size of your output image;
 
 - `Seed`: If you leave the value as `-1`, your image will be generated randomly. However, if you set any other value, your image will always be the same. It's a good idea to lock the **Seed** and try different settings to see how they affect your image;
 
@@ -95,7 +101,7 @@ The **NukeDiffusion** node is pretty straightforward. Everything you need is in 
             ![nukediffusion_CFG](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/3ae4e5dc-e019-4356-a530-e8f6c95fa6b6)
             </details>
 
-- `Steps`: it's the iterations of sampling and refining for the latent image. With higher steps you can get better images (usually between 20 and 40). Higher than this probably will slow down the image generation and will not have too much difference;
+- `Steps`: it's the iterations of sampling and refining for the latent image. With higher steps you can get better images (usually between 20 and 40). Higher than this will probably slow down the image generation and will not have too much difference;
             <details>
             <summary>steps examples</summary>
             ![nukediffusion_Steps](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/775bbcb0-eef7-4c28-9f9e-02cc502fc374)
@@ -145,13 +151,15 @@ Here you don't have too much to do, just check the information and... wait! 😅
 </details>
 
 ---
-<h1>Time waiting ⌛</h1>
+<h1>Waiting time ⌛</h1>
 
-This is a subject I need to highlight with you. Since we are generating AI images locally, the time waiting depends exclusively on your machine's performance.
+This is a subject I need to highlight with you. 🥸
 
-Keep in mind that when you ALWAYS run the code for the first time, it will take a while to load the selected Checkpoint into memory. Then, loading the next AI images will take less time.
+Since we are generating AI images locally, the time waiting depends exclusively on your machine's performance.
 
-The image generation itself is faster than the loading checkpoint process. For all my tests, for example, sometimes I had to wait between 10 and 20 minutes to load the Checkpoint, but it took me 20 seconds to 2-3 minutes to generate the rest of the images (this mentioned time is per single image, of course).
+Keep in mind that when you run the code for the first time, it will ALWAYS take a while to load the selected Checkpoint into memory. After that, loading the next AI images will take less time.
+
+The image generation itself is faster than the loading checkpoint process. For example, in all my tests I had to wait around 10 and 20 minutes to load the Checkpoint, but it took me 20 seconds to 2-3 minutes to generate the rest of the images (the referred time is per single image, of course).
 
 > [!TIP]
 > _To generate faster images, try SD models instead of SDXL._
