@@ -17,17 +17,17 @@ import json
 import os
 import sys
 
+from rich.console import Console
+from rich.theme import Theme
+from rich.table import Table
+from rich.traceback import install
+install()
+
+from nd_paths import nd_paths
+from nd_infos import nd_infos
+
 try:
     import torch
-    from rich.console import Console
-    from rich.theme import Theme
-    from rich.table import Table
-    from rich.traceback import install
-    install()
-
-    from nd_paths import nd_paths
-    from nd_infos import nd_infos
-
 
     custom_theme = Theme({"success":"green", "alert":"yellow", "error":"red"})
     console = Console(theme=custom_theme)
@@ -349,8 +349,10 @@ try:
     elapsed_time_minutes, elapsed_time_seconds = divmod(elapsed_time_seconds, 60)
     console.print(f"\n:clock5: Elapsed time: {int(elapsed_time_minutes):02d}m{int(elapsed_time_seconds):02d}s", style="alert")
 
-    os.system("pause")
+    time.sleep(15)
     ########################################################################################################
+    
 except Exception as error:
-    print(f"\n- Error: {error}.\n")
+    console.print("It was not possible to generate your image!", style="error")
+    console.print(f"\n- Error: {error}.\n", style="error")
     os.system("pause")

@@ -118,10 +118,9 @@ class sd_node():
             python_exe_file = nd_paths().python_exe()
 
             if os.path.exists(nd_terminal_file):
-                # os.system("start python {}".format(nd_terminal_file))
-                # os.system(".\python3.11.6\python.exe -s nd_terminal.py")
                 os.system("start {} -s {}".format(python_exe_file, nd_terminal_file))
                 nuke.message("Opening NukeDiffusion Terminal")
+                
             else:
                 nuke.message("It was not possible to open the NukeDiffusion Terminal!")
 
