@@ -18,11 +18,13 @@ Some limitations you need to consider for this first version:
 📌 only for Windows (sorry 🐧 and 🍎);
 <br>📌 generate single images only (no animation supported);
 <br>📌 image files supported: **.jpg**, **.png**, **.tif** (does not support **.exr** and video files);
-<br>📌 batch feature for multiple image generation not included.
+<br>📌 batch feature for multiple image generation not included;
+<br>📌 only compatible with CUDA enabled.
 
 > [!NOTE]
-> _For experienced users, **NukeDifussion** does not support ControlNet, Lora, AnimateDiff and other advanced controls, just the basic setup for image generation._
+> _For experienced users, **NukeDifussion** does not support **ControlNet**, **Lora**, **AnimateDiff** and other advanced controls, just the basic setup for image generation._
 
+<!-- ############################################################# DIFFUSION REQUIREMENTS ############################################################# -->
 <h1>Stable Diffusion Requirements 🖥️</h1>
 
 For a complete guide to **Stable Diffusion** requirements, I suggest you read [this article](https://www.andyhtu.com/post/system-requirements-your-complete-guide-to-running-stable-diffusion-efficiently).
@@ -35,6 +37,7 @@ In summary, the most basic setup mentioned in the article is:
 > _Please note that due to the size of the **SDXL models**, which is around 6GB, certain Checkpoints may not be compatible with this setup.;_
 <br>
 
+<!-- ############################################################# PYTHON COMPATIBILITY ############################################################# -->
 <h1>Python Compatibility 🐍</h1>
 
 - **NukeDiffusion** comes with a built-in Python installation (version **3.11.6**),
@@ -44,7 +47,7 @@ which is used to run **NukeDiffusion Terminal**;
 
 <br>
 
-
+<!-- ############################################################# WORKFLOWS ############################################################# -->
 <h1>Workflows :briefcase:</h1>
 
 For now, the included pipeline workflows are:
@@ -59,7 +62,7 @@ For now, the included pipeline workflows are:
 >
 > _This tool does not export the connected inputs automatically (at least for now), so you should pre-render your inputs in case they have extra nodes  (Roto, Reformat etc)._<br>
 
-
+<!-- ############################################################# NUKEDIFFUSION NODE ############################################################# -->
 <h1>NukeDiffusion node ☢️</h1>
 
 The **NukeDiffusion** node is pretty straightforward. Everything you need is in the same panel, and the UI updates accordingly to your workflow option (**txt2img**, **img2img**, **inpainting**).
@@ -108,6 +111,7 @@ The **NukeDiffusion** node is pretty straightforward. Everything you need is in 
             
 - `Mask Opacity`: this is just for visualization purposes to check the mask input over the image input.
 
+<!-- ############################################################# NUKEDIFUSSION TERMINAL ############################################################# -->
 ---
 <h1>NukeDiffusion Terminal 🤖</h1>
 
@@ -143,38 +147,47 @@ Here you don't have too much to do, just check the information and... wait! 😅
  
 </details>
 
+<!-- ############################################################# WAITING TIME ############################################################# -->
 ---
 <h1>Waiting time ⌛</h1>
 
 This is a subject I need to highlight with you. 🥸
 
-Since we are generating AI images locally, the time waiting depends exclusively on your machine's performance.
+Since we are generating AI images locally, the waiting time depends exclusively on your machine's performance.
 
 Keep in mind that when you run the code for the first time, it will ALWAYS take a while to load the selected Checkpoint into memory. After that, loading the next AI images will take less time.
 
 The image generation itself is faster than the loading checkpoint process. For example, in all my tests I had to wait around 10 and 20 minutes to load the Checkpoint, but it took me 20 seconds to 2-3 minutes to generate the rest of the images (the referred time is per single image, of course).
 
 > [!TIP]
-> _To generate faster images, try SD models instead of SDXL._
+> _To generate faster images, try **SD** models instead of **SDXL**._
 
 So please, while the cursor blinks on the **NukeDiffusion Terminal**, don't close it! Just ignore the `'triton' module error` message and wait!
 
+<!-- ############################################################# INSTALLING ############################################################# -->
 ---
 <h1>Installing ⚙️</h1>
 Here is the most annoying part... 😣 <br>
-But don't give up, I'm sure you can do this! 🤓
+But don't give up, it will be worth it! 🤓
 <br>
+<br>
+
+There are a few `.bat` files in the **NukeDiffusion** folder to help you install all the necessary dependencies.<br>
+
+> [!NOTE]
+> _All these dependencies will be automatically installed into the `.\NukeDiffusion\python\python3.11.6` directory._
+
 <br>
 Let me break it into a few parts:
 <br>
 <br>
-
 <details>
   <summary>1. .nuke</summary>
-
+<br>
+  
   Click on the green button to download the **NukeDiffusion** and save it to your `.nuke` folder.
 
-  Open your `init.py` (from the `.nuke` root), and indicate the **NukeDiffusion** folder, like:
+  Open the `init.py` file from the `.nuke` root, and indicate the **NukeDiffusion** folder, like:
   ```python
 import nuke
 
@@ -182,83 +195,67 @@ nuke.pluginAddPath('./NukeDiffusion')
   ```
 
   If you don't have an `init.py` file in your `.nuke` directory, you can create a new text file and paste the code above.
-  > _Don't forget to change the file extension to `.py`._
-
-</details>
-
-<details>
-  <summary>2. Python</summary>
+  > _Don't forget to rename it as `init` and change the file extension to `.py`._
 <br>
-  
-Since Nuke comes with a built-in Python installation, you need to ensure that your system has **Python3.8+** installed.
-
-To check the Python version on your machine, open the Terminal and type:
-```python
-python --version
-```
-![python version](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/97839071-30cb-47b1-bf16-fd219ad27192)
-
-If you don't have it, please visit the [Python](https://www.python.org/) website, download and install it.<br>
-
-> _Please, don't forget to check the "**Add Python to PATH**" option_.
-
-![python add to path](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/6cb32696-1921-4486-9ff9-f14bed42a15c)
-
 </details>
 
 <details>
-<summary>3. PyTorch</summary>
+<summary>2. PyTorch / CUDA</summary>
   <br>
 
 PyTorch is an open-source framework for building and training neural networks (deep learning). It's highly flexible and dynamic, making it ideal for generating AI images.
 
 > _To learn more about it, please visit [this page](https://www.nvidia.com/en-us/glossary/pytorch/) from the NVidia website._
+<br>
 
+In the `.\NukeDiffusion\cuda` folder, let's run some `.bat` files.<br>
+<br>
 
-You need to install **PyTorch 1.7.0+**, but first of all, you need to know the CUDA version of your graphic card.
+1- Run the `check_cuda_version.bat` file to display the CUDA version of your graphic card (around the upper right corner).<br>
 
-Open your Terminal and type:
-```python
-nvidia-smi
-```
-After displaying some information, you'll see the CUDA version in the upper right corner.
 
 ![cuda version](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/1d92f570-4961-4222-ad1d-a4ab9cbe1dc9)
 
-
-Now, [go to this PyTorch page](https://pytorch.org/get-started/locally/) and select the options that apply to your system.
-
-![pytorch install](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/02dd81cf-fc56-4e6d-b52e-313c60fb9015)
-
-Paste and run the command provided into your Terminal to install PyTorch.
-
-</details>
-
-<details>
-  <summary>4. CUDA</summary>
 <br>
-  
-Even after checking the **CUDA** version and installing **PyTorch**, your **CUDA** may be disabled (that was my case). 😒<br>
-To check if it is enabled, open the `run_check_cuda.bat` file that I've provided at `./NukeDiffusion/cuda/run_check_cuda.bat`.
+2- If your CUDA version is 12, run the `install_pytorch_cuda12.bat` file, otherwise, if it's version 11, run the `install_pytorch_cuda11.bat` (this process can take a while).<br>
 
-If you get `True` as a response you are good to go, otherwise, [go to this page](https://developer.nvidia.com/cuda-gpus) from NVidia and download/install the **CUDA Toolkit**.
 
-After installing it, run the `run_check_cuda.bat` file again and hopefully you are done! 🤞
+![image](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/b28a66a2-592b-4fec-bb88-4338d75a40da)
+
+<br>
+3- Run the `check_cuda_enabled.bat` file to display if your CUDA is enabled and also check if the `torch` module is working.<br>
+
+
+![image](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/07265213-ea27-4b10-8bb2-11d54bc7b223)
+
+If you get `CUDA is available!` as a response you are good to go, otherwise, [go to this page](https://developer.nvidia.com/cuda-gpus) from NVidia, download and install the **CUDA Toolkit**, then try again this step until you get enabled CUDA. 🤞
+
+
 </details>
 
 <details>
   <summary>5. Python Dependencies</summary>
 <br>
+  
   Finally, if you followed all the steps above and everything worked fine, now it's the last part. 🙌
+  <br>
 
-  Open the file `install_dependencies.bat`, it will open the Terminal and install all the necessary Python dependencies for **Stable Diffusion**.
+  Open the file `install_or_update_dependencies.bat`, it will open the Terminal and install all the necessary Python dependencies for **Stable Diffusion**.<br>
+  
+  ![image](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/571a6487-9243-4117-8545-5261f61ac387)
+
 
   And that's it, now you are ready to use **NukeDiffusion**! :star_struck:
   
 </details>
 
----
+At the end of this guide, you should see the **NukeDiffusion**'s icon on your left side toolbar when you launch Nuke.<br>
 
+![Screenshot 2024-03-03 145810](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/9e735145-17e2-44a6-98bb-afdb471a15cd)
+
+
+<!-- ############################################################# CHECKPOINTS ############################################################# -->
+---
 <h1>Checkpoints</h1>
 
 You can use the [CivitAI](https://civitai.com/) website to download Checkpoints and try some different Prompts shared by the community. 😉
@@ -295,6 +292,7 @@ If you have another folder in which you want to use the Checkpoints, you can set
 
 <br>
 
+<!-- ############################################################# TROUBLESHOOTING ############################################################# -->
 ---
 <h1>Troubleshooting 🛠️</h1>
 
@@ -334,6 +332,7 @@ For now, I suggest you choose one of the 3 following options:
 If you have feedback, suggestions, or feature requests, please visit the [Discussions](https://github.com/danilodelucio/NukeDiffusion/discussions) page and create a **New Discussion**.<br>
 For bugs, please go to the [Issues](https://github.com/danilodelucio/NukeDiffusion/issues) page and create a **New Issue**.
 
+<!-- ############################################################# SUPPORT ME ############################################################# -->
 ---
 <h1>Support me! 🥺</h1>
 
@@ -347,6 +346,7 @@ You can also share this tool or send me a positive message, it would help me in 
 
 If you believe in this project and want to sponsor it for future updates, reach out on my [Linkedin](https://www.linkedin.com/in/danilodelucio/).
 
+Special thanks to Gustavo Goncalves and Leticia Matsuoka for testing this tool and providing valuable feedback for improvement. Also, thanks to Juliana Chen for her support and encouragement.
 
 <h1>Cheers! 🥂</h1>
 
