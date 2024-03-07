@@ -19,10 +19,25 @@ Some limitations you need to consider for this first version:
 <br>📌 generate single images only (no animation supported);
 <br>📌 image files supported: **.jpg**, **.png**, **.tif** (does not support **.exr** and video files);
 <br>📌 batch feature for multiple image generation not included;
-<br>📌 only compatible with CUDA enabled.
+<br>📌 compatible only with CUDA.
 
 > [!NOTE]
 > _For experienced users, **NukeDifussion** does not support **ControlNet**, **Lora**, **AnimateDiff** and other advanced controls, just the basic setup for image generation._
+<br>
+
+<!-- ############################################################# LINKS ############################################################# -->
+Quick guide
+- [Stable Diffusion Requirements](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#stable-diffusion-requirements-%EF%B8%8F);
+- [Python Compatibility](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#python-compatibility-);
+- [Workflows](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#workflows-briefcase);
+- [NukeDiffusion node](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#nukediffusion-node-%EF%B8%8F);
+- [NukeDiffusion Terminal](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#nukediffusion-terminal-);
+- [Some images generated with NukeDiffusion using different workflows](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#some-images-generated-with-nukediffusion-using-different-workflows-%EF%B8%8F);
+- [Waiting time](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#waiting-time-);
+- [Installing](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#installing-%EF%B8%8F);
+- [Checkpoints](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#checkpoints);
+- [Troubleshooting](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#troubleshooting-%EF%B8%8F);
+- [Support me](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#support-me-);
 
 <!-- ############################################################# DIFFUSION REQUIREMENTS ############################################################# -->
 <h1>Stable Diffusion Requirements 🖥️</h1>
@@ -48,7 +63,7 @@ which is used to run **NukeDiffusion Terminal**;
 <br>
 
 <!-- ############################################################# WORKFLOWS ############################################################# -->
-<h1>Workflows :briefcase:</h1>
+<h1>Workflows 💼</h1>
 
 For now, the included pipeline workflows are:
 
@@ -61,6 +76,7 @@ For now, the included pipeline workflows are:
 > _To use the **img2img** and **inpainting** workflows, you must input Read nodes directly to the input image/input mask;_<br>
 >
 > _This tool does not export the connected inputs automatically (at least for now), so you should pre-render your inputs in case they have extra nodes  (Roto, Reformat etc)._<br>
+<br>
 
 <!-- ############################################################# NUKEDIFFUSION NODE ############################################################# -->
 <h1>NukeDiffusion node ☢️</h1>
@@ -110,9 +126,9 @@ The **NukeDiffusion** node is pretty straightforward. Everything you need is in 
             </details>
             
 - `Mask Opacity`: this is just for visualization purposes to check the mask input over the image input.
+<br>
 
 <!-- ############################################################# NUKEDIFUSSION TERMINAL ############################################################# -->
----
 <h1>NukeDiffusion Terminal 🤖</h1>
 
 After clicking on the **Generate Image** button, it will open the **NukeDiffusion Terminal**, which will load all the information provided in the **NukeDiffusion node**.
@@ -123,7 +139,11 @@ After clicking on the **Generate Image** button, it will open the **NukeDiffusio
 
 Here you don't have too much to do, just check the information and... wait! 😅
 
----
+> [!IMPORTANT]
+> _While the cursor blinks on the **NukeDiffusion Terminal**, don't close it! Just ignore the `'triton' module error` message and wait for your image to be generated!_
+<br>
+
+<!-- ############################################################# SOME IMAGES GENERATED ############################################################# -->
 <h2>Some images generated with NukeDiffusion using different workflows 🖼️</h2>
 
 <details>
@@ -146,9 +166,9 @@ Here you don't have too much to do, just check the information and... wait! 😅
 <summary><b>inpainting</b></summary>
  
 </details>
+<br>
 
 <!-- ############################################################# WAITING TIME ############################################################# -->
----
 <h1>Waiting time ⌛</h1>
 
 This is a subject I need to highlight with you. 🥸
@@ -161,11 +181,9 @@ The image generation itself is faster than the loading checkpoint process. For e
 
 > [!TIP]
 > _To generate faster images, try **SD** models instead of **SDXL**._
-
-So please, while the cursor blinks on the **NukeDiffusion Terminal**, don't close it! Just ignore the `'triton' module error` message and wait!
+<br>
 
 <!-- ############################################################# INSTALLING ############################################################# -->
----
 <h1>Installing ⚙️</h1>
 Here is the most annoying part... 😣 <br>
 But don't give up, it will be worth it! 🤓
@@ -252,10 +270,10 @@ If you get `CUDA is available!` as a response you are good to go, otherwise, [go
 At the end of this guide, you should see the **NukeDiffusion**'s icon on your left side toolbar when you launch Nuke.<br>
 
 ![Screenshot 2024-03-03 145810](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/9e735145-17e2-44a6-98bb-afdb471a15cd)
-
+<br>
+<br>
 
 <!-- ############################################################# CHECKPOINTS ############################################################# -->
----
 <h1>Checkpoints</h1>
 
 You can use the [CivitAI](https://civitai.com/) website to download Checkpoints and try some different Prompts shared by the community. 😉
@@ -293,7 +311,6 @@ If you have another folder in which you want to use the Checkpoints, you can set
 <br>
 
 <!-- ############################################################# TROUBLESHOOTING ############################################################# -->
----
 <h1>Troubleshooting 🛠️</h1>
 
 <details>
@@ -331,9 +348,10 @@ For now, I suggest you choose one of the 3 following options:
 
 If you have feedback, suggestions, or feature requests, please visit the [Discussions](https://github.com/danilodelucio/NukeDiffusion/discussions) page and create a **New Discussion**.<br>
 For bugs, please go to the [Issues](https://github.com/danilodelucio/NukeDiffusion/issues) page and create a **New Issue**.
+<br>
+<br>
 
 <!-- ############################################################# SUPPORT ME ############################################################# -->
----
 <h1>Support me! 🥺</h1>
 
 ![image](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/ee1e5d16-43e2-46bc-bc48-aaf1d7559b87)
