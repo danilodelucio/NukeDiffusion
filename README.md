@@ -95,9 +95,9 @@ The **NukeDiffusion** node is pretty straightforward. Everything you need is in 
 - `SD Model`: after selecting the **Checkpoint** model, you must indicate its version. By default, if the "XL" or "xl" letters are included in the checkpoint name, it will update the **SD Model** knob to "SDXL", otherwise to "SD";
 
 > [!WARNING]
-> Keep in mind to match the **SD Model** to your selected **Checkpoint**.<br>
-> **SD** and **SDXL** models were pretrained with different resolutions, and they have different pipelines to produce your image.<br>
-> If you provide a **Checkpoint** with the wrong **SD Model**, the **NukeDiffusion Terminal** will close automatically.
+> _Keep in mind to match the **SD Model** to your selected **Checkpoint**._<br>
+> _**SD** and **SDXL** models were pretrained with different resolutions, and they have different pipelines to produce your image._<br>
+> _If you provide a **Checkpoint** with the wrong **SD Model**, the **NukeDiffusion Terminal** will close automatically._
 
 - `Positive Prompt`: type everything __you want__ to be generated in your image;
 
@@ -281,6 +281,9 @@ At the end of this guide, you should see the **NukeDiffusion**'s icon on your le
 
 You can use the [CivitAI](https://civitai.com/) website to download Checkpoints and try some different Prompts shared by the community. 😉
 
+> [!IMPORTANT]
+> _For now, **NukeDiffusion** only accepts `.safetensors` files._
+
 If you are unsure about which Checkpoint to use, I'm going to list some of my favourites:
 
 <details>
@@ -308,8 +311,10 @@ If you have another folder in which you want to use the Checkpoints, you can set
 ![image](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/a885b9d9-d7ff-4611-a061-9acea7aa599a)
 
 > [!CAUTION]
-> Using a single backslash `\` can cause issues. Please use either a forward slash `/` or double backslash `\\`.
+> _Using a single backslash `\` can cause issues. Please use either a forward slash `/` or double backslash `\\`._
 
+> [!IMPORTANT]
+> _If you don't provide a custom Checkpoint and leave the Checkpoint dropdown menu as `Stable Diffusion [Default Model]`, it will download a default model from the [Hugging Face](https://huggingface.co/) repository._
 
 <br>
 
