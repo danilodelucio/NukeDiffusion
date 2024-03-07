@@ -2,8 +2,8 @@
 
 ![NukeDiffusion_Cover_v002](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/d230497e-f1d7-4687-9299-7f7487e5718f)
 
-<br>**NukeDiffusion** is an integration tool for Nuke that uses [Stable Diffusion](https://stability.ai/) to generate AI images from prompts using local Checkpoints.
-<br>It uses the official library from [Hugging Face](https://huggingface.co), and you don't need to create any account, everything works locally!
+<br>**NukeDiffusion** is an integration tool for Nuke that uses [Stable Diffusion](https://stability.ai/) to generate AI images from prompts using local Checkpoints.<br>
+It uses the official library from [Hugging Face](https://huggingface.co), and you don't need to create any account, everything works locally!
 
 :white_check_mark: Unlimited image generation;
 <br>✅ Local Checkpoints (SD and SDXL models);
@@ -25,11 +25,13 @@ Some limitations you need to consider for this first version:
 > _For experienced users, **NukeDifussion** does not support **ControlNet**, **Lora**, **AnimateDiff** and other advanced controls, just the basic setup for image generation._
 <br>
 
+---
 <!-- ############################################################# LINKS ############################################################# -->
-Quick guide
+<h1>Quick Access 🔗</h1>
+
 - [Stable Diffusion Requirements](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#stable-diffusion-requirements-%EF%B8%8F);
 - [Python Compatibility](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#python-compatibility-);
-- [Workflows](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#workflows-briefcase);
+- [Workflows](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#workflows-);
 - [NukeDiffusion node](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#nukediffusion-node-%EF%B8%8F);
 - [NukeDiffusion Terminal](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#nukediffusion-terminal-);
 - [Some images generated with NukeDiffusion using different workflows](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#some-images-generated-with-nukediffusion-using-different-workflows-%EF%B8%8F);
@@ -39,6 +41,7 @@ Quick guide
 - [Troubleshooting](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#troubleshooting-%EF%B8%8F);
 - [Support me](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#support-me-);
 
+---
 <!-- ############################################################# DIFFUSION REQUIREMENTS ############################################################# -->
 <h1>Stable Diffusion Requirements 🖥️</h1>
 
@@ -49,7 +52,7 @@ In summary, the most basic setup mentioned in the article is:
 - **System RAM**: 16GB DDR4.
 
 > [!IMPORTANT]
-> _Please note that due to the size of the **SDXL models**, which is around 6GB, certain Checkpoints may not be compatible with this setup.;_
+> _Please note that due to the size of the **SDXL models**, which is around 6GB, certain Checkpoints may not be compatible with this setup._
 <br>
 
 <!-- ############################################################# PYTHON COMPATIBILITY ############################################################# -->
@@ -364,6 +367,7 @@ You can also share this tool or send me a positive message, it would help me in 
 
 If you believe in this project and want to sponsor it for future updates, reach out on my [Linkedin](https://www.linkedin.com/in/danilodelucio/).
 
+---
 Special thanks to Gustavo Goncalves and Leticia Matsuoka for testing this tool and providing valuable feedback for improvement. Also, thanks to Juliana Chen for her support and encouragement.
 
 <h1>Cheers! 🥂</h1>
