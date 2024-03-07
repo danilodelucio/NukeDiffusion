@@ -41,6 +41,9 @@ Some limitations you need to consider for this first version:
 - [Troubleshooting](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#troubleshooting-%EF%B8%8F);
 - [Support me](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#support-me-);
 
+
+![NukeDiffusion_cover_FHD_v002](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/bcb22791-edc6-4036-9bb1-1303fe7037e2)
+
 ---
 <!-- ############################################################# DIFFUSION REQUIREMENTS ############################################################# -->
 <h1>Stable Diffusion Requirements 🖥️</h1>
