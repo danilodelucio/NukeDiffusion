@@ -26,12 +26,11 @@ install()
 from nd_paths import nd_paths
 from nd_infos import nd_infos
 
+custom_theme = Theme({"success":"green", "alert":"yellow", "error":"red"})
+console = Console(theme=custom_theme)
+
 try:
     import torch
-
-    custom_theme = Theme({"success":"green", "alert":"yellow", "error":"red"})
-    console = Console(theme=custom_theme)
-
 
     class NukeDiffusion():
         def __init__(self):
@@ -339,20 +338,17 @@ try:
 
     ########################################################################################################
     start = time.perf_counter()
-    try:
-        NukeDiffusion()
-    except:
-        os.system("pause")
+    NukeDiffusion()
     end = time.perf_counter()
 
     elapsed_time_seconds = float(end - start)
     elapsed_time_minutes, elapsed_time_seconds = divmod(elapsed_time_seconds, 60)
     console.print(f"\n:clock5: Elapsed time: {int(elapsed_time_minutes):02d}m{int(elapsed_time_seconds):02d}s", style="alert")
 
-    time.sleep(15)
+    time.sleep(60)
     ########################################################################################################
     
 except Exception as error:
-    console.print("It was not possible to generate your image!", style="error")
+    console.print("\n- It was not possible to generate your image!", style="error")
     console.print(f"\n- Error: {error}.\n", style="error")
     os.system("pause")
