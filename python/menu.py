@@ -59,7 +59,7 @@ class sd_node():
 
                 if os.path.exists(file_name):
                     for extension in extensions_list:
-                        if extension in file_name:
+                        if extension.lower() in file_name:
                             return file_name
                     else:
                         nuke.message("File extension not supported! Expecting {}.".format(extensions_list))
@@ -120,7 +120,7 @@ class sd_node():
             if os.path.exists(nd_terminal_file):
                 os.system("start {} -s {}".format(python_exe_file, nd_terminal_file))
                 nuke.message("Opening NukeDiffusion Terminal")
-                
+
             else:
                 nuke.message("It was not possible to open the NukeDiffusion Terminal!")
 

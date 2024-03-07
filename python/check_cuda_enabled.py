@@ -1,4 +1,9 @@
 import sys
+from rich.console import Console
+from rich.theme import Theme
+
+custom_theme = Theme({"success":"green", "alert":"yellow", "error":"red"})
+console = Console(theme=custom_theme)
 
 try:
     import torch
@@ -12,11 +17,11 @@ try:
 
     print("")
     if available_cuda:
-        print("- CUDA is available!")
-        print(f"    - Device name: {device_name}")
+        console.print("- CUDA is available!", style="success")
+        console.print(f"    - Device name: {device_name}", style="success")
     else:
-        print("- CUDA is not available!")
+        console.print("- CUDA is not available!", style="alert")
 
 except Exception as error:
     print("")
-    print(f"- {error}!")
+    console.print(f"- {error}!", style="error")
