@@ -1,6 +1,6 @@
 <h1>NukeDiffusion - Stable Diffusion for Nuke</h1> 
 
-![NukeDiffusion_Cover_v002](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/d230497e-f1d7-4687-9299-7f7487e5718f)
+![NukeDiffusion_Logo_v001](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/1eac3b38-17e5-4341-81f3-a63471f04356)
 
 <br>**NukeDiffusion** is an integration tool for Nuke that uses [Stable Diffusion](https://stability.ai/) to generate AI images from prompts using local Checkpoints.<br>
 It uses the official library from [Hugging Face](https://huggingface.co), and you don't need to create any account, everything works locally!
@@ -42,7 +42,7 @@ Some limitations you need to consider for this first version:
 - [Support me](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#support-me-);
 
 
-![NukeDiffusion_cover_FHD_v002](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/bcb22791-edc6-4036-9bb1-1303fe7037e2)
+![NukeDiffusion_cover_FHD_v002](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/133fc83c-c61b-49a4-a05a-c81c5008d591)
 
 ---
 <!-- ############################################################# DIFFUSION REQUIREMENTS ############################################################# -->
@@ -116,19 +116,19 @@ The **NukeDiffusion** node is pretty straightforward. Everything you need is in 
   The higher the value, the more the image will follow the text input (by default, the maximum value is 10, but you can increase it if you want). With a lower value, the image generation deviates from the text input and becomes more creative;
             <details>
             <summary>cfg examples</summary>
-            ![nukediffusion_CFG](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/3ae4e5dc-e019-4356-a530-e8f6c95fa6b6)
+            ![nukediffusion_CFG](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/3e3d87ca-7ef0-4a6d-a1e5-7c154caedf0a)
             </details>
 
 - `Steps`: it's the iterations of sampling and refining for the latent image. With higher steps you can get better images (usually between 20 and 40). Higher than this will probably slow down the image generation and will not have too much difference;
             <details>
             <summary>steps examples</summary>
-            ![nukediffusion_Steps](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/775bbcb0-eef7-4c28-9f9e-02cc502fc374)
+            ![nukediffusion_Steps](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/c062f9b3-3dd3-431f-99ba-daa6016beba0)
             </details>
             
 - `Strength`: this parameter sets the denoising strength from 0 to 1. It is only used for **img2img** and **inpainting** workflows and requires an initial image. Higher values will produce more deviation from the input image (producing more creative output), and lower values will preserve the input image;
             <details>
             <summary>strength examples</summary>
-            ![nukediffusion_Strength](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/34785f19-bc23-4cce-9007-c1bd01eb0920)
+            ![nukediffusion_Strength](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/d4ee1e07-4de1-46b5-a9b2-89c807cb822e)
             </details>
             
 - `Mask Opacity`: this is just for visualization purposes to check the mask input over the image input.
@@ -155,16 +155,18 @@ Here you don't have too much to do, just check the information and... wait! 😅
 <details>
 <summary><b>txt2img</b></summary>
   
-![nukediffusion_A](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/215c78fc-68c4-49d3-839a-44b9361131ef)
-![nukediffusion_B](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/24b62a96-eea8-4d95-a457-eabb831c76d4)
-![nukediffusion_C](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/3d52e3a3-2c78-45ba-ba61-d56c088fb113)
+![nukediffusion_txt2img_A](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/5c0ebef6-54fa-469c-aa5e-5b543a0ff058)
+![nukediffusion_txt2img_B](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/2a50dd37-6412-471f-8b33-b8e4a54ae7ac)
+![nukediffusion_txt2img_C](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/ce2f4bce-c6cd-49a4-a77c-d253424756e6)
+
 </details>
 
 
 <details>
 <summary><b>img2img</b></summary>
   
-![nukediffusion_img2img_A](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/1506ae42-bad6-4c8d-ad4d-99621482e3dd)
+  ![nukediffusion_img2img_A](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/251e5e4e-3541-41aa-ad4b-b9eff8f1b36c)
+
 </details>
 
 
@@ -242,13 +244,13 @@ In the `.\NukeDiffusion\cuda` folder, let's run some `.bat` files.<br>
 
 <br>
 2- If your CUDA version is 12, run the `install_pytorch_cuda12.bat` file, otherwise, if it's version 11, run the `install_pytorch_cuda11.bat` (this process can take a while).<br>
-
+<br>
 
 ![image](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/b28a66a2-592b-4fec-bb88-4338d75a40da)
 
 <br>
 3- Run the `check_cuda_enabled.bat` file to display if your CUDA is enabled and also check if the `torch` module is working.<br>
-
+<br>
 
 ![image](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/07265213-ea27-4b10-8bb2-11d54bc7b223)
 
