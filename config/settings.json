@@ -11,5 +11,6 @@
   "input_image": null, 
   "p_prompt": "", 
   "height": 512, 
+  "default_model": true,
   "n_prompt": ""
 }

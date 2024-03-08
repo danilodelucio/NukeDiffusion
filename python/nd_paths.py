@@ -29,13 +29,15 @@ class nd_paths():
         if os.path.exists(settings_file):
             return settings_file
         else:
-            print("settings.json file not found!")
+            print("'settings.json' file not found!")
             False
     
     def checkpointsPath(self):
         # Defining the default Checkpoints path
         default_ckpt_path = os.path.join(self.mainPath(), "models", "checkpoints")
-        
+        if "\\" in default_ckpt_path:
+            default_ckpt_path = default_ckpt_path.replace("\\", "/")
+
         if not os.path.exists(default_ckpt_path):
             os.makedirs(default_ckpt_path)
 
@@ -47,10 +49,15 @@ class nd_paths():
                 data = json.load(f)
 
             ckpt_path = data["checkpoint_path"]
+            if "\\" in ckpt_path:
+                ckpt_path = str(ckpt_path).replace("\\", "/")
+
             if os.path.exists(ckpt_path):
-                return ckpt_path
+                return ckpt_path + "/"
+            else:
+                return default_ckpt_path + "/"
         else:
-            return default_ckpt_path
+            print("- Error: 'checkpoints.json' file not found!")
 
     def safetensorsList(self):
         # Creating a list with all Safetensors files available in the Checkpoints path

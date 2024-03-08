@@ -41,6 +41,7 @@ try:
             self.input_mask = data["input_mask"]
             self.workflow = data["workflow"]
             self.sd_version = data["sd_model"]
+            self.default_model = data["default_model"] 
             self.checkpoint = data["checkpoint"]
             self.positive_prompt = data["p_prompt"]
             self.negative_prompt = data["n_prompt"]
@@ -52,7 +53,7 @@ try:
             self.strength = data["strength"]
 
             self.class_node = nd_infos().class_node
-            self.default_model = nd_infos().default_model
+            self.default_model_str = nd_infos().default_model
             self.workflow_txt2img = nd_infos().workflow_txt2img
             self.workflow_img2img = nd_infos().workflow_img2img
             self.workflow_inpainting = nd_infos().workflow_inpainting
@@ -249,20 +250,23 @@ try:
 
         def ckptPath_check(self, path):
             # Checking if the Checkpoint option exists or not
-            if os.path.exists(path):
-                console.print("\n:warning:  Using a local checkpoint: {}\n".format(self.checkpoint_name), style="alert")
-                return True
-            
-            elif self.default_model in path:
-                console.print("\n:warning:  Using a default checkpoint: {}\n".format(self.checkpoint_name), style="alert")
+            if self.default_model == True:
+                console.print("\n:warning:  Using the {} checkpoint!\n".format(self.checkpoint_name), style="alert")
                 return False
             
+            elif os.path.exists(path):
+                console.print("\n:warning:  Using a local checkpoint: {}.\n".format(self.checkpoint_name), style="alert")
+                return True
+    
             else:
-                console.print("\n:warning:  Safetensors file not found. Using a default checkpoint instead!\n", style="error")
+                console.print("\n:warning:  Safetensors file doesn't exist or not found. Using a default checkpoint instead!\n", style="error")
                 return False
 
         def printStats(self):
-            self.checkpoint_name = self.checkpoint.split("\\")[-1]
+            if self.default_model == True:
+                self.checkpoint_name = self.default_model_str
+            else:
+                self.checkpoint_name = self.checkpoint.split("/")[-1]
 
             infos_dict = {
                         "Python Version": sys.version[:6],

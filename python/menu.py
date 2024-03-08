@@ -31,23 +31,13 @@ class sd_node():
         self.sd_model_SD = nd_infos().sd_model_SD
         self.sd_model_SDXL = nd_infos().sd_model_SDXL
 
+        self.ckpt_path = nd_paths().checkpointsPath()
+
     def create(self):
         node = nuke.createNode(self.class_node)
         node["strength"].setVisible(False)
         node["mask_opacity"].setVisible(False)
-        
-    def populateCkpt(self, node):
-        checkpoints_list = nd_paths().safetensorsList()
-        checkpoints_list.insert(0, self.default_model)
-        node["ckpt"].setValues(checkpoints_list)
-
-    def refreshButton(self):
-        node = nuke.thisNode()
-        self.populateCkpt(node)
-
-    def resetCheckpointList(self, node):
-        empty_option = ["-                                              "]
-        node["ckpt"].setValues(empty_option)
+        node["ckpt"].setValue(self.ckpt_path)
 
     def writeSettings(self):
         def check_inputs(node, input_num, input_name):
@@ -59,10 +49,11 @@ class sd_node():
 
                 if os.path.exists(file_name):
                     for extension in extensions_list:
-                        if extension.lower() in file_name:
+                        if extension in str(file_name).lower():
                             return file_name
-                    else:
-                        nuke.message("File extension not supported! Expecting {}.".format(extensions_list))
+                        
+                        else:
+                            nuke.message("File extension not supported! Expecting: {}.".format(extensions_list))
 
                 else:
                     nuke.message("The {} input file doesn't exist!".format(input_name))
@@ -92,13 +83,11 @@ class sd_node():
             with open(nd_paths().settingsFile(), "r") as f:
                 data = json.load(f)
 
-            # Taking the absolute path back again for the selected Checkpoint
-            abs_path_checkpoint = os.path.join(nd_paths().checkpointsPath(), node["ckpt"].value())
-
             data["input_image"] = input_image
             data["input_mask"] = input_mask
             data["workflow"] = node["workflow"].value()
-            data["checkpoint"] = abs_path_checkpoint
+            data["checkpoint"] = node["ckpt"].value()
+            data["default_model"] = node["default_model"].value()
             data["sd_model"] = node["sd_model"].value()
             data["p_prompt"] = node["p_prompt"].value()
             data["n_prompt"] = node["n_prompt"].value()
@@ -119,7 +108,7 @@ class sd_node():
 
             if os.path.exists(nd_terminal_file):
                 os.system("start {} -s {}".format(python_exe_file, nd_terminal_file))
-                nuke.message("Opening NukeDiffusion Terminal")
+                nuke.message("Opening NukeDiffusion Terminal!")
 
             else:
                 nuke.message("It was not possible to open the NukeDiffusion Terminal!")
@@ -128,14 +117,16 @@ class sd_node():
         node = nuke.thisNode()
         checkpoint = node["ckpt"].value()
         workflow = node["workflow"].value()
+        default_model = node["default_model"].value()
         input_image = None
         input_mask = None
 
         # Checkpoint validation
         if workflow == self.workflow_txt2img or workflow == self.workflow_img2img:
-            if len(checkpoint.strip()) == 1:
-                return nuke.message("Please select a Checkpoint!")
-
+            if default_model == False:
+                if not os.path.isfile(checkpoint) or not str(checkpoint).endswith(".safetensors"):
+                    return nuke.message("Please select a Checkpoint (.safetensors) file!")
+                
         # Checking the Inputs for each workflow before to write the settings
         if workflow == self.workflow_txt2img:
             writeJson_openSD()
@@ -181,7 +172,8 @@ class sd_node():
             node["strength"].setVisible(False)
             node["mask_opacity"].setVisible(False)
             node["ckpt"].setEnabled(True)
-            node["refresh_ckpt"].setEnabled(True)
+            node["default_model"].setEnabled(True)
+            node["default_model"].setValue(False)
         
         if workflow == self.workflow_img2img:
             node["width"].setVisible(False)
@@ -189,7 +181,8 @@ class sd_node():
             node["strength"].setVisible(True)
             node["mask_opacity"].setVisible(False)
             node["ckpt"].setEnabled(True)
-            node["refresh_ckpt"].setEnabled(True)
+            node["default_model"].setEnabled(True)
+            node["default_model"].setValue(False)
         
         if workflow == self.workflow_inpainting:
             node["width"].setVisible(True)
@@ -197,7 +190,8 @@ class sd_node():
             node["strength"].setVisible(True)
             node["mask_opacity"].setVisible(True)
             node["ckpt"].setEnabled(False)
-            node["refresh_ckpt"].setEnabled(False)
+            node["default_model"].setValue(True)
+            node["default_model"].setEnabled(False)
 
     def strength_update(self):
         node = nuke.thisNode()
@@ -232,12 +226,6 @@ def callback_Strength():
         sd_node().strength_update()
 
 
-def callback_Refresh():
-    kb = nuke.thisKnob().name()
-    if kb == "refresh_ckpt":
-        sd_node().refreshButton()
-
-
 def callback_openOutputFolder():
     kb = nuke.thisKnob().name()
     if kb == "output_folder":
@@ -250,11 +238,6 @@ def callback_sdModel():
         sd_node().sdModel_update()
 
 
-def callback_ScriptLoad():
-    for node in nuke.allNodes(sd_node().class_node):
-        sd_node().resetCheckpointList(node)
-
-
 about_tool = """
 NukeDiffusion is an integration tool that uses Stable Diffusion to generate AI images from prompts using local Checkpoints.
 
@@ -265,12 +248,10 @@ www.danilodelucio.com | www.github.com/danilodelucio
 NukeDiffusion v01.0 (c) 2024
 """
 
-nuke.callbacks.addOnScriptLoad(callback_ScriptLoad)
 
 nuke.addKnobChanged(callback_Workflow, nodeClass=sd_node().class_node)
 nuke.addKnobChanged(callback_Generate, nodeClass=sd_node().class_node)
 nuke.addKnobChanged(callback_Strength, nodeClass=sd_node().class_node)
-nuke.addKnobChanged(callback_Refresh, nodeClass=sd_node().class_node)
 nuke.addKnobChanged(callback_openOutputFolder, nodeClass=sd_node().class_node)
 nuke.addKnobChanged(callback_sdModel, nodeClass=sd_node().class_node)
 

@@ -9,8 +9,8 @@ Gizmo {
  addUserKnob {26 logo l "" +STARTLINE T "\n<br><font size=7>  Nuke<font color=\"#9A419D\"><font size=7><b>Diffusion</color><br>"}
  addUserKnob {26 ""}
  addUserKnob {4 workflow l Workflow: M {txt2img img2img inpainting ""}}
- addUserKnob {4 ckpt l Checkpoint: M {"Stable Diffusion \[Default Model]"}}
- addUserKnob {22 refresh_ckpt l Refresh -STARTLINE}
+ addUserKnob {2 ckpt l Checkpoint:}
+ addUserKnob {6 default_model l "SD \[Default Model]" -STARTLINE}
  addUserKnob {4 sd_model l "SD Model:" M {SD SDXL "" "" "" ""}}
  addUserKnob {26 ""}
  addUserKnob {41 p_prompt l "Positive Prompt:" t "Type everything you want to generate in your image." T positive_prompt.message}
@@ -24,7 +24,7 @@ Gizmo {
  seed -1
  addUserKnob {22 random_seed l "Random Seed" -STARTLINE T "n = nuke.thisNode()\nn\[\"seed\"].setValue(-1)"}
  addUserKnob {7 cfg l CFG: R 1 10}
- cfg 8
+ cfg 7
  addUserKnob {3 steps l Steps:}
  steps 20
  addUserKnob {7 strength l Strength:}
