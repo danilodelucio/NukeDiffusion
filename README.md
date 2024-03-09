@@ -37,7 +37,7 @@ Some limitations you need to consider for this first version:
 - [Some images generated with NukeDiffusion using different workflows](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#some-images-generated-with-nukediffusion-using-different-workflows-%EF%B8%8F);
 - [Waiting time](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#waiting-time-);
 - [Installing](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#installing-%EF%B8%8F);
-- [Checkpoints](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#checkpoints);
+- [Checkpoints](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#checkpoints-);
 - [Troubleshooting](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#troubleshooting-%EF%B8%8F);
 - [Support me](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#support-me-);
 
@@ -50,7 +50,7 @@ Some limitations you need to consider for this first version:
 
 For a complete guide to **Stable Diffusion** requirements, I suggest you read [this article](https://www.andyhtu.com/post/system-requirements-your-complete-guide-to-running-stable-diffusion-efficiently).
 
-In summary, the most basic setup mentioned in the article is:
+In summary, the minimum setup required mentioned in the article is:
 - **GPU**: GTX 1060 (6GB VRAM);
 - **System RAM**: 16GB DDR4.
 
@@ -89,11 +89,11 @@ For now, the included pipeline workflows are:
 
 The **NukeDiffusion** node is pretty straightforward. Everything you need is in the same panel, and the UI updates accordingly to your workflow option (**txt2img**, **img2img**, **inpainting**).
 
-![NukeDiffusion_NodeUI_v002](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/aa668518-cf08-4596-9539-9b1ceeb0f393)
+![NukeDiffusion_NodeUI_v003](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/545cfbdd-34d3-4c58-9f9f-32e55239d5d9)
 
 - `Workflow`: select one of the 3 workflow options to work with: **txt2img**, **img2img** or **inpainting**;
 
-- `Checkpoint`: by clicking on the **Refresh** button, it will load all the **Checkpoints** available in the directory you specified earlier on `checkpoints_path.json`, or if you are using the default path `./NukeDiffusion/models/checkpoints`;
+- `Checkpoint`: here you can select the **Checkpoint** file available in the directory you specified earlier on `checkpoints_path.json`, or if you are using the default path `./NukeDiffusion/models/checkpoints`;
 
 - `SD Model`: after selecting the **Checkpoint** model, you must indicate its version. By default, if the "XL" or "xl" letters are included in the checkpoint name, it will update the **SD Model** knob to "SDXL", otherwise to "SD";
 
@@ -112,26 +112,26 @@ The **NukeDiffusion** node is pretty straightforward. Everything you need is in 
 
 - `Seed`: If you leave the value as `-1`, your image will be generated randomly. However, if you set any other value, your image will always be the same. It's a good idea to lock the **Seed** and try different settings to see how they affect your image;
 
-- `CFG`: is the Classifier-Free Guidance scale, which controls how closely the image generation process follows the text prompt.
+- `CFG`: Classifier-Free Guidance scale, which controls how closely the image generation process follows the text prompt.
   The higher the value, the more the image will follow the text input (by default, the maximum value is 10, but you can increase it if you want). With a lower value, the image generation deviates from the text input and becomes more creative;
             <details>
             <summary>cfg examples</summary>
             ![nukediffusion_CFG](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/3e3d87ca-7ef0-4a6d-a1e5-7c154caedf0a)
             </details>
 
-- `Steps`: it's the iterations of sampling and refining for the latent image. With higher steps you can get better images (usually between 20 and 40). Higher than this will probably slow down the image generation and will not have too much difference;
+- `Steps`: iterations of sampling and refining for the latent image. With higher steps you can get better images (usually between 20 and 40). Higher than this will probably slow down the image generation and will not have too much difference;
             <details>
             <summary>steps examples</summary>
             ![nukediffusion_Steps](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/c062f9b3-3dd3-431f-99ba-daa6016beba0)
             </details>
             
-- `Strength`: this parameter sets the denoising strength from 0 to 1. It is only used for **img2img** and **inpainting** workflows and requires an initial image. Higher values will produce more deviation from the input image (producing more creative output), and lower values will preserve the input image;
+- `Strength`: parameter that sets the denoising strength from 0 to 1. It is only used for **img2img** and **inpainting** workflows and requires an initial image. Higher values will produce more deviation from the input image (producing more creative output), and lower values will preserve the input image;
             <details>
             <summary>strength examples</summary>
             ![nukediffusion_Strength](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/d4ee1e07-4de1-46b5-a9b2-89c807cb822e)
             </details>
             
-- `Mask Opacity`: this is just for visualization purposes to check the mask input over the image input.
+- `Mask Opacity`: just for visualization purposes to check the mask input over the image input.
 <br>
 
 <!-- ############################################################# NUKEDIFUSSION TERMINAL ############################################################# -->
@@ -211,9 +211,11 @@ Let me break it into a few parts:
   <summary>1. .nuke</summary>
 <br>
   
-  Click on the green button to download the **NukeDiffusion** and save it to your `.nuke` folder.
+  Click on the green button to download the **NukeDiffusion** and save it into your `.nuke` folder.<br>
+  
+  ![image](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/a092b5cd-395e-4f73-84ee-dd167b289368)
 
-  Open the `init.py` file from the `.nuke` root, and indicate the **NukeDiffusion** folder, like:
+  Open the `init.py` file from the `.nuke` root, then indicate the **NukeDiffusion** folder, like this:
   ```python
 import nuke
 
@@ -241,20 +243,20 @@ In the `.\NukeDiffusion\cuda` folder, let's run some `.bat` files.<br>
 
 
 ![cuda version](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/1d92f570-4961-4222-ad1d-a4ab9cbe1dc9)
-
 <br>
+
 2- If your CUDA version is 12, run the `install_pytorch_cuda12.bat` file, otherwise, if it's version 11, run the `install_pytorch_cuda11.bat` (this process can take a while).<br>
 <br>
 
 ![image](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/b28a66a2-592b-4fec-bb88-4338d75a40da)
-
 <br>
+
 3- Run the `check_cuda_enabled.bat` file to display if your CUDA is enabled and also check if the `torch` module is working.<br>
 <br>
 
 ![image](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/07265213-ea27-4b10-8bb2-11d54bc7b223)
 
-If you get `CUDA is available!` as a response you are good to go, otherwise, [go to this page](https://developer.nvidia.com/cuda-gpus) from NVidia, download and install the **CUDA Toolkit**, then try again this step until you get enabled CUDA. 🤞
+If you get `CUDA is available!` as a response you are good to go, otherwise, [go to this page](https://developer.nvidia.com/cuda-gpus) from NVidia, download and install the **CUDA Toolkit**, then try again this step until you get CUDA enabled. 🤞
 
 
 </details>
@@ -263,7 +265,7 @@ If you get `CUDA is available!` as a response you are good to go, otherwise, [go
   <summary>5. Python Dependencies</summary>
 <br>
   
-  Finally, if you followed all the steps above and everything worked fine, now it's the last part. 🙌
+  Finally, if you followed all the steps above and everything worked fine, now is the last part. 🙌
   <br>
 
   Open the file `install_or_update_dependencies.bat`, it will open the Terminal and install all the necessary Python dependencies for **Stable Diffusion**.<br>
@@ -282,7 +284,7 @@ At the end of this guide, you should see the **NukeDiffusion**'s icon on your le
 <br>
 
 <!-- ############################################################# CHECKPOINTS ############################################################# -->
-<h1>Checkpoints</h1>
+<h1>Checkpoints ✅</h1>
 
 You can use the [CivitAI](https://civitai.com/) website to download Checkpoints and try some different Prompts shared by the community. 😉
 
@@ -311,7 +313,7 @@ If you are unsure about which Checkpoint to use, I'm going to list some of my fa
 <br>
 
 After downloading the Checkpoint, you can put them in `.\NukeDiffusion\models\checkpoints`.<br>
-If you have another folder in which you want to use the Checkpoints, you can set a default path in the `checkpoints_path.json` file.
+If you have another folder where you'd like to use the Checkpoints, you can set a default path in the `checkpoints_path.json` file.
 
 ![image](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/a885b9d9-d7ff-4611-a061-9acea7aa599a)
 
@@ -319,7 +321,7 @@ If you have another folder in which you want to use the Checkpoints, you can set
 > _Using a single backslash `\` can cause issues. Please use either a forward slash `/` or double backslash `\\`._
 
 > [!IMPORTANT]
-> _If you don't provide a custom Checkpoint and leave the Checkpoint dropdown menu as `Stable Diffusion [Default Model]`, it will download a default model from the [Hugging Face](https://huggingface.co/) repository._
+> _If the custom Checkpoint does not exist or if you leave the `SD [Default Model]` option enabled, it will download a default model from the [Hugging Face](https://huggingface.co/) repository (this happens for the first time only)._
 
 <br>
 
@@ -340,23 +342,6 @@ However, this error does not affect the image generation, so just simply ignore 
 > _I didn't hide this issue so you can check on the Terminal if you get another import module error._
 </details>
 
-<details>
-<summary><b>blank error message</b></summary>
- 
- ![Screenshot 2024-03-03 200140](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/cde41084-317a-47c5-9024-baba5ab5d5c7)
-
-In **NukeDiffusion** node, when you click on **Refresh** button, it will load all the **Checkpoints** available in the directory you specified earlier on `checkpoints_path.json`, or if you are using the default path `./NukeDiffusion/models/checkpoints`.
-If you open a Nuke script and see the `blank error message`, that is because the **Checkpoints pulldown choice menu** is trying to get the last checkpoint loaded in the previous session, which will raise an error.
-
-For now, I suggest you choose one of the 3 following options:
-
-- delete the **NukeDiffusion** node before closing the Nuke script;
-- leave the **Checkpoints pulldown choice menu** set to `Stable Diffusion [Default Model]`;
-- simply ignore the error message, this will not affect your script at all.
-
-> _Sorry for the inconvenience, I will fix it in the next release!_ 🙏
-
-</details>
 <br>
 
 If you have feedback, suggestions, or feature requests, please visit the [Discussions](https://github.com/danilodelucio/NukeDiffusion/discussions) page and create a **New Discussion**.<br>
