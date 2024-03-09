@@ -12,9 +12,9 @@
 # -----------------------------------------------------------------------------------
 
 
-import nuke
-import json
 import os
+import pickle
+import nuke
 
 from nd_paths import nd_paths
 from nd_infos import nd_infos
@@ -78,10 +78,10 @@ class sd_node():
 
                 nuke.execute(write_node, current_frame, current_frame)
 
-        def writeJson_openSD():
-            # Loading the setting.json file
-            with open(nd_paths().settingsFile(), "r") as f:
-                data = json.load(f)
+        def writeSet_openSD():
+            # Loading the settings file
+            with open(nd_paths().settingsFile(), "rb") as f:
+                data = pickle.load(f)
 
             data["input_image"] = input_image
             data["input_mask"] = input_mask
@@ -98,8 +98,8 @@ class sd_node():
             data["steps"] = int(node["steps"].value())
             data["strength"] = node["strength"].value()
 
-            with open(nd_paths().settingsFile(), "w") as f:
-                json.dump(data, f, indent=2)
+            with open(nd_paths().settingsFile(), "wb") as f:
+                pickle.dump(data, f)
             
             # Opening NukeDiffusion Terminal
             python_path = nd_paths().python_files_path()    
@@ -112,7 +112,6 @@ class sd_node():
 
             else:
                 nuke.message("It was not possible to open the NukeDiffusion Terminal!")
-
 
         node = nuke.thisNode()
         checkpoint = node["ckpt"].value()
@@ -127,15 +126,15 @@ class sd_node():
                 if not os.path.isfile(checkpoint) or not str(checkpoint).endswith(".safetensors"):
                     return nuke.message("Please select a Checkpoint (.safetensors) file!")
                 
-        # Checking the Inputs for each workflow before to write the settings
+        # Checking the Inputs for each workflow before writing the settings
         if workflow == self.workflow_txt2img:
-            writeJson_openSD()
+            writeSet_openSD()
             return
 
         elif workflow == self.workflow_img2img:
             input_image = check_inputs(node, 0, "Image")
             if input_image:
-                writeJson_openSD()
+                writeSet_openSD()
                 return
 
         elif workflow == self.workflow_inpainting:
@@ -143,7 +142,7 @@ class sd_node():
             input_mask = check_inputs(node, 1, "Mask")
 
             if input_image and input_mask:
-                writeJson_openSD()
+                writeSet_openSD()
                 return
 
     def openOutputFolder(self):
@@ -213,24 +212,20 @@ def callback_Workflow():
     if kb == "workflow":
         sd_node().workflow_update()
 
-
 def callback_Generate():
     kb = nuke.thisKnob().name()
     if kb == "generate":
         sd_node().writeSettings()
-
 
 def callback_Strength():
     kb = nuke.thisKnob().name()
     if kb == "strength":
         sd_node().strength_update()
 
-
 def callback_openOutputFolder():
     kb = nuke.thisKnob().name()
     if kb == "output_folder":
         sd_node().openOutputFolder()
-
 
 def callback_sdModel():
     kb = nuke.thisKnob().name()

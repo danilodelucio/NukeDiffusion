@@ -14,8 +14,11 @@
 
 import os
 import json
+import pickle
 
-class nd_paths():
+from nd_infos import nd_infos
+
+class nd_paths(): 
     def mainPath(self):
         current_dir = os.path.dirname(__file__)
         main_dir = os.path.dirname(current_dir)
@@ -24,13 +27,34 @@ class nd_paths():
         return main_dir
 
     def settingsFile(self):
-        settings_file = os.path.join(self.mainPath(), "config", "settings.json")
+        settings_file_name = nd_infos().settings_file_name
+        settings_file = os.path.join(self.mainPath(), "config", settings_file_name)
         
-        if os.path.exists(settings_file):
+        if not os.path.exists(settings_file):
+            data = {
+                    "input_mask": None, 
+                    "input_image": None, 
+                    "workflow": "txt2img", 
+                    "checkpoint": "", 
+                    "default_model": False, 
+                    "sd_model": "SD", 
+                    "p_prompt": "", 
+                    "n_prompt": "",
+                    "width": 512, 
+                    "height": 512, 
+                    "seed": -1, 
+                    "cfg": 7, 
+                    "steps": 20, 
+                    "strength": 0.5
+                    }
+            with open(settings_file, "wb") as file:
+                pickle.dump(data, file, protocol=2)
+
+            print("The '{}' file has been created!".format(settings_file_name))
             return settings_file
+        
         else:
-            print("'settings.json' file not found!")
-            False
+            return settings_file
     
     def checkpointsPath(self):
         # Defining the default Checkpoints path
@@ -58,16 +82,6 @@ class nd_paths():
                 return default_ckpt_path + "/"
         else:
             print("- Error: 'checkpoints.json' file not found!")
-
-    def safetensorsList(self):
-        # Creating a list with all Safetensors files available in the Checkpoints path
-        safetensors_list = []
-
-        for file in os.listdir(self.checkpointsPath()):
-            if file.endswith(".safetensors"):
-                safetensors_list.append(file)
-
-        return safetensors_list
 
     def outputPath(self):
         output_path = os.path.join(self.mainPath(), "_output")

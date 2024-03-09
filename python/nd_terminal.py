@@ -12,10 +12,10 @@
 # -----------------------------------------------------------------------------------
 
 
-import time
-import json
 import os
 import sys
+import time
+import pickle
 
 from rich.console import Console
 from rich.theme import Theme
@@ -34,8 +34,8 @@ try:
 
     class NukeDiffusion():
         def __init__(self):
-            with open(nd_paths().settingsFile(), "r") as f:
-                data = json.load(f)
+            with open(nd_paths().settingsFile(), "rb") as f:
+                data = pickle.load(f)
 
             self.input_image = data["input_image"]
             self.input_mask = data["input_mask"]
@@ -337,7 +337,6 @@ try:
             console.print(f"[bold]{self.terminal_name}", style="alert")
             print("")
             console.print(len(self.terminal_name)*"-", style="alert")
-
 
 
     ########################################################################################################

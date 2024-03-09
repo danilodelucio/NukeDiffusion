@@ -18,6 +18,7 @@ class nd_infos():
     def __init__(self):
         self.class_node = "NukeDiffusion"
         self.default_model = "Stable Diffusion [Default Model]"
+        self.settings_file_name = "settings.nukediffusion"
 
         workflow_list = ["txt2img", "img2img", "inpainting"]
         self.workflow_txt2img = workflow_list[0]
@@ -27,7 +28,7 @@ class nd_infos():
         sd_model = ["SD", "SDXL"]
         self.sd_model_SD = sd_model[0]
         self.sd_model_SDXL = sd_model[1]
-    
+
     def random_file_name(self):
         date_time = datetime.datetime.now()
         file_name = str(date_time)[:-7]

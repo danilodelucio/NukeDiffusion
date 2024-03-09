@@ -1,3 +1,17 @@
+# -----------------------------------------------------------------------------------
+#  NukeDiffusion - Stable Diffusion for Nuke
+#  Version: v01.0
+#  Author: Danilo de Lucio
+#  Website: www.danilodelucio.com
+# -----------------------------------------------------------------------------------
+
+# -----------------------------------------------------------------------------------
+#  [Summary]
+#  NukeDiffusion is an integration tool for Nuke that uses Stable Diffusion
+#  to generate AI images from prompts using local Checkpoints.
+# -----------------------------------------------------------------------------------
+
+
 import sys
 from rich.console import Console
 from rich.theme import Theme
