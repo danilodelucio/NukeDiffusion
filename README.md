@@ -37,7 +37,7 @@ Some limitations you need to consider for this first version:
 - [Some images generated with NukeDiffusion using different workflows](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#some-images-generated-with-nukediffusion-using-different-workflows-%EF%B8%8F);
 - [Waiting time](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#waiting-time-);
 - [Installing](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#installing-%EF%B8%8F);
-- [Checkpoints](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#checkpoints);
+- [Checkpoints](https://github.com/danilodelucio/NukeDiffusion/edit/main/README.md#checkpoints-);
 - [Troubleshooting](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#troubleshooting-%EF%B8%8F);
 - [Support me](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#support-me-);
 
@@ -89,7 +89,7 @@ For now, the included pipeline workflows are:
 
 The **NukeDiffusion** node is pretty straightforward. Everything you need is in the same panel, and the UI updates accordingly to your workflow option (**txt2img**, **img2img**, **inpainting**).
 
-![NukeDiffusion_NodeUI_v002](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/aa668518-cf08-4596-9539-9b1ceeb0f393)
+![NukeDiffusion_NodeUI_v003](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/545cfbdd-34d3-4c58-9f9f-32e55239d5d9)
 
 - `Workflow`: select one of the 3 workflow options to work with: **txt2img**, **img2img** or **inpainting**;
 
@@ -282,7 +282,7 @@ At the end of this guide, you should see the **NukeDiffusion**'s icon on your le
 <br>
 
 <!-- ############################################################# CHECKPOINTS ############################################################# -->
-<h1>Checkpoints</h1>
+<h1>Checkpoints ✅</h1>
 
 You can use the [CivitAI](https://civitai.com/) website to download Checkpoints and try some different Prompts shared by the community. 😉
 
@@ -340,23 +340,6 @@ However, this error does not affect the image generation, so just simply ignore 
 > _I didn't hide this issue so you can check on the Terminal if you get another import module error._
 </details>
 
-<details>
-<summary><b>blank error message</b></summary>
- 
- ![Screenshot 2024-03-03 200140](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/cde41084-317a-47c5-9024-baba5ab5d5c7)
-
-In **NukeDiffusion** node, when you click on **Refresh** button, it will load all the **Checkpoints** available in the directory you specified earlier on `checkpoints_path.json`, or if you are using the default path `./NukeDiffusion/models/checkpoints`.
-If you open a Nuke script and see the `blank error message`, that is because the **Checkpoints pulldown choice menu** is trying to get the last checkpoint loaded in the previous session, which will raise an error.
-
-For now, I suggest you choose one of the 3 following options:
-
-- delete the **NukeDiffusion** node before closing the Nuke script;
-- leave the **Checkpoints pulldown choice menu** set to `Stable Diffusion [Default Model]`;
-- simply ignore the error message, this will not affect your script at all.
-
-> _Sorry for the inconvenience, I will fix it in the next release!_ 🙏
-
-</details>
 <br>
 
 If you have feedback, suggestions, or feature requests, please visit the [Discussions](https://github.com/danilodelucio/NukeDiffusion/discussions) page and create a **New Discussion**.<br>
