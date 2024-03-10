@@ -13,7 +13,6 @@
 
 
 import os
-import pickle
 import nuke
 
 from nd_paths import nd_paths
@@ -79,27 +78,24 @@ class sd_node():
                 nuke.execute(write_node, current_frame, current_frame)
 
         def writeSet_openSD():
-            # Loading the settings file
-            with open(nd_paths().settingsFile(), "rb") as f:
-                data = pickle.load(f)
+            data = {
+            "input_image": input_image,
+            "input_mask": input_mask,
+            "workflow": node["workflow"].value(),
+            "checkpoint": node["ckpt"].value(),
+            "default_model": node["default_model"].value(),
+            "sd_model": node["sd_model"].value(),
+            "p_prompt": node["p_prompt"].value(),
+            "n_prompt": node["n_prompt"].value(),
+            "width": int(node["width"].value()),
+            "height": int(node["height"].value()),
+            "seed": int(node["seed"].value()),
+            "cfg": node["cfg"].value(),
+            "steps": int(node["steps"].value()),
+            "strength": node["strength"].value(),
+            }
 
-            data["input_image"] = input_image
-            data["input_mask"] = input_mask
-            data["workflow"] = node["workflow"].value()
-            data["checkpoint"] = node["ckpt"].value()
-            data["default_model"] = node["default_model"].value()
-            data["sd_model"] = node["sd_model"].value()
-            data["p_prompt"] = node["p_prompt"].value()
-            data["n_prompt"] = node["n_prompt"].value()
-            data["width"] = int(node["width"].value())
-            data["height"] = int(node["height"].value())
-            data["seed"] = int(node["seed"].value())
-            data["cfg"] = node["cfg"].value()
-            data["steps"] = int(node["steps"].value())
-            data["strength"] = node["strength"].value()
-
-            with open(nd_paths().settingsFile(), "wb") as f:
-                pickle.dump(data, f)
+            nd_infos().create_settings_file(nd_paths().settingsFile(), data)
             
             # Opening NukeDiffusion Terminal
             python_path = nd_paths().python_files_path()    
@@ -202,8 +198,7 @@ class sd_node():
             node["strength"].setValue(1)
 
 
-print("NukeDiffusion v01.0, built in Feb 2024.")
-print("Copyright (c) 2024 Danilo de Lucio. All Rights Reserved.")
+print(nd_infos().print_terminal)
 
 
 # Defining Callbacks

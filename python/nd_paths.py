@@ -14,7 +14,6 @@
 
 import os
 import json
-import pickle
 
 from nd_infos import nd_infos
 
@@ -29,32 +28,8 @@ class nd_paths():
     def settingsFile(self):
         settings_file_name = nd_infos().settings_file_name
         settings_file = os.path.join(self.mainPath(), "config", settings_file_name)
-        
-        if not os.path.exists(settings_file):
-            data = {
-                    "input_mask": None, 
-                    "input_image": None, 
-                    "workflow": "txt2img", 
-                    "checkpoint": "", 
-                    "default_model": False, 
-                    "sd_model": "SD", 
-                    "p_prompt": "", 
-                    "n_prompt": "",
-                    "width": 512, 
-                    "height": 512, 
-                    "seed": -1, 
-                    "cfg": 7, 
-                    "steps": 20, 
-                    "strength": 0.5
-                    }
-            with open(settings_file, "wb") as file:
-                pickle.dump(data, file, protocol=2)
-
-            print("The '{}' file has been created!".format(settings_file_name))
-            return settings_file
-        
-        else:
-            return settings_file
+    
+        return settings_file
     
     def checkpointsPath(self):
         # Defining the default Checkpoints path

@@ -34,8 +34,7 @@ try:
 
     class NukeDiffusion():
         def __init__(self):
-            with open(nd_paths().settingsFile(), "rb") as f:
-                data = pickle.load(f)
+            data = nd_infos().read_settings_file(nd_paths().settingsFile())
 
             self.input_image = data["input_image"]
             self.input_mask = data["input_mask"]
