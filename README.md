@@ -78,6 +78,9 @@ For now, the included pipeline workflows are:
 - **Inpainting**: replaces or edits specific areas of an image by a provided input mask.
 <br>
 
+> [!NOTE]
+> _For now, the **inpainting** workflow works only with the Stable Diffusion default model, therefore is not possible to use local Checkpoint._
+
 > [!IMPORTANT]
 > _To use the **img2img** and **inpainting** workflows, you must input Read nodes directly to the input image/input mask;_<br>
 >
