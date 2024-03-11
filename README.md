@@ -165,14 +165,20 @@ Here you don't have too much to do, just check the information and... wait! 😅
 <details>
 <summary><b>img2img</b></summary>
   
-  ![nukediffusion_img2img_A](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/251e5e4e-3541-41aa-ad4b-b9eff8f1b36c)
+![nukediffusion_img2img_A2](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/de46b6c8-75c6-449d-9039-242bf9a6fbd4)
+
+![nukediffusion_img2img_B](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/22c678be-c82a-4492-8df9-58e785fe6213)
 
 </details>
 
 
 <details>
 <summary><b>inpainting</b></summary>
- 
+  
+ ![nukediffusion_inpainting_A](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/7942a7de-a726-49be-bd13-cfbbbc4a6448)
+
+![nukediffusion_inpainting_B](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/66d67187-d900-4be8-b564-108b345cdfe5)
+
 </details>
 <br>
 
@@ -201,7 +207,8 @@ But don't give up, it will be worth it! 🤓
 There are a few `.bat` files in the **NukeDiffusion** folder to help you install all the necessary dependencies.<br>
 
 > [!NOTE]
-> _All these dependencies will be automatically installed into the `.\NukeDiffusion\python\python3.11.6` directory._
+> _All these dependencies will be automatically installed into the `.\NukeDiffusion\python\python3.11.6` directory_.<br>
+> _For each executed `.bat` file, please wait until you see the `Press any key to continue...` message before closing the Terminal._
 
 <br>
 Let me break it into a few parts:
@@ -262,7 +269,7 @@ If you get `CUDA is available!` as a response you are good to go, otherwise, [go
 </details>
 
 <details>
-  <summary>5. Python Dependencies</summary>
+  <summary>3. Python Dependencies</summary>
 <br>
   
   Finally, if you followed all the steps above and everything worked fine, now is the last part. 🙌
