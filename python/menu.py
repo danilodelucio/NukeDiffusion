@@ -51,8 +51,8 @@ class sd_node():
                         if extension in str(file_name).lower():
                             return file_name
                         
-                        else:
-                            nuke.message("File extension not supported! Expecting: {}.".format(extensions_list))
+                    else:
+                        nuke.message("File extension not supported! Expecting: {}.".format(extensions_list))
 
                 else:
                     nuke.message("The {} input file doesn't exist!".format(input_name))
