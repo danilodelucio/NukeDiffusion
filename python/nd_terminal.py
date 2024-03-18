@@ -1,6 +1,6 @@
 # -----------------------------------------------------------------------------------
 #  NukeDiffusion - Stable Diffusion for Nuke
-#  Version: v01.0
+#  Version: v01.1
 #  Author: Danilo de Lucio
 #  Website: www.danilodelucio.com
 # -----------------------------------------------------------------------------------
@@ -15,16 +15,18 @@
 import os
 import sys
 import time
-import pickle
+import random
 
 from rich.console import Console
 from rich.theme import Theme
 from rich.table import Table
+from rich.progress import track
 from rich.traceback import install
 install()
 
 from nd_paths import nd_paths
 from nd_infos import nd_infos
+from os_terminal import os_Terminal
 
 custom_theme = Theme({"success":"green", "alert":"yellow", "error":"red"})
 console = Console(theme=custom_theme)
@@ -37,10 +39,13 @@ try:
             data = nd_infos().read_settings_file(nd_paths().settingsFile())
 
             self.input_image = data["input_image"]
+            print(self.input_image)
             self.input_mask = data["input_mask"]
+            print(self.input_mask)
             self.workflow = data["workflow"]
             self.sd_version = data["sd_model"]
             self.default_model = data["default_model"] 
+            self.cuda = data["cuda"]
             self.checkpoint = data["checkpoint"]
             self.positive_prompt = data["p_prompt"]
             self.negative_prompt = data["n_prompt"]
@@ -104,13 +109,23 @@ try:
             if self.ckptPath_check(self.checkpoint):
                 from diffusers import StableDiffusionPipeline
                 
-                pipeline = StableDiffusionPipeline.from_single_file(self.checkpoint, torch_dtype=torch.float16, use_safetensors=True).to("cuda")
+                if self.cuda_device() == "cpu":
+                    pipeline = StableDiffusionPipeline.from_single_file(self.checkpoint, use_safetensors=True).to(self.cuda_device())
+                
+                else:
+                    pipeline = StableDiffusionPipeline.from_single_file(self.checkpoint, torch_dtype=torch.float16, use_safetensors=True).to(self.cuda_device())
                 
             # If not, load the default one
             else:
                 from diffusers import AutoPipelineForText2Image
 
-                pipeline = AutoPipelineForText2Image.from_pretrained("runwayml/stable-diffusion-v1-5", torch_dtype=torch.float16, use_safetensors=True).to("cuda")
+                model_name = "runwayml/stable-diffusion-v1-5"
+
+                if self.cuda_device() == "cpu":
+                    pipeline = AutoPipelineForText2Image.from_pretrained(model_name, use_safetensors=True).to(self.cuda_device())
+                
+                else:
+                    pipeline = AutoPipelineForText2Image.from_pretrained(model_name, torch_dtype=torch.float16, use_safetensors=True).to(self.cuda_device())
             
             self.createImage(pipeline, 
                             prompt= self.positive_prompt, 
@@ -127,14 +142,25 @@ try:
             if self.ckptPath_check(self.checkpoint):
                 from diffusers import StableDiffusionXLPipeline
 
-                pipeline = StableDiffusionXLPipeline.from_single_file(self.checkpoint, torch_dtype=torch.float16, variant="fp16", use_safetensors=True).to("cuda")
+                if self.cuda_device() == "cpu":
+                    pipeline = StableDiffusionXLPipeline.from_single_file(self.checkpoint, variant="fp16", use_safetensors=True).to(self.cuda_device())
+
+                else:
+                    pipeline = StableDiffusionXLPipeline.from_single_file(self.checkpoint, torch_dtype=torch.float16, variant="fp16", use_safetensors=True).to(self.cuda_device())
 
             # If not, load the default one
             else:
                 from diffusers import AutoPipelineForText2Image
 
-                pipeline = AutoPipelineForText2Image.from_pretrained(
-                    "stabilityai/stable-diffusion-xl-base-1.0", torch_dtype=torch.float16, variant="fp16", use_safetensors=True).to("cuda")
+                model_name = "stabilityai/stable-diffusion-xl-base-1.0"
+
+                if self.cuda_device() == "cpu":
+                    pipeline = AutoPipelineForText2Image.from_pretrained(
+                        model_name, variant="fp16", use_safetensors=True).to(self.cuda_device())
+                    
+                else:
+                    pipeline = AutoPipelineForText2Image.from_pretrained(
+                        model_name, torch_dtype=torch.float16, variant="fp16", use_safetensors=True).to(self.cuda_device())
 
             self.createImage(pipeline, 
                             prompt= self.positive_prompt, 
@@ -153,13 +179,23 @@ try:
             if self.ckptPath_check(self.checkpoint):
                 from diffusers import StableDiffusionImg2ImgPipeline
                 
-                pipeline = StableDiffusionImg2ImgPipeline.from_single_file(self.checkpoint, torch_dtype=torch.float16, use_safetensors=True).to("cuda")
+                if self.cuda_device() == "cpu":
+                    pipeline = StableDiffusionImg2ImgPipeline.from_single_file(self.checkpoint, use_safetensors=True).to(self.cuda_device())
+
+                else:
+                    pipeline = StableDiffusionImg2ImgPipeline.from_single_file(self.checkpoint, torch_dtype=torch.float16, use_safetensors=True).to(self.cuda_device())
             
             # If not, load the default one
             else:
                 from diffusers import AutoPipelineForImage2Image
 
-                pipeline = AutoPipelineForImage2Image.from_pretrained("runwayml/stable-diffusion-v1-5", torch_dtype=torch.float16, variant="fp16", use_safetensors=True).to("cuda")
+                model_name = "runwayml/stable-diffusion-v1-5"
+
+                if self.cuda_device() == "cpu":
+                    pipeline = AutoPipelineForImage2Image.from_pretrained(model_name, variant="fp16", use_safetensors=True).to(self.cuda_device())
+
+                else:
+                    pipeline = AutoPipelineForImage2Image.from_pretrained(model_name, torch_dtype=torch.float16, variant="fp16", use_safetensors=True).to(self.cuda_device())
 
             pipeline.enable_model_cpu_offload()
             # remove following line if xFormers is not installed or you have PyTorch 2.0 or higher installed
@@ -184,14 +220,26 @@ try:
             if self.ckptPath_check(self.checkpoint):
                 from diffusers import StableDiffusionXLImg2ImgPipeline
 
-                pipeline = StableDiffusionXLImg2ImgPipeline.from_single_file(self.checkpoint, torch_dtype=torch.float16, variant="fp16", use_safetensors=True).to("cuda")
+                if self.cuda_device() == "cpu":
+                    pipeline = StableDiffusionXLImg2ImgPipeline.from_single_file(self.checkpoint, variant="fp16", use_safetensors=True).to(self.cuda_device())
+                
+                else:
+                    pipeline = StableDiffusionXLImg2ImgPipeline.from_single_file(self.checkpoint, torch_dtype=torch.float16, variant="fp16", use_safetensors=True).to(self.cuda_device())
             
             # If not, load the default one
             else:
                 from diffusers import AutoPipelineForImage2Image
 
-                pipeline = AutoPipelineForImage2Image.from_pretrained(
-                    "stabilityai/stable-diffusion-xl-refiner-1.0", torch_dtype=torch.float16, variant="fp16", use_safetensors=True).to("cuda")
+                model_name = "stabilityai/stable-diffusion-xl-refiner-1.0"
+
+                if self.cuda_device() == "cpu":
+                    pipeline = AutoPipelineForImage2Image.from_pretrained(
+                        model_name, variant="fp16", use_safetensors=True).to(self.cuda_device())
+                
+                else:
+                    pipeline = AutoPipelineForImage2Image.from_pretrained(
+                        model_name, torch_dtype=torch.float16, variant="fp16", use_safetensors=True).to(self.cuda_device())
+
 
             init_image = load_image(self.input_image).convert("RGB")
         
@@ -209,11 +257,23 @@ try:
             from diffusers import AutoPipelineForInpainting
             from diffusers.utils import load_image
 
+            sd_model_name = "runwayml/stable-diffusion-inpainting"
+            sdxl_model_name = "stabilityai/stable-diffusion-xl-base-1.0"
+
             if self.sd_version == self.sd_model_SD:
-                pipeline = AutoPipelineForInpainting.from_pretrained("runwayml/stable-diffusion-inpainting", torch_dtype=torch.float16, variant="fp16").to("cuda")
+                if self.cuda_device() == "cpu":
+                    pipeline = AutoPipelineForInpainting.from_pretrained(sd_model_name, variant="fp16").to(self.cuda_device())
+                
+                else:
+                    pipeline = AutoPipelineForInpainting.from_pretrained(sd_model_name, torch_dtype=torch.float16, variant="fp16").to(self.cuda_device())
+
 
             elif self.sd_version == self.sd_model_SDXL:
-                pipeline = AutoPipelineForInpainting.from_pretrained("stabilityai/stable-diffusion-xl-base-1.0", torch_dtype=torch.float16, use_safetensors=True).to("cuda")
+                if self.cuda_device() == "cpu":
+                    pipeline = AutoPipelineForInpainting.from_pretrained(sdxl_model_name, use_safetensors=True).to(self.cuda_device())
+                
+                else:
+                    pipeline = AutoPipelineForInpainting.from_pretrained(sdxl_model_name, torch_dtype=torch.float16, use_safetensors=True).to(self.cuda_device())
 
             else:
                 console.print(self.sd_model_error, style="error")
@@ -237,13 +297,28 @@ try:
                             )
 
         # Additional Methods
+        def cuda_device(self):
+            if self.cuda == True:
+                if torch.cuda.is_available():
+                    return "cuda"
+                
+                elif torch.backends.mps.is_available():
+                    return "mps"
+                
+                else:
+                    console.print("\n:warning:  CUDA is not available, running in CPU...", style="alert")
+                    return "cpu"
+            else:
+                return "cpu"
+
         def setSeed(self, seed_num):
             seed = -1
             if seed_num == seed:
                 seed = torch.Generator()
                 seed.seed()
+            
             else:
-                seed = torch.Generator(device="cuda").manual_seed(seed_num)
+                seed = torch.Generator(device="cpu").manual_seed(seed_num)
                 
             return seed
 
@@ -269,12 +344,13 @@ try:
 
             infos_dict = {
                         "Python Version": sys.version[:6],
-                        "Torch version": torch.__version__,
+                        # "Torch version": torch.__version__,
                         "Input Image": self.input_image,
                         "Input Mask": self.input_mask,
                         "Workflow": self.workflow,
                         "Checkpoint": self.checkpoint_name,
                         "SD Model": self.sd_version,
+                        "CUDA": self.cuda_device(),
                         "Positive Prompt": self.positive_prompt,
                         "Negative Prompt": self.negative_prompt,
                         "Resolution": f"{self.width}x{self.height}",
@@ -320,16 +396,16 @@ try:
                 os.mkdir(input_path)
                 console.print("\n:warning: The INPUT folder doesn't exist but has been created!", style="alert")
 
-            self.file_path = output_path + "\\" + final_fileName + ".png"
+            self.file_path = output_path + "/" + final_fileName + ".png"
             console.print("\n[bold]:white_check_mark: The image has been saved at:[/bold]\n" + self.file_path, style="success")
 
             return self.file_path
 
         def dl_terminal(self):
-            self.terminal_name = 30*" " + "NukeDiffusion Terminal" + 30*" "
+            self.terminal_name = 50*" " + "NukeDiffusion Terminal" + 50*" "
             
-            os.system('cls' if os.name=='nt' else 'clear')
-            os.system(f"title {self.terminal_name}")
+            os_Terminal().clear()
+            os_Terminal().title(self.terminal_name)
 
             console.print(len(self.terminal_name)*"-", style="alert")
             print("")
@@ -342,15 +418,21 @@ try:
     start = time.perf_counter()
     NukeDiffusion()
     end = time.perf_counter()
-
+    
     elapsed_time_seconds = float(end - start)
     elapsed_time_minutes, elapsed_time_seconds = divmod(elapsed_time_seconds, 60)
     console.print(f"\n:clock5: Elapsed time: {int(elapsed_time_minutes):02d}m{int(elapsed_time_seconds):02d}s", style="alert")
 
-    time.sleep(60)
     ########################################################################################################
     
 except Exception as error:
     console.print("\n- It was not possible to generate your image!", style="error")
     console.print(f"\n- Error: {error}.\n", style="error")
-    os.system("pause")
+    os_Terminal().pause()
+
+
+countdown_duration = 60
+for remaining in range(countdown_duration, 0, -1):
+    sys.stdout.write("\rThis Terminal will be closed in {:2d} seconds.".format(remaining))
+    sys.stdout.flush()
+    time.sleep(1)

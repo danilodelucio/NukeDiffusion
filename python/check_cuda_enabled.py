@@ -1,6 +1,6 @@
 # -----------------------------------------------------------------------------------
 #  NukeDiffusion - Stable Diffusion for Nuke
-#  Version: v01.0
+#  Version: v01.1
 #  Author: Danilo de Lucio
 #  Website: www.danilodelucio.com
 # -----------------------------------------------------------------------------------
@@ -39,3 +39,6 @@ try:
 except Exception as error:
     print("")
     console.print(f"- {error}!", style="error")
+
+
+input("\nPress Enter to continue...")

@@ -1,6 +1,6 @@
 # -----------------------------------------------------------------------------------
 #  NukeDiffusion - Stable Diffusion for Nuke
-#  Version: v01.0
+#  Version: v01.1
 #  Author: Danilo de Lucio
 #  Website: www.danilodelucio.com
 # -----------------------------------------------------------------------------------
@@ -14,9 +14,13 @@
 
 import os
 import nuke
+import time
+import platform
+import threading
 
 from nd_paths import nd_paths
 from nd_infos import nd_infos
+from os_terminal import os_Terminal
 
 class sd_node():
     def __init__(self):
@@ -36,54 +40,45 @@ class sd_node():
         node = nuke.createNode(self.class_node)
         node["strength"].setVisible(False)
         node["mask_opacity"].setVisible(False)
+        node["input_format"].setVisible(True)
         node["ckpt"].setValue(self.ckpt_path)
 
+        with nuke.toNode(node.name()):
+            write_image = nuke.toNode("Write_Image")
+            write_image["file"].setValue(nd_paths().input_image_path())
+
+            write_mask = nuke.toNode("Write_Mask")
+            write_mask["file"].setValue(nd_paths().input_mask_path())
+
     def writeSettings(self):
-        def check_inputs(node, input_num, input_name):
-            # Checking if the input Image/Mask is valid or not
-            if node.input(input_num) and node.input(input_num).Class() == "Read":
-                sd_input = node.input(input_num)
-                file_name = nuke.filename(sd_input, nuke.REPLACE)
-                extensions_list = [".jpg", ".png", ".tif"]
+        def check_inputs(node, input_num):
+            if input_num == 0: # Input Image
+                input_path = nd_paths().input_image_path()
+                input_str = "Image"
 
-                if os.path.exists(file_name):
-                    for extension in extensions_list:
-                        if extension in str(file_name).lower():
-                            return file_name
-                        
-                    else:
-                        nuke.message("File extension not supported! Expecting: {}.".format(extensions_list))
+            elif input_num == 1: # Input Mask
+                input_path = nd_paths().input_mask_path()
+                input_str = "Mask"
 
+            if node.input(input_num):
+                if os.path.exists(input_path):
+                    return True
+        
                 else:
-                    nuke.message("The {} input file doesn't exist!".format(input_name))
-                    return None
-            
+                    nuke.message("Please export the Input {} first!".format(input_str))
+                    return False
             else:
-                nuke.message("Please conect a Read node in the input {}!".format(input_name))
-                return None
-
-        def setWriteNode(write_id, file_path):
-            if write_id == 0:
-                write_name = "Write_Image"
-            elif write_id == 1:
-                write_name = "Write_Mask"
-
-            with nuke.thisNode():
-                current_frame = nuke.frame()
-                write_node = nuke.toNode(write_name)
-                # write_mask["channels"].setValue("rgba")
-                write_node["file"].setValue(file_path)
-                write_node["create_directories"].setValue(True)
-
-                nuke.execute(write_node, current_frame, current_frame)
-
+                nuke.message("Please connect the Input {}!".format(input_str))
+                return False
+            
         def writeSet_openSD():
             data = {
-            "input_image": input_image,
-            "input_mask": input_mask,
+            "input_image": nd_paths().input_image_path(),
+            "input_mask": nd_paths().input_mask_path(),
             "workflow": node["workflow"].value(),
             "checkpoint": node["ckpt"].value(),
             "default_model": node["default_model"].value(),
+            "cuda": node["cuda"].value(),
             "sd_model": node["sd_model"].value(),
             "p_prompt": node["p_prompt"].value(),
             "n_prompt": node["n_prompt"].value(),
@@ -96,14 +91,10 @@ class sd_node():
             }
 
             nd_infos().create_settings_file(nd_paths().settingsFile(), data)
-            
-            # Opening NukeDiffusion Terminal
-            python_path = nd_paths().python_files_path()    
-            nd_terminal_file = os.path.join(python_path, "nd_terminal.py")
-            python_exe_file = nd_paths().python_exe()
+        
+            if nd_paths().nd_terminal_file():
+                os_Terminal().start()
 
-            if os.path.exists(nd_terminal_file):
-                os.system("start {} -s {}".format(python_exe_file, nd_terminal_file))
                 nuke.message("Opening NukeDiffusion Terminal!")
 
             else:
@@ -113,38 +104,58 @@ class sd_node():
         checkpoint = node["ckpt"].value()
         workflow = node["workflow"].value()
         default_model = node["default_model"].value()
-        input_image = None
-        input_mask = None
 
         # Checkpoint validation
         if workflow == self.workflow_txt2img or workflow == self.workflow_img2img:
             if default_model == False:
                 if not os.path.isfile(checkpoint) or not str(checkpoint).endswith(".safetensors"):
                     return nuke.message("Please select a Checkpoint (.safetensors) file!")
-                
-        # Checking the Inputs for each workflow before writing the settings
+            
+        # Checking/Exporting the Inputs for each workflow before writing the settings
         if workflow == self.workflow_txt2img:
             writeSet_openSD()
             return
-
+        
         elif workflow == self.workflow_img2img:
-            input_image = check_inputs(node, 0, "Image")
-            if input_image:
+            if check_inputs(node, 0):
                 writeSet_openSD()
                 return
 
         elif workflow == self.workflow_inpainting:
-            input_image = check_inputs(node, 0, "Image")
-            input_mask = check_inputs(node, 1, "Mask")
-
-            if input_image and input_mask:
+            if check_inputs(node, 0) and check_inputs(node, 1):
                 writeSet_openSD()
                 return
+
+    def render_write_nodes(self, node, write_id):
+        def execute_render(write_node, current_frame):
+            nuke.execute(write_node, current_frame, current_frame)
+            return
+
+        current_frame = nuke.frame()
+
+        if write_id == 0:
+            write_str = "Image"
+
+        elif write_id == 1:
+            write_str = "Mask"
+            
+        with node:
+            write_node = nuke.toNode("Write_{}".format(write_str))
+        
+        if node.input(write_id):
+            thread = threading.Thread(target=execute_render, args=(write_node, current_frame))
+            thread.start()
+            thread.join()
+            return
+        else:
+            nuke.message("Please connect the Input {}!".format(write_str))
+            return
 
     def openOutputFolder(self):
         output_path = nd_paths().outputPath()
         if os.path.exists(output_path):
             os.startfile(output_path)
+            
         else:
             nuke.message("Output folder not found!")
 
@@ -164,6 +175,7 @@ class sd_node():
         if workflow == self.workflow_txt2img:
             node["width"].setVisible(True)
             node["height"].setVisible(True)
+            node["input_format"].setVisible(True)
             node["strength"].setVisible(False)
             node["mask_opacity"].setVisible(False)
             node["ckpt"].setEnabled(True)
@@ -173,6 +185,7 @@ class sd_node():
         if workflow == self.workflow_img2img:
             node["width"].setVisible(False)
             node["height"].setVisible(False)
+            node["input_format"].setVisible(False)
             node["strength"].setVisible(True)
             node["mask_opacity"].setVisible(False)
             node["ckpt"].setEnabled(True)
@@ -182,6 +195,7 @@ class sd_node():
         if workflow == self.workflow_inpainting:
             node["width"].setVisible(True)
             node["height"].setVisible(True)
+            node["input_format"].setVisible(True)
             node["strength"].setVisible(True)
             node["mask_opacity"].setVisible(True)
             node["ckpt"].setEnabled(False)
@@ -235,9 +249,8 @@ For more information, please visit the GitHub page.
 
 Developed by: Danilo de Lucio | VFX Compositor & TD.
 www.danilodelucio.com | www.github.com/danilodelucio
-NukeDiffusion v01.0 (c) 2024
-"""
-
+NukeDiffusion {} (c) 2024
+""".format(nd_infos().nukediffusion_version)
 
 nuke.addKnobChanged(callback_Workflow, nodeClass=sd_node().class_node)
 nuke.addKnobChanged(callback_Generate, nodeClass=sd_node().class_node)

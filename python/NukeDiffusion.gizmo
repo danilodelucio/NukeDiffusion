@@ -12,6 +12,8 @@ Gizmo {
  addUserKnob {2 ckpt l Checkpoint:}
  addUserKnob {6 default_model l "SD \[Default Model]" -STARTLINE}
  addUserKnob {4 sd_model l "SD Model:" M {SD SDXL "" "" "" ""}}
+ addUserKnob {6 cuda l CUDA +STARTLINE}
+ cuda true
  addUserKnob {26 ""}
  addUserKnob {41 p_prompt l "Positive Prompt:" t "Type everything you want to generate in your image." T positive_prompt.message}
  addUserKnob {41 n_prompt l "Negative Prompt:" t "Type everything you don't want to generate in your image." T negative_prompt.message}
@@ -20,6 +22,7 @@ Gizmo {
  width 512
  addUserKnob {3 height l Height: -STARTLINE}
  height 512
+ addUserKnob {22 input_format l "Input Format" -STARTLINE T "node = nuke.thisNode()\nif node.input(0):\n    node\[\"width\"].setValue(node.input(0).width())\n    node\[\"height\"].setValue(node.input(0).height())\nelse:\n    node\[\"width\"].setValue(nuke.root()\['format'].value().width())\n    node\[\"height\"].setValue(nuke.root()\['format'].value().height())"}
  addUserKnob {3 seed l Seed:}
  seed -1
  addUserKnob {22 random_seed l "Random Seed" -STARTLINE T "n = nuke.thisNode()\nn\[\"seed\"].setValue(-1)"}
@@ -32,18 +35,33 @@ Gizmo {
  addUserKnob {7 mask_opacity l "Mask Opacity:" t "This is for visualization only."}
  mask_opacity 0.7
  addUserKnob {26 space1 l "" +STARTLINE T "\n"}
+ addUserKnob {22 render_image l "<b>RENDER INPUT IMAGE" T "node = nuke.thisNode()\ncurrent_frame = nuke.frame()\n\nif node.input(0):\n    with node:\n        nuke.render(\"Write_Image\", current_frame, current_frame)\nelse:\n    nuke.message(\"Please connect the Input Image!\")" +STARTLINE}
+ addUserKnob {22 render_mask l "<b>RENDER INPUT MASK" -STARTLINE T "node = nuke.thisNode()\ncurrent_frame = nuke.frame()\n\nif node.input(1):\n    with node:\n        nuke.render(\"Write_Mask\", current_frame, current_frame)\nelse:\n    nuke.message(\"Please connect the Input Mask!\")"}
  addUserKnob {22 generate l "<b>GENERATE IMAGE" +STARTLINE}
  addUserKnob {22 output_folder l "<b>OPEN OUTPUT FOLDER" -STARTLINE}
+ addUserKnob {41 file_image +INVISIBLE T Write_Image.file}
+ addUserKnob {41 write_image l render_image +INVISIBLE T Write_Image.Render}
+ addUserKnob {41 file_mask +INVISIBLE T Write_Mask.file}
+ addUserKnob {41 write_mask l render_mask +INVISIBLE T Write_Mask.Render}
  addUserKnob {26 space2 l "" +STARTLINE T " "}
  addUserKnob {26 ""}
- addUserKnob {26 credits l "" +STARTLINE T "Nuke<b><font color=\"#9A419D\">Diffusion</font></b> v01.0 &copy; 2024</b>\n<p><font size=2>Danilo de Lucio | VFX Compositor & TD.</font>\n<br><a href=\"https://www.danilodelucio.com/\"><font color=\"#bbbbbb\" size=2>www.danilodelucio.com</a> - <a href=\"https://github.com/danilodelucio/NukeDiffusion\"><font color=\"#bbbbbb\" size=2>Github</a>"}
+ addUserKnob {26 credits l "" +STARTLINE T "Nuke<b><font color=\"#9A419D\">Diffusion</font></b> v01.1 &copy; 2024</b>\n<p><font size=2>Danilo de Lucio | VFX Compositor & TD.</font>\n<br><a href=\"https://www.danilodelucio.com/\"><font color=\"#bbbbbb\" size=2>www.danilodelucio.com</a> - <a href=\"https://github.com/danilodelucio/NukeDiffusion\"><font color=\"#bbbbbb\" size=2>Github</a>"}
 }
  Input {
   inputs 0
   name mask
   xpos -190
-  ypos -17
+  ypos -64
   number 1
+ }
+ Write {
+  file .png
+  file_type png
+  create_directories true
+  checkHashOnRead false
+  name Write_Mask
+  xpos -190
+  ypos -19
  }
  Shuffle2 {
   fromInput1 {{0} B}
@@ -52,13 +70,13 @@ Gizmo {
   name Shuffle1
   label "\[value in1]"
   xpos -190
-  ypos 26
+  ypos 40
  }
  Multiply {
   value {{parent.mask_opacity}}
   name Multiply1
   xpos -190
-  ypos 92
+  ypos 106
  }
  Dot {
   name Dot1
@@ -71,6 +89,16 @@ Gizmo {
   inputs 0
   name image
   xpos 0
+ }
+ Write {
+  file .png
+  file_type png
+  create_directories true
+  checkHashOnRead false
+  version 3
+  name Write_Image
+  xpos 0
+  ypos 81
  }
  Merge2 {
   inputs 2

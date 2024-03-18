@@ -1,6 +1,6 @@
 # -----------------------------------------------------------------------------------
 #  NukeDiffusion - Stable Diffusion for Nuke
-#  Version: v01.0
+#  Version: v01.1
 #  Author: Danilo de Lucio
 #  Website: www.danilodelucio.com
 # -----------------------------------------------------------------------------------
@@ -14,42 +14,44 @@
 
 import os
 import json
+import platform
 
 from nd_infos import nd_infos
 
 class nd_paths(): 
     def mainPath(self):
         current_dir = os.path.dirname(__file__)
-        main_dir = os.path.dirname(current_dir)
+        main_dir = str(os.path.dirname(current_dir)).replace("\\", "/")
         os.chdir(main_dir)
 
         return main_dir
 
     def settingsFile(self):
         settings_file_name = nd_infos().settings_file_name
-        settings_file = os.path.join(self.mainPath(), "config", settings_file_name)
-    
-        return settings_file
+        settings_file = str(os.path.join(self.mainPath(), "config", settings_file_name)).replace("\\", "/")
+
+        if os.path.exists(settings_file):
+            return settings_file
+        
+        else:
+            print("'settings.nukediffusion' not found!")
+            return settings_file
     
     def checkpointsPath(self):
         # Defining the default Checkpoints path
-        default_ckpt_path = os.path.join(self.mainPath(), "models", "checkpoints")
-        if "\\" in default_ckpt_path:
-            default_ckpt_path = default_ckpt_path.replace("\\", "/")
+        default_ckpt_path = os.path.join(self.mainPath(), "models", "checkpoints").replace("\\", "/")
 
         if not os.path.exists(default_ckpt_path):
             os.makedirs(default_ckpt_path)
 
         # Getting the Checkpoint Path from the checkpoints_path.json
-        ckpt_json = os.path.join(self.mainPath(), "checkpoints_path.json")
+        ckpt_json = os.path.join(self.mainPath(), "config", "checkpoints_path.json").replace("\\", "/")
 
         if os.path.exists(ckpt_json):
             with open("{}".format(ckpt_json), "r") as f:
                 data = json.load(f)
 
-            ckpt_path = data["checkpoint_path"]
-            if "\\" in ckpt_path:
-                ckpt_path = str(ckpt_path).replace("\\", "/")
+            ckpt_path = str(data["checkpoint_path"]).replace("\\", "/")
 
             if os.path.exists(ckpt_path):
                 return ckpt_path + "/"
@@ -59,15 +61,30 @@ class nd_paths():
             print("- Error: 'checkpoints.json' file not found!")
 
     def outputPath(self):
-        output_path = os.path.join(self.mainPath(), "_output")
+        output_path = os.path.join(self.mainPath(), "_output").replace("\\", "/")
+        if not os.path.exists(output_path):
+            os.mkdir(output_path)
+
         return output_path
 
     def inputPath(self):
-        input_path = os.path.join(self.mainPath(), "_input")
+        input_path = os.path.join(self.mainPath(), "_input").replace("\\", "/")
+            
+        if not os.path.exists(input_path):
+            os.mkdir(input_path)
+
         return input_path
 
+    def input_image_path(self):
+        input_image_path = self.inputPath() + "/input_image.png"
+        return input_image_path
+
+    def input_mask_path(self):
+        input_mask_path = self.inputPath() + "/input_mask.png"
+        return input_mask_path
+
     def python_files_path(self):
-        python_path = os.path.join(self.mainPath(), "python")
+        python_path = os.path.join(self.mainPath(), "python").replace("\\", "/")
 
         if os.path.exists(python_path):
             return python_path
@@ -76,10 +93,30 @@ class nd_paths():
             return False
 
     def python_exe(self):
-        python_exe_file = os.path.join(self.python_files_path(), "python3.11.6", "python.exe")
+        system = platform.system()
 
-        if os.path.exists(python_exe_file):
-            return python_exe_file
+        # Checking the Operation System
+        if system == "Windows":
+            python_file = os.path.join(self.mainPath(), "for_windows","python3.11.6", "python.exe").replace("\\", "/")
+
+        elif system == "Linux":
+            python_file = os.path.join(self.mainPath(), "for_linux", "python3.11.6", "bin", "python3").replace("\\", "/")
+
+        elif system == "Darwin":
+            python_file = os.path.join(self.mainPath(), "for_mac","python3.11.6", "python").replace("\\", "/")
+
+        if os.path.exists(python_file):
+            return python_file
+        
         else:
-            print("'python3.11.6/python.exe' not found!")
+            print("Python file not found!")
+            return False
+
+    def nd_terminal_file(self):
+        nd_terminal_file = str(os.path.join(self.python_files_path(), "nd_terminal.py")).replace("\\", "/")
+
+        if os.path.exists(nd_terminal_file):
+            return nd_terminal_file
+        else:
+            print("'nd_terminal.py' file not found!")
             return False

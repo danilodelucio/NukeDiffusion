@@ -1,0 +1,1 @@
+./python3.11.6/bin/python3 -m pip install --upgrade diffusers transformers accelerate xformers safetensors rich --no-warn-script-location

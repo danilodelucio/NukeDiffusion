@@ -1,6 +1,6 @@
 # -----------------------------------------------------------------------------------
 #  NukeDiffusion - Stable Diffusion for Nuke
-#  Version: v01.0
+#  Version: v01.1
 #  Author: Danilo de Lucio
 #  Website: www.danilodelucio.com
 # -----------------------------------------------------------------------------------
@@ -15,11 +15,12 @@
 import datetime
 import pickle
 import base64
+import os
 
 class nd_infos():
     def __init__(self):
         self.class_node = "NukeDiffusion"
-        self.nukediffusion_version = "v01.0"
+        self.nukediffusion_version = "v01.1"
         self.default_model = "Stable Diffusion [Default Model]"
         self.settings_file_name = "settings.nukediffusion"
         self.print_terminal = "NukeDiffusion {}, built in Feb 2024.\nCopyright (c) 2024 Danilo de Lucio. All Rights Reserved.".format(self.nukediffusion_version)
@@ -41,7 +42,9 @@ class nd_infos():
 
         return final_fileName
     
-    def create_settings_file(self, file_path, data):        
+    def create_settings_file(self, file_path, data):
+        file_path = str(file_path).replace("\\", "/")
+
         # Pickling and Encoding data
         pickle_data = pickle.dumps(data, protocol=2)
         encode_data = base64.b64encode(pickle_data)
@@ -49,7 +52,9 @@ class nd_infos():
         with open(file_path, "wb") as file:
             file.write(encode_data)
         
-        print("- The '{}' file has been created!".format(self.settings_file_name))
+        if not os.path.exists(file_path):
+            print("- The '{}' file has been created!".format(self.settings_file_name))
+
         return
 
     def read_settings_file(self, file_path):

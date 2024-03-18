@@ -1,0 +1,1 @@
+./python3.11.6/bin/python3 ../python/check_cuda_enabled.py
