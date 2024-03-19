@@ -1,1 +1,8 @@
-./python3.11.6/bin/python3 -m pip freeze
+source ./activate_nukediffusion-env.sh
+echo - Loading nukediffusion-env packages...
+echo ""
+pip freeze
+deactivate
+echo ""
+echo - nukediffusion-env has been deactivated!
+echo ""

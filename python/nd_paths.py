@@ -14,7 +14,6 @@
 
 import os
 import json
-import platform
 
 from nd_infos import nd_infos
 
@@ -90,26 +89,6 @@ class nd_paths():
             return python_path
         else:
             print("'python' folder not found!")
-            return False
-
-    def python_exe(self):
-        system = platform.system()
-
-        # Checking the Operation System
-        if system == "Windows":
-            python_file = os.path.join(self.mainPath(), "for_windows","python3.11.6", "python.exe").replace("\\", "/")
-
-        elif system == "Linux":
-            python_file = os.path.join(self.mainPath(), "for_linux", "python3.11.6", "bin", "python3").replace("\\", "/")
-
-        elif system == "Darwin":
-            python_file = os.path.join(self.mainPath(), "for_mac","python3.11.6", "python").replace("\\", "/")
-
-        if os.path.exists(python_file):
-            return python_file
-        
-        else:
-            print("Python file not found!")
             return False
 
     def nd_terminal_file(self):
