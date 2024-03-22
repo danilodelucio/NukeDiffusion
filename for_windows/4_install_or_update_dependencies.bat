@@ -1,0 +1,1 @@
+.\python3.11.6\python.exe -m pip install --upgrade diffusers transformers accelerate xformers safetensors rich torch==2.2.0 torchvision==0.17.0 torchaudio==2.2.0 --no-warn-script-location
