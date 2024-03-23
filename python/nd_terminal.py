@@ -17,21 +17,21 @@ import sys
 import time
 import random
 
-from rich.console import Console
-from rich.theme import Theme
-from rich.table import Table
-from rich.progress import track
-from rich.traceback import install
-install()
-
-from nd_paths import nd_paths
-from nd_infos import nd_infos
-from os_terminal import os_Terminal
-
-custom_theme = Theme({"success":"green", "alert":"yellow", "error":"red"})
-console = Console(theme=custom_theme)
-
 try:
+    from rich.console import Console
+    from rich.theme import Theme
+    from rich.table import Table
+    from rich.progress import track
+    from rich.traceback import install
+    install()
+
+    from nd_paths import nd_paths
+    from nd_infos import nd_infos
+    from os_terminal import os_Terminal
+
+    custom_theme = Theme({"success":"green", "alert":"yellow", "error":"red"})
+    console = Console(theme=custom_theme)
+
     import torch
 
     class NukeDiffusion():
@@ -405,7 +405,7 @@ try:
             self.terminal_name = 50*" " + "NukeDiffusion Terminal" + 50*" "
             
             os_Terminal().clear()
-            os_Terminal().title(self.terminal_name)
+            os_Terminal().title("NukeDiffusion Terminal")
 
             console.print(len(self.terminal_name)*"-", style="alert")
             print("")

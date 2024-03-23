@@ -13,8 +13,10 @@
 
 
 import sys
+
 from rich.console import Console
 from rich.theme import Theme
+
 
 custom_theme = Theme({"success":"green", "alert":"yellow", "error":"red"})
 console = Console(theme=custom_theme)
@@ -29,10 +31,11 @@ try:
     device_count = torch.cuda.device_count()
     device_name = torch.cuda.get_device_name()
 
-    print("")
-    if available_cuda:
-        console.print("- CUDA is available!", style="success")
+    if available_cuda or torch.backends.mps.is_available():
+        
+        console.print("\n- CUDA is available!", style="success")
         console.print(f"    - Device name: {device_name}", style="success")
+
     else:
         console.print("- CUDA is not available!", style="alert")
 

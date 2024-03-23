@@ -33,21 +33,41 @@ class os_Terminal():
 
         elif self.system == self.mac_str:
             return os.system(mac_cmd)
+        
+    def init_install(self):
+        for_windows_path = nd_paths().for_windows_path()
+        for_linux_path = nd_paths().for_linux_path()
+        for_mac_path = nd_paths().for_mac_path()
+
+        if self.system == self.windows_str:
+            os.chdir(for_windows_path)
+            os.system("init_install.bat")
+            return
+
+        elif self.system == self.linux_str:
+            os.chdir(for_linux_path)
+            os.system("source init_install.sh")
+            return
+
+        elif self.system == self.mac_str:
+            os.chdir(for_mac_path)
+            os.system("source init_install.sh")
+            return
 
     def pause(self):
         self.os_check("pause",
                       "read 'Press Enter to continue...'",
-                      "Running on Mac OS...")
+                      "echo Running on Mac OS...")
     
     def clear(self):
         self.os_check('cls' if os.name=='nt' else 'clear',
                       "clear",
-                      "Running on Mac OS...")
+                      "clear")
         
     def title(self, title_name):
         self.os_check("title {}".format(title_name),
-                      "gnome-terminal --title='{}'".format(title_name),
-                      "{}".format(title_name))
+                      "echo Opening {}...".format(title_name),
+                      "echo Opening {}...".format(title_name))
     
     def start(self):
         main_path = nd_paths().mainPath()
@@ -55,10 +75,8 @@ class os_Terminal():
 
         # Windows
         python_exe_file = os.path.join(nd_paths().mainPath(), "for_windows/python3.11.6/python.exe").replace("\\", "/")
-
         # Linux
         nk_linux_env = os.path.join(main_path, "for_linux/nukediffusion-env/bin/activate")
-
         # Mac
         nk_mac_env = os.path.join(main_path, "for_mac/nukediffusion-env/bin/activate")
 

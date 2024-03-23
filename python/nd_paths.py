@@ -99,3 +99,30 @@ class nd_paths():
         else:
             print("'nd_terminal.py' file not found!")
             return False
+
+    def for_windows_path(self):
+        for_windows_path = os.path.join(self.mainPath(), "for_windows").replace("\\", "/")
+        
+        if os.path.exists(for_windows_path):
+            return for_windows_path
+        else:
+            print("'for_windows' folder not found!")
+            return
+
+    def for_linux_path(self):
+        for_linux_path = os.path.join(self.mainPath(), "for_linux").replace("\\", "/")
+
+        if os.path.exists(for_linux_path):
+            return for_linux_path
+        else:
+            print("'for_linux' folder not found!")
+            return
+
+    def for_mac_path(self):
+        for_mac_path = os.path.join(self.mainPath(), "for_mac").replace("\\", "/")
+
+        if os.path.exists(for_mac_path):
+            return for_mac_path
+        else:
+            print("'for_mac' folder not found!")
+            return
