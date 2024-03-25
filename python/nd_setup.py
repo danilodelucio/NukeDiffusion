@@ -43,6 +43,7 @@ class ND_Setup():
         os.chdir(self.system_folder)
 
         if not os.path.exists(venv_path):
+            print("- Creating the virtual environment...")
             os_Terminal().os_check(f"python -m venv {self.venv_name}",
                                    f"python3 -m venv {self.venv_name}",
                                    f"python3 -m venv {self.venv_name}")
@@ -56,20 +57,24 @@ class ND_Setup():
         pass
 
     def pip_venv(self, pip_cmd):
-        venv_path = self.check_env()
-        os.chdir(venv_path)
+        os.chdir(self.system_folder)
 
-        if os.path.exists(venv_path):
+        print(f"\n({self.venv_name})")
 
-            os_Terminal().os_check(f"{venv_path}\\Scripts\\python.exe -m {pip_cmd}",
-                                f"source {venv_path}/bin/activate.sh",
-                                f"source {venv_path}/bin/activate.sh")
-            
-            print(f"\n({self.venv_name})")
-            return True
-        else:
-            print(f"- The '{self.venv_name}' folder does not exist!")
-            return False
+        # Windows
+        if os_Terminal().system == os_Terminal().windows_str:
+            pip_windows = f"{self.venv_name}\\Scripts\\python.exe -m {pip_cmd}\n"
+            print(pip_windows)
+            os.system(pip_windows)
+
+        # Linux & Mac
+        elif os_Terminal().system == os_Terminal().linux_str or os_Terminal().system == os_Terminal().mac_str:
+            pip_linux_mac = f"source {self.venv_name}/bin/activate.sh\n"
+            print(pip_linux_mac)
+            os.system(pip_linux_mac)
+        
+        return True
+
 
     def uninstall_default_torch(self):
         venv_path = self.check_env()
@@ -203,40 +208,42 @@ class ND_Setup():
                 console.print("- Please choose one of the options above!\n", style="error")
                 continue
 
+try:
+    ND_Setup().check_env()
+    ND_Setup().init_install()
 
-ND_Setup().check_env()
-ND_Setup().init_install()
+    from rich.console import Console
+    from rich.theme import Theme
+    from rich.traceback import install
+    install()
+    custom_theme = Theme({"success":"green", "alert":"yellow", "error":"red"})
+    console = Console(theme=custom_theme)
 
-from rich.console import Console
-from rich.theme import Theme
-from rich.traceback import install
-install()
-custom_theme = Theme({"success":"green", "alert":"yellow", "error":"red"})
-console = Console(theme=custom_theme)
+    import torch
 
-import torch
+    print(f"\n- Python Version: {sys.version[:6]}")
+    print(f"- Torch version: {torch.__version__}\n")
+    available_cuda = torch.cuda.is_available()
+    device_count = torch.cuda.device_count()
+    device_name = torch.cuda.get_device_name()
 
-print(f"\n- Python Version: {sys.version[:6]}")
-print(f"- Torch version: {torch.__version__}\n")
-available_cuda = torch.cuda.is_available()
-device_count = torch.cuda.device_count()
-device_name = torch.cuda.get_device_name()
+    if available_cuda or torch.backends.mps.is_available():
+        os_Terminal().os_check("nvidia-smi",
+                            "nvidia-smi",
+                            " ")
+        
+        console.print("\n- CUDA is available!", style="success")
+        console.print(f"    - Device name: {device_name}", style="success")
+        ND_Setup().installing_cuda()
 
-if available_cuda or torch.backends.mps.is_available():
-    os_Terminal().os_check("nvidia-smi",
-                        "nvidia-smi",
-                        " ")
-    
-    console.print("\n- CUDA is available!", style="success")
-    console.print(f"    - Device name: {device_name}", style="success")
-    ND_Setup().installing_cuda()
+    else:
+        console.print("- CUDA is not available!", style="error")
+        console.print("Using torch for CPU...", style="alert")
+        ND_Setup().install_cpu()
 
-else:
-    console.print("- CUDA is not available!", style="error")
-    console.print("Using torch for CPU...", style="alert")
-    ND_Setup().install_cpu()
+    console.print("\n[bold]:white_check_mark: The NukeDiffusion setup has been completed!", style="success")
+    input("\nYou can close this window...")
 
-console.print("\n[bold]:white_check_mark: The NukeDiffusion setup has been completed!", style="success")
-input("\nYou can close this window...")
-
-
+except Exception as error:
+    print(f"\n- Error: {error}.\n")
+    os_Terminal().pause()
