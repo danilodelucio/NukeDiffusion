@@ -72,7 +72,6 @@ class ND_Setup():
         
         return True
 
-
     def uninstall_default_torch(self):
         venv_path = self.check_env()
         os.chdir(venv_path)
