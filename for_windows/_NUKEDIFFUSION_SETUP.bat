@@ -1,2 +1,2 @@
 @echo off
-python ..\python\nd_setup.py
+.\nukediffusion-env\Scripts\python.exe ..\python\nd_setup.py

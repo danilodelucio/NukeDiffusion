@@ -52,9 +52,6 @@ class ND_Setup():
         
         print(f"- {self.venv_name} path: {venv_path}")
         return venv_path
-    
-    def check_python(self):
-        pass
 
     def pip_venv(self, pip_cmd):
         os.chdir(self.system_folder)
