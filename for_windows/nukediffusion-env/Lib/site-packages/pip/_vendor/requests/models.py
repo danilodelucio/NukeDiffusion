@@ -438,7 +438,7 @@ class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
         if not scheme:
             raise MissingSchema(
                 f"Invalid URL {url!r}: No scheme supplied. "
-                f"Perhaps you meant https://{url}?"
+                f"Perhaps you meant http://{url}?"
             )
 
         if not host:

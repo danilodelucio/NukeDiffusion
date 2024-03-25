@@ -7,15 +7,13 @@ from __future__ import annotations
 import os
 import sys
 from pathlib import Path
+from typing import TYPE_CHECKING
 
-if sys.version_info >= (3, 8):  # pragma: no cover (py38+)
-    from typing import Literal
-else:  # pragma: no cover (py38+)
-    from pip._vendor.typing_extensions import Literal
+if TYPE_CHECKING:
+    from pip._vendor.typing_extensions import Literal  # pragma: no cover
 
 from .api import PlatformDirsABC
-from .version import __version__
-from .version import __version_tuple__ as __version_info__
+from .version import __version__, __version_info__
 
 
 def _set_platform_dir_class() -> type[PlatformDirsABC]:
@@ -28,7 +26,7 @@ def _set_platform_dir_class() -> type[PlatformDirsABC]:
 
     if os.getenv("ANDROID_DATA") == "/data" and os.getenv("ANDROID_ROOT") == "/system":
 
-        if os.getenv("SHELL") or os.getenv("PREFIX"):
+        if os.getenv("SHELL") is not None:
             return Result
 
         from pip._vendor.platformdirs.android import _android_folder

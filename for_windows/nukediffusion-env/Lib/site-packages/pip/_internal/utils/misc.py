@@ -12,7 +12,6 @@ import posixpath
 import shutil
 import stat
 import sys
-import sysconfig
 import urllib.parse
 from io import StringIO
 from itertools import filterfalse, tee, zip_longest
@@ -35,11 +34,11 @@ from typing import (
     cast,
 )
 
-from pip._vendor.pyproject_hooks import BuildBackendHookCaller
+from pip._vendor.pep517 import Pep517HookCaller
 from pip._vendor.tenacity import retry, stop_after_delay, wait_fixed
 
 from pip import __version__
-from pip._internal.exceptions import CommandError, ExternallyManagedEnvironment
+from pip._internal.exceptions import CommandError
 from pip._internal.locations import get_major_minor_version
 from pip._internal.utils.compat import WINDOWS
 from pip._internal.utils.virtualenv import running_under_virtualenv
@@ -58,9 +57,9 @@ __all__ = [
     "captured_stdout",
     "ensure_dir",
     "remove_auth_from_url",
-    "check_externally_managed",
-    "ConfiguredBuildBackendHookCaller",
+    "ConfiguredPep517HookCaller",
 ]
+
 
 logger = logging.getLogger(__name__)
 
@@ -582,21 +581,6 @@ def protect_pip_from_modification_on_windows(modifying_pip: bool) -> None:
         )
 
 
-def check_externally_managed() -> None:
-    """Check whether the current environment is externally managed.
-
-    If the ``EXTERNALLY-MANAGED`` config file is found, the current environment
-    is considered externally managed, and an ExternallyManagedEnvironment is
-    raised.
-    """
-    if running_under_virtualenv():
-        return
-    marker = os.path.join(sysconfig.get_path("stdlib"), "EXTERNALLY-MANAGED")
-    if not os.path.isfile(marker):
-        return
-    raise ExternallyManagedEnvironment.from_config(marker)
-
-
 def is_console_interactive() -> bool:
     """Is this console interactive?"""
     return sys.stdin is not None and sys.stdin.isatty()
@@ -651,7 +635,7 @@ def partition(
     return filterfalse(pred, t1), filter(pred, t2)
 
 
-class ConfiguredBuildBackendHookCaller(BuildBackendHookCaller):
+class ConfiguredPep517HookCaller(Pep517HookCaller):
     def __init__(
         self,
         config_holder: Any,

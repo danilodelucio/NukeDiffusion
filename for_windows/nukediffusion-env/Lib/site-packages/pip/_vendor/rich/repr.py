@@ -1,17 +1,20 @@
-import inspect
 from functools import partial
+import inspect
+import sys
+
 from typing import (
     Any,
     Callable,
     Iterable,
     List,
     Optional,
+    overload,
+    Union,
     Tuple,
     Type,
     TypeVar,
-    Union,
-    overload,
 )
+
 
 T = TypeVar("T")
 

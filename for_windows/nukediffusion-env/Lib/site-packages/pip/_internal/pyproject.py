@@ -159,8 +159,9 @@ def load_pyproject_toml(
     if backend is None:
         # If the user didn't specify a backend, we assume they want to use
         # the setuptools backend. But we can't be sure they have included
-        # a version of setuptools which supplies the backend. So we
-        # make a note to check that this requirement is present once
+        # a version of setuptools which supplies the backend, or wheel
+        # (which is needed by the backend) in their requirements. So we
+        # make a note to check that those requirements are present once
         # we have set up the environment.
         # This is quite a lot of work to check for a very specific case. But
         # the problem is, that case is potentially quite common - projects that
@@ -169,6 +170,6 @@ def load_pyproject_toml(
         # tools themselves. The original PEP 518 code had a similar check (but
         # implemented in a different way).
         backend = "setuptools.build_meta:__legacy__"
-        check = ["setuptools>=40.8.0"]
+        check = ["setuptools>=40.8.0", "wheel"]
 
     return BuildSystemDetails(requires, backend, check, backend_path)
