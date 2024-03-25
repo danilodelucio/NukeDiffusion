@@ -17,6 +17,7 @@ import platform
 
 from nd_paths import nd_paths
 
+
 class os_Terminal():
     def __init__(self):
         self.system = platform.system()
@@ -34,26 +35,6 @@ class os_Terminal():
         elif self.system == self.mac_str:
             return os.system(mac_cmd)
         
-    def init_install(self):
-        for_windows_path = nd_paths().for_windows_path()
-        for_linux_path = nd_paths().for_linux_path()
-        for_mac_path = nd_paths().for_mac_path()
-
-        if self.system == self.windows_str:
-            os.chdir(for_windows_path)
-            os.system("init_install.bat")
-            return
-
-        elif self.system == self.linux_str:
-            os.chdir(for_linux_path)
-            os.system("source init_install.sh")
-            return
-
-        elif self.system == self.mac_str:
-            os.chdir(for_mac_path)
-            os.system("source init_install.sh")
-            return
-
     def pause(self):
         self.os_check("pause",
                       "read 'Press Enter to continue...'",
@@ -74,7 +55,7 @@ class os_Terminal():
         nd_terminal_file = str(nd_paths().nd_terminal_file()).replace("\\", "/")
 
         # Windows
-        python_exe_file = os.path.join(nd_paths().mainPath(), "for_windows/python3.11.6/python.exe").replace("\\", "/")
+        python_exe_file = os.path.join(nd_paths().mainPath(), "for_windows/nukediffusion-env/Scripts/python.exe").replace("\\", "/")
         # Linux
         nk_linux_env = os.path.join(main_path, "for_linux/nukediffusion-env/bin/activate")
         # Mac

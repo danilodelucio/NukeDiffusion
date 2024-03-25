@@ -1,2 +1,1 @@
-source ./activate_nukediffusion-env.sh
-python ../python/nd_setup.py
+python3 ../python/nd_setup.py

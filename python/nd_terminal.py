@@ -306,7 +306,6 @@ try:
                     return "mps"
                 
                 else:
-                    console.print("\n:warning:  CUDA is not available, running in CPU...", style="alert")
                     return "cpu"
             else:
                 return "cpu"
@@ -323,6 +322,12 @@ try:
             return seed
 
         def ckptPath_check(self, path):
+            # CUDA message
+            if self.cuda_device() == "cpu" and self.cuda == True:
+                console.print("\n:warning:  CUDA is not available, running in CPU...", style="alert")
+            elif self.cuda == False:
+                console.print("\n:warning:  Running in CPU...", style="alert")
+
             # Checking if the Checkpoint option exists or not
             if self.default_model == True:
                 console.print("\n:warning:  Using the {} checkpoint!\n".format(self.checkpoint_name), style="alert")

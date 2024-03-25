@@ -1,1 +1,2 @@
-.\python3.11.6\python.exe ..\python\nd_setup.py --no-warn-script-location
+@echo off
+python ..\python\nd_setup.py
