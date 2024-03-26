@@ -60,8 +60,7 @@ In summary, the minimum setup required mentioned in the article is:
 <!-- ############################################################# PYTHON COMPATIBILITY ############################################################# -->
 <h1>Python Compatibility 🐍</h1>
 
-- **NukeDiffusion** comes with a built-in Python installation (version **3.11.6**),
-which is used to run **NukeDiffusion Terminal**;
+- **NukeDiffusion Terminal** uses some libraries from Hugging Face (such as Diffusers and PyTorch) and requires Python version **3.8-3.11** installed in your system;
 
 - **NukeDiffusion node** was written in **Python2.7** to make it possible to run in all Nuke versions (hopefully). 😐
 
@@ -83,7 +82,6 @@ For now, the included pipeline workflows are:
 > [!IMPORTANT]
 > _To use the **img2img** and **inpainting** workflows, you must input Read nodes directly to the input image/input mask;_<br>
 >
-> _This tool does not export the connected inputs automatically (at least for now), so you should pre-render your inputs in case they have extra nodes  (Roto, Reformat etc)._<br>
 <br>
 
 <!-- ############################################################# NUKEDIFFUSION NODE ############################################################# -->
