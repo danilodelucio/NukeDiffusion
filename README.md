@@ -60,7 +60,7 @@ In summary, the minimum setup required mentioned in the article is:
 <!-- ############################################################# PYTHON COMPATIBILITY ############################################################# -->
 <h1>Python Compatibility 🐍</h1>
 
-- **NukeDiffusion Terminal** uses some libraries from Hugging Face (such as Diffusers and PyTorch) and requires Python version **3.8-3.11** installed in your system;
+- **NukeDiffusion Terminal** uses some libraries from Hugging Face (such as Diffusers and PyTorch) and requires Python version **3.8-3.11** installed into your system;
 
 - **NukeDiffusion node** was written in **Python2.7** to make it possible to run in all Nuke versions (hopefully). 😐
 
@@ -79,9 +79,6 @@ For now, the included pipeline workflows are:
 > [!NOTE]
 > _For now, the **inpainting** workflow works only with the Stable Diffusion default model, therefore is not possible to use local Checkpoint._
 
-> [!IMPORTANT]
-> _To use the **img2img** and **inpainting** workflows, you must input Read nodes directly to the input image/input mask;_<br>
->
 <br>
 
 <!-- ############################################################# NUKEDIFFUSION NODE ############################################################# -->
@@ -210,11 +207,8 @@ But don't give up, it will be worth it! 🤓
 <br>
 <br>
 
-There are a few `.bat` files in the **NukeDiffusion** folder to help you install all the necessary dependencies.<br>
-
 > [!NOTE]
-> _All these dependencies will be automatically installed into the `.\NukeDiffusion\python\python3.11.6` directory_.<br>
-> _For each executed `.bat` file, please wait until you see the `Press any key to continue...` message before closing the Terminal._
+> _All these dependencies will be automatically installed into the `.\NukeDiffusion\<system-folder>\nukediffusion-env` directory_.<br>
 
 <br>
 Let me break it into a few parts:
@@ -227,6 +221,10 @@ Let me break it into a few parts:
   Click on the green button to download the **NukeDiffusion** and save it into your `.nuke` folder.<br>
   
   ![image](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/a092b5cd-395e-4f73-84ee-dd167b289368)
+
+After extracting the `NukeDiffusion.zip` file, rename the **NukeDiffusion-main** folder to **NukeDiffusion** only (without the "main" word at the end).
+
+![image](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/34abb3c2-2a17-45ee-8932-84d251f70f36)
 
   Open the `init.py` file from the `.nuke` root, then indicate the **NukeDiffusion** folder, like this:
   ```python
@@ -241,53 +239,28 @@ nuke.pluginAddPath('./NukeDiffusion')
 </details>
 
 <details>
-<summary>2. PyTorch / CUDA</summary>
+<summary>2. _NUKEDIFFUSION_SETUP file</summary>
   <br>
 
-PyTorch is an open-source framework for building and training neural networks (deep learning). It's highly flexible and dynamic, making it ideal for generating AI images.
+You will find a **_NUKEDIFFUSION_SETUP** file in the `for_windows` or `for_linux_and_mac` folder. 
 
-> _To learn more about it, please visit [this page](https://www.nvidia.com/en-us/glossary/pytorch/) from the NVidia website._
+Execute the file related to your operating system: 
+
+- In Windows, double-click in the `_NUKEDIFFUSION_SETUP.bat` file;
+- In Linux/Mac OS, open the terminal in the same directory and run `source _NUKEDIFFUSION_SETUP.sh` file.
+
+
+Follow the instructions until you see the **"The NukeDiffusion setup has been completed!"** message.<br>
+
+![2024-03-22 16_56_11-for_windows](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/c6e3187d-4f9d-4a85-9c81-05e207b38315)
+
+
+![Screenshot 2024-03-22 165031](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/ea504669-aede-43f9-bad3-1168ea2524bf)
 <br>
 
-In the `.\NukeDiffusion\cuda` folder, let's run some `.bat` files.<br>
-<br>
-
-1- Run the `check_cuda_version.bat` file to display the CUDA version of your graphic card (around the upper right corner).<br>
+If you are getting `CUDA is not available` as a response, [go to this page](https://developer.nvidia.com/cuda-gpus) from NVidia, download and install the **CUDA Toolkit**, then try this step again until you get CUDA enabled. 🤞
 
 
-![cuda version](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/1d92f570-4961-4222-ad1d-a4ab9cbe1dc9)
-<br>
-
-2- If your CUDA version is 12, run the `install_pytorch_cuda12.bat` file, otherwise, if it's version 11, run the `install_pytorch_cuda11.bat` (this process can take a while).<br>
-<br>
-
-![image](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/b28a66a2-592b-4fec-bb88-4338d75a40da)
-<br>
-
-3- Run the `check_cuda_enabled.bat` file to display if your CUDA is enabled and also check if the `torch` module is working.<br>
-<br>
-
-![image](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/07265213-ea27-4b10-8bb2-11d54bc7b223)
-
-If you get `CUDA is available!` as a response you are good to go, otherwise, [go to this page](https://developer.nvidia.com/cuda-gpus) from NVidia, download and install the **CUDA Toolkit**, then try again this step until you get CUDA enabled. 🤞
-
-
-</details>
-
-<details>
-  <summary>3. Python Dependencies</summary>
-<br>
-  
-  Finally, if you followed all the steps above and everything worked fine, now is the last part. 🙌
-  <br>
-
-  Open the file `install_or_update_dependencies.bat`, it will open the Terminal and install all the necessary Python dependencies for **Stable Diffusion**.<br>
-  
-  ![image](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/571a6487-9243-4117-8545-5261f61ac387)
-
-
-  And that's it, now you are ready to use **NukeDiffusion**! :star_struck:
-  
 </details>
 
 At the end of this guide, you should see the **NukeDiffusion**'s icon on your left side toolbar when you launch Nuke.<br>
@@ -326,7 +299,7 @@ If you are unsure about which Checkpoint to use, I'm going to list some of my fa
 <br>
 
 After downloading the Checkpoint, you can put them in `.\NukeDiffusion\models\checkpoints`.<br>
-If you have another folder where you'd like to use the Checkpoints, you can set a default path in the `checkpoints_path.json` file.
+If you have another folder where you'd like to use the Checkpoints, you can set a default path in the `checkpoints_path.json` file, located in the `.\NukeDiffusion\config` folder.
 
 ![image](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/a885b9d9-d7ff-4611-a061-9acea7aa599a)
 
