@@ -38,6 +38,7 @@ Some limitations you need to consider for this version:
 - [Installing](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#installing-%EF%B8%8F);
 - [Checkpoints](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#checkpoints-);
 - [Troubleshooting](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#troubleshooting-%EF%B8%8F);
+- [Release Notes](https://github.com/danilodelucio/NukeDiffusion/edit/linux/README.md#release-notes-);
 - [Support me](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#support-me-);
 
 
@@ -340,7 +341,18 @@ For bugs, please go to the [Issues](https://github.com/danilodelucio/NukeDiffusi
 <br>
 <br>
 
-<!-- ############################################################# SUPPORT ME ############################################################# -->
+<!-- ############################################################# RELEASE NOTES ############################################################# -->
+<h1>Release Notes 📢</h1>
+
+**v01.1**:
+- Simplified setup installation;
+- Added support for Linux and Mac OS;
+- CPU support;
+- Export buttons for Input Image and Input Mask;
+- "Input Format" button to adjust the image resolution.;
+- Countdown feature for closing the Terminal window.
+
+<!-- ############################################################# BUY ME A COFFEE ############################################################# -->
 <h1>Support me! 🥺</h1>
 
 ![image](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/ee1e5d16-43e2-46bc-bc48-aaf1d7559b87)
@@ -348,13 +360,13 @@ For bugs, please go to the [Issues](https://github.com/danilodelucio/NukeDiffusi
 This personal project required significant time and extra hours of hard work to make it available to everyone. <br>
 It's not perfect, and I still need to work on many features, but for the first version, I believe it can help Nuke users live this experience. 🤖
 
-If you find this tool useful, please consider supporting me on [Buy Me A Coffee](https://www.buymeacoffee.com/danilodelucio). :coffee: <br>
+If you find this tool useful, please consider supporting me on [Buy Me A Coffee](https://www.buymeacoffee.com/danilodelucio). ☕ <br>
 You can also share this tool or send me a positive message, it would help me in the same way.
 
 If you believe in this project and want to sponsor it for future updates, reach out on my [Linkedin](https://www.linkedin.com/in/danilodelucio/).
 
 ---
-Special thanks to Gustavo Goncalves and Leticia Matsuoka for testing this tool and providing valuable feedback for improvement. Also, thanks to Juliana Chen for her support and encouragement.
+Special thanks to **Gustavo Goncalves** and **Leticia Matsuoka** for testing this tool and providing valuable feedback for improvement. Also, thanks to **Juliana Chen** for her support and encouragement.
 
 <h1>Cheers! 🥂</h1>
 
