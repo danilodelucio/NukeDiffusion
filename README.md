@@ -5,21 +5,20 @@
 <br>**NukeDiffusion** is an integration tool for Nuke that uses [Stable Diffusion](https://stability.ai/) to generate AI images from prompts using local Checkpoints.<br>
 It uses the official library from [Hugging Face](https://huggingface.co), and you don't need to create any account, everything works locally!
 
-:white_check_mark: Unlimited image generation;
+✅ Unlimited image generation;
 <br>✅ Local Checkpoints (SD and SDXL models);
 <br>✅ Main workflows included (**txt2img**, **img2img**, **inpainting**);
 <br>✅ No internet connection required;
 <br>✅ No sign-in account required;
-<br>✅ Free for non-commercial or commercial use.
+<br>✅ Free for non-commercial or commercial use;
+<br>✅ Available for Windows, Linux and Mac OS;
+<br>✅ Compatible with CPU and CUDA.
 <br>
 <br>
-Some limitations you need to consider for this first version:
+Some limitations you need to consider for this version:
 
-📌 only for Windows (sorry 🐧 and 🍎);
-<br>📌 generate single images only (no animation supported);
-<br>📌 image files supported: **.jpg**, **.png**, **.tif** (does not support **.exr** and video files);
-<br>📌 batch feature for multiple image generation not included;
-<br>📌 compatible only with CUDA.
+📌 generate single images only (no animation supported);
+<br>📌 batch feature for multiple image generation not included.
 
 > [!NOTE]
 > _For experienced users, **NukeDifussion** does not support **ControlNet**, **Lora**, **AnimateDiff** and other advanced controls, just the basic setup for image generation._
@@ -92,7 +91,7 @@ For now, the included pipeline workflows are:
 
 The **NukeDiffusion** node is pretty straightforward. Everything you need is in the same panel, and the UI updates accordingly to your workflow option (**txt2img**, **img2img**, **inpainting**).
 
-![NukeDiffusion_NodeUI_v003](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/545cfbdd-34d3-4c58-9f9f-32e55239d5d9)
+![NukeDiffusion_NodeUI_v004](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/e9eef875-99c2-4d26-ae4d-54c477ac1420)
 
 - `Workflow`: select one of the 3 workflow options to work with: **txt2img**, **img2img** or **inpainting**;
 
@@ -105,6 +104,8 @@ The **NukeDiffusion** node is pretty straightforward. Everything you need is in 
 > _**SD** and **SDXL** models were pretrained with different resolutions, and they have different pipelines to produce your image._<br>
 > _If you provide a **Checkpoint** with the wrong **SD Model**, the **NukeDiffusion Terminal** will close automatically._
 
+- `CUDA`: generate the images using the GPU (graphics card) if it is available on your machine.;
+  
 - `Positive Prompt`: type everything __you want__ to be generated in your image;
 
 - `Negative Prompt`: type everything __you do not want__ to be generated in your image;
@@ -135,6 +136,10 @@ The **NukeDiffusion** node is pretty straightforward. Everything you need is in 
             </details>
             
 - `Mask Opacity`: just for visualization purposes to check the mask input over the image input.
+
+- `Render Input Image`: quickly export the **Input Image** to the `./NukeDiffusion/_input` folder;
+
+- `Render Input Mask`: quickly export the **Input Mask** to the `./NukeDiffusion/_input` folder;
 <br>
 
 <!-- ############################################################# NUKEDIFUSSION TERMINAL ############################################################# -->
