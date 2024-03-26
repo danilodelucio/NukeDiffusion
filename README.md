@@ -207,9 +207,6 @@ But don't give up, it will be worth it! 🤓
 <br>
 <br>
 
-> [!NOTE]
-> _All these dependencies will be automatically installed into the `.\NukeDiffusion\<system-folder>\nukediffusion-env` directory_.<br>
-
 <br>
 Let me break it into a few parts:
 <br>
@@ -247,8 +244,16 @@ You will find a **_NUKEDIFFUSION_SETUP** file in the `for_windows` or `for_linux
 Execute the file related to your operating system: 
 
 - In Windows, double-click in the `_NUKEDIFFUSION_SETUP.bat` file;
-- In Linux/Mac OS, open the terminal in the same directory and run `source _NUKEDIFFUSION_SETUP.sh` file.
+  
+  ![2024-03-27 02_25_30-for_windows](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/1486ed76-74bf-4284-b5cc-7ad277163500)
 
+- In Linux/Mac OS, open the terminal in the same directory and run `source _NUKEDIFFUSION_SETUP.sh` file.
+  
+  ![Screenshot from 2024-03-27 02-16-25 2](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/fc286093-d6ef-42c7-858a-39a34c432985)
+
+It will create the `nukediffusion-env` folder (the virtual environment), and then all the dependencies will be installed automatically inside this folder.<br>
+
+![image](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/287f835e-5ef7-44d3-9647-7fd9d40c2452)
 
 Follow the instructions until you see the **"The NukeDiffusion setup has been completed!"** message.<br>
 
