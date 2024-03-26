@@ -30,28 +30,16 @@ class ND_Setup():
         if os_Terminal().system == os_Terminal().windows_str:
             self.system_folder = nd_paths().for_windows_path()
 
-        # Linux
-        elif os_Terminal().system == os_Terminal().linux_str:
-            self.system_folder = nd_paths().for_linux_path()
+        # Linux & Mac
+        elif os_Terminal().system == os_Terminal().linux_str or os_Terminal().system == os_Terminal().mac_str:
+            self.system_folder = nd_paths().for_linux_and_mac_path()
 
-        # Mac
-        elif os_Terminal().system == os_Terminal().mac_str:
-            self.system_folder = nd_paths().for_mac_path()
+        # # Mac
+        # elif os_Terminal().system == os_Terminal().mac_str:
+        #     self.system_folder = nd_paths().for_mac_path()
 
-    def check_env(self):
-        venv_path = str(os.path.join(self.system_folder, self.venv_name)).replace("\\", "/")
-        os.chdir(self.system_folder)
-
-        if not os.path.exists(venv_path):
-            print("- Creating the virtual environment...")
-            os_Terminal().os_check(f"python -m venv {self.venv_name}",
-                                   f"python3 -m venv {self.venv_name}",
-                                   f"python3 -m venv {self.venv_name}")
-            time.sleep(0.5)
-            print(f"\n'{self.venv_name}' has been created!\n")
-        
-        print(f"- {self.venv_name} path: {venv_path}")
-        return venv_path
+        self.venv_path = str(os.path.join(self.system_folder, self.venv_name)).replace("\\", "/")
+        return True
 
     def pip_venv(self, pip_cmd):
         os.chdir(self.system_folder)
@@ -66,15 +54,14 @@ class ND_Setup():
 
         # Linux & Mac
         elif os_Terminal().system == os_Terminal().linux_str or os_Terminal().system == os_Terminal().mac_str:
-            pip_linux_mac = f"source {self.venv_name}/bin/activate.sh\n"
+            pip_linux_mac = f"{self.venv_name}/bin/python3\n"
             print(pip_linux_mac)
             os.system(pip_linux_mac)
         
         return True
 
     def uninstall_default_torch(self):
-        venv_path = self.check_env()
-        os.chdir(venv_path)
+        os.chdir(self.venv_path)
 
         print("\n- Uninstalling default torch dependencies...\n")
         self.pip_venv("pip uninstall torch torchaudio torchvision -y")
@@ -86,44 +73,49 @@ class ND_Setup():
     def init_install(self):
         init_install = "install torch==2.2.0 torchvision==0.17.0 torchaudio==2.2.0 --index-url https://download.pytorch.org/whl/cu121 --no-warn-script-location"
 
-        # Windows
-        if os_Terminal().system == os_Terminal().windows_str:
-            self.pip_venv("pip install rich")
-            self.pip_venv(f"pip {init_install}")
+        self.pip_venv("pip install rich")
+        self.pip_venv(f"pip {init_install}")
 
-        # Linux & Mac
-        elif os_Terminal().system == os_Terminal().linux_str or os_Terminal().system == os_Terminal().mac_str:
-            self.pip_venv("pip3 install rich")
-            self.pip_venv(f"pip3 {init_install}")
+        # # Windows
+        # if os_Terminal().system == os_Terminal().windows_str:
+        #     self.pip_venv("pip install rich")
+        #     self.pip_venv(f"pip {init_install}")
+
+        # # Linux & Mac
+        # elif os_Terminal().system == os_Terminal().linux_str or os_Terminal().system == os_Terminal().mac_str:
+        #     self.pip_venv("pip3 install rich")
+        #     self.pip_venv(f"pip3 {init_install}")
         
         print("\n- 'init_install' has been completed!\n")
         self.pip_venv("pip list")
         return
-
-    def deactivate_venv(self):
-        if self.activate_venv():
-            os.system("deactivate")
 
     def install_cuda_11(self):
         install_torch_11 = "install torch==2.2.0 torchvision==0.17.0 torchaudio==2.2.0 --index-url https://download.pytorch.org/whl/cu118 --no-warn-script-location"
         
         self.uninstall_default_torch()
 
-        # Windows
-        if os_Terminal().system == os_Terminal().windows_str:
-            print("\n- Installing Stable Diffusion dependencies...")
-            self.pip_venv(f"pip {self.install_dependencies}")
+        print("\n- Installing Stable Diffusion dependencies...")
+        self.pip_venv(f"pip {self.install_dependencies}")
 
-            print("\n- Installing torch for CUDA 11...")
-            self.pip_venv(f"pip {install_torch_11}")
+        print("\n- Installing torch for CUDA 11...")
+        self.pip_venv(f"pip {install_torch_11}")
 
-        # Linux & Mac
-        elif os_Terminal().system == os_Terminal().linux_str or os_Terminal().system == os_Terminal().mac_str:
-            print("\n- Installing Stable Diffusion dependencies...")
-            self.pip_venv(f"pip3 {self.install_dependencies}")
+        # # Windows
+        # if os_Terminal().system == os_Terminal().windows_str:
+        #     print("\n- Installing Stable Diffusion dependencies...")
+        #     self.pip_venv(f"pip {self.install_dependencies}")
 
-            print("\n- Installing torch for CUDA 11...")
-            self.pip_venv(f"pip3 {install_torch_11}")
+        #     print("\n- Installing torch for CUDA 11...")
+        #     self.pip_venv(f"pip {install_torch_11}")
+
+        # # Linux & Mac
+        # elif os_Terminal().system == os_Terminal().linux_str or os_Terminal().system == os_Terminal().mac_str:
+        #     print("\n- Installing Stable Diffusion dependencies...")
+        #     self.pip_venv(f"pip3 {self.install_dependencies}")
+
+        #     print("\n- Installing torch for CUDA 11...")
+        #     self.pip_venv(f"pip3 {install_torch_11}")
 
         self.pip_venv("pip list")
         return
@@ -133,21 +125,27 @@ class ND_Setup():
 
         self.uninstall_default_torch()
 
-        # Windows
-        if os_Terminal().system == os_Terminal().windows_str:
-            print("\n- Installing Stable Diffusion dependencies...")
-            self.pip_venv(f"pip {self.install_dependencies}")
+        print("\n- Installing Stable Diffusion dependencies...")
+        self.pip_venv(f"pip {self.install_dependencies}")
 
-            print("\n- Installing torch for CUDA 11...")
-            self.pip_venv(f"pip {install_torch_12}")
+        print("\n- Installing torch for CUDA 12...")
+        self.pip_venv(f"pip {install_torch_12}")
+
+        # # Windows
+        # if os_Terminal().system == os_Terminal().windows_str:
+        #     print("\n- Installing Stable Diffusion dependencies...")
+        #     self.pip_venv(f"pip {self.install_dependencies}")
+
+        #     print("\n- Installing torch for CUDA 12...")
+        #     self.pip_venv(f"pip {install_torch_12}")
         
-        # Linux & Mac
-        elif os_Terminal().system == os_Terminal().linux_str or os_Terminal().system == os_Terminal().mac_str:
-            print("\n- Installing Stable Diffusion dependencies...")
-            self.pip_venv(f"pip3 {self.install_dependencies}")
+        # # Linux & Mac
+        # elif os_Terminal().system == os_Terminal().linux_str or os_Terminal().system == os_Terminal().mac_str:
+        #     print("\n- Installing Stable Diffusion dependencies...")
+        #     self.pip_venv(f"pip3 {self.install_dependencies}")
 
-            print("\n- Installing torch for CUDA 11...")
-            self.pip_venv(f"pip3 {install_torch_12}")
+        #     print("\n- Installing torch for CUDA 12...")
+        #     self.pip_venv(f"pip3 {install_torch_12}")
         
         self.pip_venv("pip list")
         return
@@ -157,21 +155,27 @@ class ND_Setup():
 
         self.uninstall_default_torch()
 
-        # Windows
-        if os_Terminal().system == os_Terminal().windows_str:
-            print("\n- Installing Stable Diffusion dependencies...")
-            self.pip_venv(f"pip {self.install_dependencies}")
+        print("\n- Installing Stable Diffusion dependencies...")
+        self.pip_venv(f"pip {self.install_dependencies}")
 
-            print("\n- Installing torch for CUDA 11...")
-            self.pip_venv(f"pip {install_torch_cpu}")
+        print("\n- Installing torch for CPU...")
+        self.pip_venv(f"pip {install_torch_cpu}")
+
+        # # Windows
+        # if os_Terminal().system == os_Terminal().windows_str:
+        #     print("\n- Installing Stable Diffusion dependencies...")
+        #     self.pip_venv(f"pip {self.install_dependencies}")
+
+        #     print("\n- Installing torch for CPU...")
+        #     self.pip_venv(f"pip {install_torch_cpu}")
         
-        # Linux & Mac
-        elif os_Terminal().system == os_Terminal().linux_str or os_Terminal().system == os_Terminal().mac_str:
-            print("\n- Installing Stable Diffusion dependencies...")
-            self.pip_venv(f"pip3 {self.install_dependencies}")
+        # # Linux & Mac
+        # elif os_Terminal().system == os_Terminal().linux_str or os_Terminal().system == os_Terminal().mac_str:
+        #     print("\n- Installing Stable Diffusion dependencies...")
+        #     self.pip_venv(f"pip3 {self.install_dependencies}")
 
-            print("\n- Installing torch for CPU...")
-            self.pip_venv(f"pip3 {install_torch_cpu}")
+        #     print("\n- Installing torch for CPU...")
+        #     self.pip_venv(f"pip3 {install_torch_cpu}")
 
         self.pip_venv("pip list")
         return
@@ -205,7 +209,6 @@ class ND_Setup():
                 continue
 
 try:
-    ND_Setup().check_env()
     ND_Setup().init_install()
 
     from rich.console import Console

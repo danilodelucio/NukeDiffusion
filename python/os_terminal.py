@@ -47,8 +47,8 @@ class os_Terminal():
         
     def title(self, title_name):
         self.os_check("title {}".format(title_name),
-                      "echo Opening {}...".format(title_name),
-                      "echo Opening {}...".format(title_name))
+                      "",
+                      "")
     
     def start(self):
         main_path = nd_paths().mainPath()
@@ -57,10 +57,10 @@ class os_Terminal():
         # Windows
         python_exe_file = os.path.join(nd_paths().mainPath(), "for_windows/nukediffusion-env/Scripts/python.exe").replace("\\", "/")
         # Linux
-        nk_linux_env = os.path.join(main_path, "for_linux/nukediffusion-env/bin/activate")
-        # Mac
-        nk_mac_env = os.path.join(main_path, "for_mac/nukediffusion-env/bin/activate")
+        nk_linux_env = os.path.join(main_path, "for_linux_and_mac/nukediffusion-env/bin/python3")
+        # # Mac
+        # nk_mac_env = os.path.join(main_path, "for_mac/nukediffusion-env/bin/activate")
 
         self.os_check("start {} {}".format(python_exe_file, nd_terminal_file),
                     "gnome-terminal -- /bin/bash -c 'source {};python3 {}; exec /bin/bash -i'".format(nk_linux_env, nd_terminal_file),
-                    "Mac echo {} {}".format(nk_mac_env, nd_terminal_file))
+                    '"Mac echo {} {}".format(nk_mac_env, nd_terminal_file)')

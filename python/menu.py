@@ -110,7 +110,7 @@ class sd_node():
             if default_model == False:
                 if not os.path.isfile(checkpoint) or not str(checkpoint).endswith(".safetensors"):
                     return nuke.message("Please select a Checkpoint (.safetensors) file!")
-            
+
         # Checking/Exporting the Inputs for each workflow before writing the settings
         if workflow == self.workflow_txt2img:
             writeSet_openSD()

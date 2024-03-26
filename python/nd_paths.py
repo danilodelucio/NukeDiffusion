@@ -109,11 +109,11 @@ class nd_paths():
             print("'for_windows' folder not found!")
             return
 
-    def for_linux_path(self):
-        for_linux_path = os.path.join(self.mainPath(), "for_linux").replace("\\", "/")
+    def for_linux_and_mac_path(self):
+        for_linux_and_mac_path = os.path.join(self.mainPath(), "for_linux_and_mac").replace("\\", "/")
 
-        if os.path.exists(for_linux_path):
-            return for_linux_path
+        if os.path.exists(for_linux_and_mac_path):
+            return for_linux_and_mac_path
         else:
             print("'for_linux' folder not found!")
             return
