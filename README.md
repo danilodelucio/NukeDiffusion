@@ -38,7 +38,7 @@ Some limitations you need to consider for this version:
 - [Installing](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#installing-%EF%B8%8F);
 - [Checkpoints](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#checkpoints-);
 - [Troubleshooting](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#troubleshooting-%EF%B8%8F);
-- [Release Notes](https://github.com/danilodelucio/NukeDiffusion/edit/linux/README.md#release-notes-);
+- [Release Notes]([https://github.com/danilodelucio/NukeDiffusion/edit/linux/README.md#release-notes-](https://github.com/danilodelucio/NukeDiffusion/tree/linux?tab=readme-ov-file#release-notes-));
 - [Support me](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#support-me-);
 
 
@@ -260,8 +260,9 @@ Follow the instructions until you see the **"The NukeDiffusion setup has been co
 
 ![2024-03-22 16_56_11-for_windows](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/c6e3187d-4f9d-4a85-9c81-05e207b38315)
 
-
 ![Screenshot 2024-03-22 165031](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/ea504669-aede-43f9-bad3-1168ea2524bf)
+
+> _Do not close the Terminal before the process is complete... this may take some time!_
 <br>
 
 If you are getting `CUDA is not available` as a response, [go to this page](https://developer.nvidia.com/cuda-gpus) from NVidia, download and install the **CUDA Toolkit**, then try this step again until you get CUDA enabled. 🤞
