@@ -244,11 +244,11 @@ You will find a **_NUKEDIFFUSION_SETUP** file in the `for_windows` or `for_linux
 
 Execute the file related to your operating system: 
 
-- In Windows, double-click in the `_NUKEDIFFUSION_SETUP.bat` file;
+- In **Windows**, double-click in the `_NUKEDIFFUSION_SETUP.bat` file;
   
   ![2024-03-27 02_25_30-for_windows](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/1486ed76-74bf-4284-b5cc-7ad277163500)
 
-- In Linux/Mac OS, open the terminal in the same directory and run `source _NUKEDIFFUSION_SETUP.sh` file.
+- In **Linux/Mac OS**, open the terminal in the same directory and run `source _NUKEDIFFUSION_SETUP.sh`.
   
   ![Screenshot from 2024-03-27 02-16-25 2](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/fc286093-d6ef-42c7-858a-39a34c432985)
 
