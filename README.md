@@ -38,7 +38,7 @@ Some limitations you need to consider for this version:
 - [Installing](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#installing-%EF%B8%8F);
 - [Checkpoints](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#checkpoints-);
 - [Troubleshooting](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#troubleshooting-%EF%B8%8F);
-- [Release Notes]([https://github.com/danilodelucio/NukeDiffusion/edit/linux/README.md#release-notes-](https://github.com/danilodelucio/NukeDiffusion/tree/linux?tab=readme-ov-file#release-notes-));
+- [Release Notes]([https://github.com/danilodelucio/NukeDiffusion/edit/linux/README.md#release-notes-](https://github.com/danilodelucio/NukeDiffusion/tree/linux?tab=readme-ov-file#release-notes-);
 - [Support me](https://github.com/danilodelucio/NukeDiffusion?tab=readme-ov-file#support-me-);
 
 
