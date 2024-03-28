@@ -70,7 +70,18 @@ class ND_Setup():
         init_install = "install torch==2.2.0 torchvision==0.17.0 torchaudio==2.2.0 --index-url https://download.pytorch.org/whl/cu121 --no-warn-script-location"
 
         self.pip_venv("pip install rich")
-        self.pip_venv(f"pip {init_install}")
+
+        # Windows
+        if os_Terminal().system == os_Terminal().windows_str or os_Terminal().system == os_Terminal().linux_str:
+            self.pip_venv(f"pip {init_install}")
+
+        # Linux & Mac
+        elif os_Terminal().system == os_Terminal().mac_str:
+            print("\n- Installing Stable Diffusion dependencies...\n")
+            self.pip_venv(f"pip {self.install_dependencies}")
+
+            print("\n- Installing default torch package...\n")
+            self.pip_venv(f"pip install torch torchvision torchaudio")
         
         print("\n- 'init_install' has been completed!\n")
         self.pip_venv("pip list")
@@ -146,6 +157,7 @@ class ND_Setup():
                 console.print("- Please choose one of the options above!\n", style="error")
                 continue
 
+
 try:
     ND_Setup().init_install()
 
@@ -156,27 +168,30 @@ try:
     custom_theme = Theme({"success":"green", "alert":"yellow", "error":"red"})
     console = Console(theme=custom_theme)
 
-    import torch
+    # Not MAC
+    if os_Terminal().system != os_Terminal().mac_str:
+        import torch
 
-    print(f"\n- Python Version: {sys.version[:6]}")
-    print(f"- Torch version: {torch.__version__}\n")
-    available_cuda = torch.cuda.is_available()
-    device_count = torch.cuda.device_count()
-    device_name = torch.cuda.get_device_name()
+        print(f"\n- Python Version: {sys.version[:6]}")
+        print(f"- Torch version: {torch.__version__}\n")
+        available_cuda = torch.cuda.is_available()
+        device_count = torch.cuda.device_count()
+        device_name = torch.cuda.get_device_name()
 
-    if available_cuda or torch.backends.mps.is_available():
-        os_Terminal().os_check("nvidia-smi",
-                            "nvidia-smi",
-                            " ")
-        
-        console.print("\n- CUDA is available!", style="success")
-        console.print(f"    - Device name: {device_name}", style="success")
-        ND_Setup().installing_cuda()
+        if available_cuda or torch.backends.mps.is_available():
+            os_Terminal().os_check("nvidia-smi",
+                                "nvidia-smi",
+                                " ")
+            
+            console.print("\n- CUDA is available!", style="success")
+            console.print(f"    - Device name: {device_name}", style="success")
+            ND_Setup().installing_cuda()
 
-    else:
-        console.print("- CUDA is not available!", style="error")
-        console.print("Using torch for CPU...", style="alert")
-        ND_Setup().install_cpu()
+        else:
+            console.print("- CUDA is not available!", style="error")
+            console.print("Using torch for CPU...", style="alert")
+            ND_Setup().install_cpu()
+
 
     console.print("\n[bold]:white_check_mark: The NukeDiffusion setup has been completed!", style="success")
     input("\nYou can close this window...")
