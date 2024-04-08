@@ -11,7 +11,7 @@ It uses the official library from [Hugging Face](https://huggingface.co), and yo
 <br>✅ No internet connection required;
 <br>✅ No sign-in account required;
 <br>✅ Free for non-commercial or commercial use;
-<br>✅ Available for Windows, Linux and Mac OS;
+<br>✅ Available for Windows (still working for Linux and Mac OS);
 <br>✅ Compatible with CPU and CUDA.
 <br>
 <br>
@@ -347,7 +347,6 @@ For bugs, please go to the [Issues](https://github.com/danilodelucio/NukeDiffusi
 
 **v01.1**:
 - Simplified setup installation;
-- Added support for Linux and Mac OS;
 - CPU support;
 - Export buttons for Input Image and Input Mask;
 - "Input Format" button to adjust the image resolution.;
