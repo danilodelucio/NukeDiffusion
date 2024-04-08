@@ -8,37 +8,38 @@ Gizmo {
  addUserKnob {20 User l NukeDiffusion}
  addUserKnob {26 logo l "" +STARTLINE T "\n<br><font size=7>  Nuke<font color=\"#9A419D\"><font size=7><b>Diffusion</color><br>"}
  addUserKnob {26 ""}
- addUserKnob {4 workflow l Workflow: M {txt2img img2img inpainting ""}}
- addUserKnob {2 ckpt l Checkpoint:}
- addUserKnob {6 default_model l "SD \[Default Model]" -STARTLINE}
- addUserKnob {4 sd_model l "SD Model:" M {SD SDXL "" "" "" ""}}
- addUserKnob {6 cuda l CUDA +STARTLINE}
+ addUserKnob {4 workflow l Workflow: t "Select one of the 3 workflow options to work with: txt2img, img2img or inpainting." M {txt2img img2img inpainting "" ""}}
+ addUserKnob {2 ckpt l Checkpoint: t "Select the Checkpoint file available in the directory you specified earlier on checkpoints_path.json, or if you are using the default path './NukeDiffusion/models/checkpoints'."}
+ addUserKnob {6 default_model l "SD \[Default Model]" t "Check this option if you don't have a local Checkpoint." -STARTLINE}
+ addUserKnob {4 sd_model l "SD Model:" t "After selecting the Checkpoint model, you must indicate its version. By default, if the \"XL\" or \"xl\" letters are included in the checkpoint name, it will update the SD Model knob to \"SDXL\", otherwise to \"SD\".\n\nKeep in mind to match the SD Model to your selected Checkpoint. \n\nSD and SDXL models were pretrained with different resolutions, and they have different pipelines to produce your image. If you provide a Checkpoint with the wrong SD Model, the NukeDiffusion Terminal will close automatically." M {SD SDXL "" "" "" "" "" ""}}
+ addUserKnob {6 cuda l CUDA t "Generate your AI images using the GPU (graphic card).\n\nOnly check this option if CUDA was enabled during the installation process." +STARTLINE}
  cuda true
+ addUserKnob {26 text}
  addUserKnob {26 ""}
  addUserKnob {41 p_prompt l "Positive Prompt:" t "Type everything you want to generate in your image." T positive_prompt.message}
  addUserKnob {41 n_prompt l "Negative Prompt:" t "Type everything you don't want to generate in your image." T negative_prompt.message}
  addUserKnob {26 ""}
- addUserKnob {3 width l Width:}
+ addUserKnob {3 width l Width: t "Width size of your output image."}
  width 512
- addUserKnob {3 height l Height: -STARTLINE}
+ addUserKnob {3 height l Height: t "Height size of your output image." -STARTLINE}
  height 512
- addUserKnob {22 input_format l "Input Format" -STARTLINE T "node = nuke.thisNode()\nif node.input(0):\n    node\[\"width\"].setValue(node.input(0).width())\n    node\[\"height\"].setValue(node.input(0).height())\nelse:\n    node\[\"width\"].setValue(nuke.root()\['format'].value().width())\n    node\[\"height\"].setValue(nuke.root()\['format'].value().height())"}
- addUserKnob {3 seed l Seed:}
+ addUserKnob {22 input_format l "Input Format" t "Set the output resolution from the Input Image." -STARTLINE T "node = nuke.thisNode()\nif node.input(0):\n    node\[\"width\"].setValue(node.input(0).width())\n    node\[\"height\"].setValue(node.input(0).height())\nelse:\n    node\[\"width\"].setValue(nuke.root()\['format'].value().width())\n    node\[\"height\"].setValue(nuke.root()\['format'].value().height())"}
+ addUserKnob {3 seed l Seed: t "If you leave the value as -1, your image will be generated randomly. However, if you set any other value, your image will always be the same. It's a good idea to lock the Seed and try different settings to see how they affect your image."}
  seed -1
  addUserKnob {22 random_seed l "Random Seed" -STARTLINE T "n = nuke.thisNode()\nn\[\"seed\"].setValue(-1)"}
- addUserKnob {7 cfg l CFG: R 1 10}
+ addUserKnob {7 cfg l CFG: t "Classifier-Free Guidance scale, which controls how closely the image generation process follows the text prompt. The higher the value, the more the image will follow the text input (by default, the maximum value is 10, but you can increase it if you want). With a lower value, the image generation deviates from the text input and becomes more creative." R 1 10}
  cfg 7
- addUserKnob {3 steps l Steps:}
+ addUserKnob {3 steps l Steps: t "Iterations of sampling and refining for the latent image. With higher steps you can get better images (usually between 20 and 40). Higher than this will probably slow down the image generation and will not have too much difference."}
  steps 20
- addUserKnob {7 strength l Strength:}
+ addUserKnob {7 strength l Strength: t "Sets the denoising strength from 0 to 1. It is only used for img2img and inpainting workflows and requires an initial image. Higher values will produce more deviation from the input image (producing more creative output), and lower values will preserve the input image."}
  strength 0.5
- addUserKnob {7 mask_opacity l "Mask Opacity:" t "This is for visualization only."}
+ addUserKnob {7 mask_opacity l "Mask Opacity:" t "This parameter is just for visualization purposes to check the mask input over the image input."}
  mask_opacity 0.7
  addUserKnob {26 space1 l "" +STARTLINE T "\n"}
- addUserKnob {22 render_image l "<b>RENDER INPUT IMAGE" T "node = nuke.thisNode()\ncurrent_frame = nuke.frame()\n\nif node.input(0):\n    with node:\n        nuke.render(\"Write_Image\", current_frame, current_frame)\nelse:\n    nuke.message(\"Please connect the Input Image!\")" +STARTLINE}
- addUserKnob {22 render_mask l "<b>RENDER INPUT MASK" -STARTLINE T "node = nuke.thisNode()\ncurrent_frame = nuke.frame()\n\nif node.input(1):\n    with node:\n        nuke.render(\"Write_Mask\", current_frame, current_frame)\nelse:\n    nuke.message(\"Please connect the Input Mask!\")"}
- addUserKnob {22 generate l "<b>GENERATE IMAGE" +STARTLINE}
- addUserKnob {22 output_folder l "<b>OPEN OUTPUT FOLDER" -STARTLINE}
+ addUserKnob {22 render_image l "<b>RENDER INPUT IMAGE" t "Exports the Input Image to the 'NukeDiffusion/_input' folder." T "node = nuke.thisNode()\ncurrent_frame = nuke.frame()\n\nif node.input(0):\n    with node:\n        nuke.render(\"Write_Image\", current_frame, current_frame)\nelse:\n    nuke.message(\"Please connect the Input Image!\")" +STARTLINE}
+ addUserKnob {22 render_mask l "<b>RENDER INPUT MASK" t "Exports the Input Mask to the 'NukeDiffusion/_input' folder." -STARTLINE T "node = nuke.thisNode()\ncurrent_frame = nuke.frame()\n\nif node.input(1):\n    with node:\n        nuke.render(\"Write_Mask\", current_frame, current_frame)\nelse:\n    nuke.message(\"Please connect the Input Mask!\")"}
+ addUserKnob {22 generate l "<b>GENERATE IMAGE" t "Opens the NukeDiffusion Terminal to generate the AI image." +STARTLINE}
+ addUserKnob {22 output_folder l "<b>OPEN OUTPUT FOLDER" t "Opens the '_output' folder with all generated AI images." -STARTLINE}
  addUserKnob {41 file_image +INVISIBLE T Write_Image.file}
  addUserKnob {41 write_image l render_image +INVISIBLE T Write_Image.Render}
  addUserKnob {41 file_mask +INVISIBLE T Write_Mask.file}

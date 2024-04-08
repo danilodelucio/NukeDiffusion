@@ -179,9 +179,8 @@ try:
         device_name = torch.cuda.get_device_name()
 
         if available_cuda or torch.backends.mps.is_available():
-            os_Terminal().os_check("nvidia-smi",
-                                "nvidia-smi",
-                                " ")
+            if os_Terminal().system == os_Terminal().linux_str or os_Terminal().system == os_Terminal().windows_str:
+                os.system("nvidia-smi")
             
             console.print("\n- CUDA is available!", style="success")
             console.print(f"    - Device name: {device_name}", style="success")
