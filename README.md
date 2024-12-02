@@ -352,6 +352,12 @@ For bugs, please go to the [Issues](https://github.com/danilodelucio/NukeDiffusi
 - "Input Format" button to adjust the image resolution.;
 - Countdown feature for closing the Terminal window.
 
+<!-- ############################################################# RELEASE NOTES ############################################################# -->
+# Supporters 💪
+
+- Sigurgeir;
+
+
 <!-- ############################################################# BUY ME A COFFEE ############################################################# -->
 <h1>Support me! 🥺</h1>
 
@@ -361,6 +367,9 @@ This personal project required significant time and extra hours of hard work to 
 It's not perfect, and I still need to work on many features, but for the first version, I believe it can help Nuke users live this experience. 🤖
 
 If you find this tool useful, please consider supporting me on [Buy Me A Coffee](https://www.buymeacoffee.com/danilodelucio). ☕ <br>
+
+> _If you donate any amount, please mention this tool (also your preference name if you want to), so your name will appear in the Supporters list above._
+
 You can also share this tool or send me a positive message, it would help me in the same way.
 
 If you believe in this project and want to sponsor it for future updates, reach out on my [Linkedin](https://www.linkedin.com/in/danilodelucio/).
