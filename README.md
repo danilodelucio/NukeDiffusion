@@ -354,8 +354,8 @@ For bugs, please go to the [Issues](https://github.com/danilodelucio/NukeDiffusi
 
 <!-- ############################################################# RELEASE NOTES ############################################################# -->
 # Supporters 💪
-
-- Sigurgeir;
+Sigurgeir | ☕☕☕☕☕☕☕☕☕☕
+--- | ---
 
 
 <!-- ############################################################# BUY ME A COFFEE ############################################################# -->
@@ -370,7 +370,9 @@ If you find this tool useful, please consider supporting me on [Buy Me A Coffee]
 
 > _If you donate any amount, please mention this tool (also your preference name if you want to), so your name will appear in the Supporters list above._
 
-You can also share this tool or send me a positive message, it would help me in the same way.
+You can also ⭐ _star this repository_ ⭐ — it helps a lot with visibility and motivates me to keep developing tools for VFX.
+
+Sharing this project or sending me a positive message would help me in the same way.
 
 If you believe in this project and want to sponsor it for future updates, reach out on my [Linkedin](https://www.linkedin.com/in/danilodelucio/).
 
