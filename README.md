@@ -352,29 +352,17 @@ For bugs, please go to the [Issues](https://github.com/danilodelucio/NukeDiffusi
 - "Input Format" button to adjust the image resolution.;
 - Countdown feature for closing the Terminal window.
 
-<!-- ############################################################# RELEASE NOTES ############################################################# -->
-# Supporters 💪
-Sigurgeir | ☕☕☕☕☕☕☕☕☕☕
---- | ---
-
-
 <!-- ############################################################# BUY ME A COFFEE ############################################################# -->
-<h1>Support me! 🥺</h1>
+# Support me! ☕
 
-![image](https://github.com/danilodelucio/NukeDiffusion/assets/47226196/ee1e5d16-43e2-46bc-bc48-aaf1d7559b87)
+![Supporters Page](https://danilodelucio.com/wp-content/uploads/2025/12/supporter-badges.jpg)
 
-This personal project required significant time and extra hours of hard work to make it available to everyone. <br>
-It's not perfect, and I still need to work on many features, but for the first version, I believe it can help Nuke users live this experience. 🤖
-
-If you find this tool useful, please consider supporting me on [Buy Me A Coffee](https://www.buymeacoffee.com/danilodelucio). ☕ <br>
-
-> _If you donate any amount, please mention this tool (also your preference name if you want to), so your name will appear in the Supporters list above._
+## Enjoying this tool?
+Support me with a coffee on my [Supporters](https://www.danilodelucio.com/supporters) page — get a badge and join the wall of supporters! 😎
 
 You can also ⭐ _star this repository_ ⭐ — it helps a lot with visibility and motivates me to keep developing tools for VFX.
 
 Sharing this project or sending me a positive message would help me in the same way.
-
-If you believe in this project and want to sponsor it for future updates, reach out on my [Linkedin](https://www.linkedin.com/in/danilodelucio/).
 
 ---
 Special thanks to **Gustavo Goncalves** and **Leticia Matsuoka** for testing this tool and providing valuable feedback for improvement. Also, thanks to **Juliana Chen** for her support and encouragement.
